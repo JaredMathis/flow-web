@@ -15,43 +15,58 @@ exports.upload = functions.https.onRequest(tryCatch(async (request, response) =>
     if (log) console.log({ 'request.body': request.body });
     if (log) console.log({ 'typeof request.body.ref': typeof request.body.ref });
 
-    assert(() => isString(request.body.ref));
-    assert(() => isString(request.body.data));
+    assert(() => request.body.values.length >= 1);
 
-    if (log) console.log('getting ref');
-    let r = admin.database().ref("/" + request.body.ref);
-    if (log) console.log('pushing');
-    await r.push(request.body.data);
-    if (log) console.log('pushed');
+    for (let value of request.body.values) {
+        assert(() => isString(value.ref));
+        assert(() => isString(value.data));
+    
+        if (log) console.log('getting ref');
+        let r = admin.database().ref("/" + value.ref);
+        if (log) console.log('pushing');
+        await r.push(value.data);
+        if (log) console.log('pushed');
+    }
 
     response.send({
         success: true,
     });
 }));
 
-exports.download = functions.https.onRequest(tryCatch(async (request, response) => {
-    assert(() => isString(request.query.ref));
-    
-    let ref = "/" + request.query.ref;
-    console.log({ref});
-    let r = admin.database().ref(ref);
-    console.log('running query');
-    let value = await r.once('value');
-    console.log('cloning');
-    let cloned = JSON.parse(JSON.stringify(value));
-    console.log('Getting keys');
-    let keys = Object.keys(cloned);
+exports.download = functions.https.onRequest(tryCatch(async (request, response) => {    
+    console.log({'request.query.refs':request.query.refs});
+    assert(() => isString(request.query.refs));
+    let refs = request.query.refs.split(',');
+    console.log({refs});
 
-    console.log('Looping');
-    let last;
-    for (let key of keys) {
-        last = cloned[key];
+    let values = {};
+
+    for (let i in refs) {
+        console.log({i});
+        let refsI = refs[i];
+        let ref = "/" + refsI;
+        console.log({ref});
+        let r = admin.database().ref(ref);
+        console.log('running query');
+        let value = await r.once('value');
+        console.log('cloning');
+        let cloned = JSON.parse(JSON.stringify(value));
+        console.log('Getting keys');
+        let keys = Object.keys(cloned);
+    
+        console.log('Looping');
+        let last;
+        for (let key of keys) {
+            last = cloned[key];
+        }
+        console.log('Looped');
+
+        values[refsI] = last;
     }
-    console.log('Looped');
 
     response.send({
         success: true,
-        value: last,
+        values,
     });
 }));
 
@@ -70,7 +85,7 @@ function tryCatch(lambda) {
     };
 }
 
-function assert(lambda) {
+function assert(lambda, message) {
     let log = true;
     if (log) console.log('assert: entered', { lambda });
 
@@ -80,7 +95,7 @@ function assert(lambda) {
     }
 
     if (log) console.log('assert: failed', { lambda });
-    throw { message: 'Assertion failed: ' + lambda };
+    throw { message: 'Assertion failed: ' + message };
 }
 
 function isString(s) {

@@ -7,18 +7,32 @@ const server = require("./getServer")();
 // TODO: Rename this more to something more descriptive
 module.exports = dl;
 
-function dl(ref) {
+function dl(refs) {
     let result;
     u.scope(dl.name, x => {
-        u.assert(() => u.isString(ref));
-        let log = true;
-        let response = request('GET', `${server}/download?ref=${ref}`);
+        let log = false;
+        let wrapped = false;
+        if (!u.isArray(refs)) {
+            wrapped = true;
+            refs = [refs];
+        }
+        u.assertIsStringArray(refs);
+        let response = request('GET', `${server}/download?refs=${refs.join(",")}`);
         let json = response.body.toString();
-        if (log) console.log(dl.name + ": " + json);
         let body = JSON.parse(json)
+        if (!body.success || log) console.log(dl.name + ": " + json);
         u.assert(() => body.success === true);
-        u.assert(() => u.isString(body.value));
-        result = body.value;
+        u.assert(() => u.isDefined(body.values));
+        result = body.values;
+        let keys = Object.keys(result);
+        u.merge(x,{keys});
+        for (let key of keys) {
+            u.assert(() => u.isString(result[key]));
+        }
+        if (wrapped) {
+            u.assert(() => keys.length === 1);
+            result = result[keys[0]];
+        }
     });
     return result;
 }

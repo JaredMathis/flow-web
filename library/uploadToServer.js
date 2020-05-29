@@ -6,21 +6,25 @@ const server = require("./getServer")();
 
 module.exports = uploadToServer;
 
-function uploadToServer(ref, data) {
+function uploadToServer(values) {
     let result;
     u.scope(uploadToServer.name, x => {
-        u.assert(() => u.isString(ref));
-        u.assert(() => u.isString(data));
-        let log = true;
+        if (!u.isArray(values)) {
+            values = [values];
+        }
+        u.loop(values, value => {
+            u.assert(() => u.isString(value.ref));
+            u.assert(() => u.isString(value.data));
+        })
+        let log = false;
         let result = request('POST', server + "/upload", {
             json: {
-                ref,
-                data,
+                values,
             }
         });
         let json = result.body.toString();
-        if (log) console.log(uploadToServer.name + ": " + json);
         let body = JSON.parse(json)
+        if (log || !body.success) console.log(uploadToServer.name + ": " + json);
         u.assert(() => body.success === true);
     });
     return result;
