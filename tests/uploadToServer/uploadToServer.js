@@ -5,6 +5,7 @@ const uploadToServer = require("../../library/uploadToServer.js");
 const dl = require("../../library/downloadFromServer.js");
 
 u.scope(__filename, x => {
+    singleUploadDownloadWithSlash();
     singleUploadDownload();
     multipleUploadDownload();
 });
@@ -27,6 +28,17 @@ function multipleUploadDownload() {
 function singleUploadDownload() {
     u.scope(singleUploadDownload.name, x => {
         let ref = 'uploadToServerTest';
+        let timestamp = new Date().getTime() + "";
+        uploadToServer({ref, value: timestamp });
+        let actual = dl(ref);
+        u.merge(x,{actual});
+        u.assert(() => actual === timestamp);
+    });
+}
+
+function singleUploadDownloadWithSlash() {
+    u.scope(singleUploadDownload.name, x => {
+        let ref = 'uploadToServerTest/123';
         let timestamp = new Date().getTime() + "";
         uploadToServer({ref, value: timestamp });
         let actual = dl(ref);
