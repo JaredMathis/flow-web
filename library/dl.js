@@ -5,11 +5,11 @@ const request = require("sync-request");
 const server = require("./getServer")();
 
 // TODO: Rename this more to something more descriptive
-module.exports = dl;
+module.exports = downloadFromServer;
 
-function dl(refs) {
+function downloadFromServer(refs) {
     let result;
-    u.scope(dl.name, x => {
+    u.scope(downloadFromServer.name, x => {
         let log = false;
         let wrapped = false;
         if (!u.isArray(refs)) {
@@ -20,7 +20,7 @@ function dl(refs) {
         let response = request('GET', `${server}/download?refs=${refs.join(",")}`);
         let json = response.body.toString();
         let body = JSON.parse(json)
-        if (!body.success || log) console.log(dl.name + ": " + json);
+        if (!body.success || log) console.log(downloadFromServer.name + ": " + json);
         u.assert(() => body.success === true);
         u.assert(() => u.isDefined(body.values));
         result = body.values;
