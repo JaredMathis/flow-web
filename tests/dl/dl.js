@@ -1,7 +1,7 @@
 
 const u = require("wlj-utilities");
 
-const dl = require("../../library/downloadFromServer.js");
+const downloadFromServer = require("../../library/downloadFromServer.js");
 
 u.scope(__filename, x => {
     // TODO
