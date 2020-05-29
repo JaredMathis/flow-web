@@ -17,6 +17,7 @@
   "homepage": "https://github.com/JaredMathis/flow-web#readme",
   "dependencies": {
     "sync-request": "^6.1.0",
+    "wlj-flow": "^1.0.3",
     "wlj-utilities": "^1.0.44"
   }
 }

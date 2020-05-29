@@ -19,12 +19,12 @@ exports.upload = functions.https.onRequest(tryCatch(async (request, response) =>
 
     for (let value of request.body.values) {
         assert(() => isString(value.ref));
-        assert(() => isString(value.data));
+        assert(() => isString(value.value));
     
         if (log) console.log('getting ref');
         let r = admin.database().ref("/" + value.ref);
         if (log) console.log('pushing');
-        await r.push(value.data);
+        await r.push(value.value);
         if (log) console.log('pushed');
     }
 

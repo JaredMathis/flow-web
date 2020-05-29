@@ -15,7 +15,7 @@ function multipleUploadDownload() {
         let ref2 = 'uploadToServerTest2';
         let timestamp1 = new Date().getTime() + "1";
         let timestamp2 = new Date().getTime() + "2";
-        let values = [ {ref: ref1, data: timestamp1 }, {ref: ref2, data: timestamp2 } ];
+        let values = [ {ref: ref1, value: timestamp1 }, {ref: ref2, value: timestamp2 } ];
         uploadToServer(values);
         let actual = dl([ref1, ref2]);
         u.merge(x,{actual});
@@ -28,7 +28,7 @@ function singleUploadDownload() {
     u.scope(singleUploadDownload.name, x => {
         let ref = 'uploadToServerTest';
         let timestamp = new Date().getTime() + "";
-        uploadToServer({ref, data: timestamp });
+        uploadToServer({ref, value: timestamp });
         let actual = dl(ref);
         u.merge(x,{actual});
         u.assert(() => actual === timestamp);

@@ -14,7 +14,7 @@ function uploadToServer(values) {
         }
         u.loop(values, value => {
             u.assert(() => u.isString(value.ref));
-            u.assert(() => u.isString(value.data));
+            u.assert(() => u.isString(value.value));
         })
         let log = false;
         let result = request('POST', server + "/upload", {
