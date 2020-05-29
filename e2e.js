@@ -1,0 +1,1 @@
+require("./tests/uploadToServer/uploadToServer.js");

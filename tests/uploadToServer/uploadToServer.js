@@ -37,7 +37,7 @@ function singleUploadDownload() {
 }
 
 function singleUploadDownloadWithSlash() {
-    u.scope(singleUploadDownload.name, x => {
+    u.scope(singleUploadDownloadWithSlash.name, x => {
         let ref = 'uploadToServerTest/123';
         let timestamp = new Date().getTime() + "";
         uploadToServer({ref, value: timestamp });

@@ -5,15 +5,14 @@ admin.initializeApp();
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.helloWorld = functions.https.onRequest(tryCatch((request, response) => {
+exports.helloWorld = functions.https.onRequest(allowCORS(tryCatch((request, response) => {
     response.send("helloWorld: Hello from Firebase!");
-}));
+})));
 
-exports.upload = functions.https.onRequest(tryCatch(async (request, response) => {
+exports.upload = functions.https.onRequest(allowCORS(tryCatch(async (request, response) => {
     let log = true;
     
     if (log) console.log({ 'request.body': request.body });
-    if (log) console.log({ 'typeof request.body.ref': typeof request.body.ref });
 
     assert(() => request.body.values.length >= 1);
 
@@ -31,12 +30,11 @@ exports.upload = functions.https.onRequest(tryCatch(async (request, response) =>
     response.send({
         success: true,
     });
-}));
+})));
 
-exports.download = functions.https.onRequest(tryCatch(async (request, response) => {    
-    console.log({'request.query.refs':request.query.refs});
-    assert(() => isString(request.query.refs));
-    let refs = request.query.refs.split(',');
+exports.download = functions.https.onRequest(allowCORS(tryCatch(async (request, response) => {    
+    console.log({'request.body.refs':request.body.refs});
+    let refs = request.body.refs;
     console.log({refs});
 
     let values = {};
@@ -68,7 +66,7 @@ exports.download = functions.https.onRequest(tryCatch(async (request, response) 
         success: true,
         values,
     });
-}));
+})));
 
 function tryCatch(lambda) {
     return async (request, response) => {
@@ -100,4 +98,12 @@ function assert(lambda, message) {
 
 function isString(s) {
     return s === s + "";
+}
+
+function allowCORS(lambda) {
+    return async (request, response) => {
+        response.set('Access-Control-Allow-Origin', "*")
+        response.set('Access-Control-Allow-Methods', 'GET, POST')
+        return await lambda(request, response);
+    };
 }

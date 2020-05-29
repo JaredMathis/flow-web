@@ -17,10 +17,18 @@ function downloadFromServer(refs) {
             refs = [refs];
         }
         u.assertIsStringArray(refs);
-        let response = request('GET', `${server}/download?refs=${refs.join(",")}`);
+        let response = request('POST', server + "/download", {
+            json: {
+                refs,
+            }
+        });
         let json = response.body.toString();
-        let body = JSON.parse(json)
-        if (!body.success || log) console.log(downloadFromServer.name + ": " + json);
+        let body;
+        try {
+            body = JSON.parse(json)
+        } finally {
+            if (!body || !body.success || log) console.log(downloadFromServer.name + ": " + json);
+        }
         u.assert(() => body.success === true);
         u.assert(() => u.isDefined(body.values));
         result = body.values;
