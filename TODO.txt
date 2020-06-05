@@ -1,0 +1,2 @@
+- remove firebase dependencies
+- get a basic client site up
