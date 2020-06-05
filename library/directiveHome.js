@@ -13,7 +13,11 @@ function directiveHome() {
                 scope.libraryNames = library.map(f => "flow/" + f.name);
             },
             template: `
-            <button>Create New Flow</button>
+            <button 
+                type="button" 
+                class="btn btn-primary">
+                Create New Flow
+            </button>
             `
         }
     });
