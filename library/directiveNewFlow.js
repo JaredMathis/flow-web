@@ -10,7 +10,11 @@ function directiveNewFlow() {
             link: function (scope, element, attrs) {
             },
             template: `
-            New Flow
+            <input 
+                focus
+                type="text" 
+                class="form-control" 
+                placeholder="Flow name">
             `
         };
     });

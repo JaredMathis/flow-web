@@ -2656,7 +2656,25 @@ function directiveFlows() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-flow":1,"wlj-utilities":36}],"/library/directiveHome.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":1,"wlj-utilities":36}],"/library/directiveFocus.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+
+module.exports = directiveFocus;
+
+function directiveFocus() {
+    let result;
+    u.scope(directiveFocus.name, x => {
+        result = {
+            link: function (scope, element, attrs) {
+                element[0].focus();
+            }
+        };
+    });
+    return result;
+}
+
+},{"wlj-utilities":36}],"/library/directiveHome.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const getState = require('./getState');
@@ -2713,7 +2731,11 @@ function directiveNewFlow() {
             link: function (scope, element, attrs) {
             },
             template: `
-            New Flow
+            <input 
+                focus
+                type="text" 
+                class="form-control" 
+                placeholder="Flow name">
             `
         };
     });

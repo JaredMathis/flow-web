@@ -9,3 +9,4 @@ module.exports.sandbox = require("./library/sandbox.js");
 module.exports.directiveFlows = require("./library/directiveFlows.js");
 module.exports.getState = require("./library/getState.js");
 module.exports.directiveNewFlow = require("./library/directiveNewFlow.js");
+module.exports.directiveFocus = require("./library/directiveFocus.js");
