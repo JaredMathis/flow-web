@@ -6,3 +6,4 @@ module.exports.uploadLibrary = require("./library/uploadLibrary.js");
 module.exports.browserify = require("./library/browserify.js");
 module.exports.directiveHome = require("./library/directiveHome.js");
 module.exports.sandbox = require("./library/sandbox.js");
+module.exports.directiveFlows = require("./library/directiveFlows.js");

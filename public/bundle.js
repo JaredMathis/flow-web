@@ -2615,22 +2615,29 @@ function stringSuffix(string, count) {
     });
     return result;
 }
-},{"./library/assert":41,"./library/isArray":53,"./library/isDefined":54,"./library/isInteger":56,"./library/isString":58,"./library/loop":60,"./library/merge":61,"./library/scope":66}],"/library/directiveHome.js":[function(require,module,exports){
+},{"./library/assert":41,"./library/isArray":53,"./library/isDefined":54,"./library/isInteger":56,"./library/isString":58,"./library/loop":60,"./library/merge":61,"./library/scope":66}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const library = flow.getLibrary();
 
-module.exports = directiveHome;
+module.exports = directiveFlows;
 
-function directiveHome() {
+function directiveFlows() {
     let result;
-    u.scope(directiveHome.name, x => {
+    u.scope(directiveFlows.name, x => {
         result = {
             link: function (scope, element, attrs) {
-                scope.libraryNames = library.map(f => "flow/" + f.name);
+                scope.flows = library.map(f => "flow/" + f.name);
             },
             template: `
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="flow in flows">
+                        <td>{{flow}}</td>
+                    <tr>
+                </tbody>
+            </table>
             <button 
                 type="button" 
                 class="btn btn-primary">
@@ -2642,7 +2649,28 @@ function directiveHome() {
     return result;
 }
 
-},{"wlj-flow":1,"wlj-utilities":36}],74:[function(require,module,exports){
+},{"wlj-flow":1,"wlj-utilities":36}],"/library/directiveHome.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+
+module.exports = directiveHome;
+
+function directiveHome() {
+    let result;
+    u.scope(directiveHome.name, x => {
+        result = {
+            link: function (scope, element, attrs) {
+
+            },
+            template: `
+            <flows></flows>
+            `
+        }
+    });
+    return result;
+}
+
+},{"wlj-utilities":36}],74:[function(require,module,exports){
 
 },{}],75:[function(require,module,exports){
 exports.endianness = function () { return 'LE' };
