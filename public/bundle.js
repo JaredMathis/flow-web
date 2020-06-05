@@ -2631,7 +2631,7 @@ function directiveHome() {
                 scope.libraryNames = library.map(f => "flow/" + f.name);
             },
             template: `
-            {{libraryNames}}
+            <button>Create New Flow</button>
             `
         }
     });

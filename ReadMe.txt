@@ -1,14 +1,9 @@
 To setup:
+    npm i   
 
+To build:
+    node build
 
-
-
-To update serverless functions:
-
-firebase deploy
-
-Will neeed to set credentials, too
-
-
-To 
+To run:
+    Build
 
