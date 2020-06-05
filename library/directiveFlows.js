@@ -3,6 +3,8 @@ const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const library = flow.getLibrary();
 
+const getState = require("./getState");
+
 module.exports = directiveFlows;
 
 function directiveFlows() {
@@ -11,11 +13,16 @@ function directiveFlows() {
         result = {
             link: function (scope, element, attrs) {
                 scope.flows = library.map(f => "flow/" + f.name);
+
+                scope.createNewFlow = () => {
+                    getState().screen = "newFlow";
+                };
             },
             template: `
             <button 
                 type="button" 
-                class="btn btn-primary">
+                class="btn btn-primary"
+                ng-click="createNewFlow()">
                 Create New Flow
             </button>
             <table class="table">

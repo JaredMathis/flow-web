@@ -2621,6 +2621,8 @@ const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const library = flow.getLibrary();
 
+const getState = require("./getState");
+
 module.exports = directiveFlows;
 
 function directiveFlows() {
@@ -2629,8 +2631,18 @@ function directiveFlows() {
         result = {
             link: function (scope, element, attrs) {
                 scope.flows = library.map(f => "flow/" + f.name);
+
+                scope.createNewFlow = () => {
+                    getState().screen = "newFlow";
+                };
             },
             template: `
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="createNewFlow()">
+                Create New Flow
+            </button>
             <table class="table">
                 <tbody>
                     <tr ng-repeat="flow in flows">
@@ -2638,20 +2650,16 @@ function directiveFlows() {
                     <tr>
                 </tbody>
             </table>
-            <button 
-                type="button" 
-                class="btn btn-primary">
-                Create New Flow
-            </button>
             `
         }
     });
     return result;
 }
 
-},{"wlj-flow":1,"wlj-utilities":36}],"/library/directiveHome.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":1,"wlj-utilities":36}],"/library/directiveHome.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
+const getState = require('./getState');
 
 module.exports = directiveHome;
 
@@ -2660,12 +2668,56 @@ function directiveHome() {
     u.scope(directiveHome.name, x => {
         result = {
             link: function (scope, element, attrs) {
+                scope.state = getState();
 
+                getState().screen = "flows";
             },
             template: `
-            <flows></flows>
+            <div ng-if="state.screen == 'flows'">
+                <flows></flows>
+            </div>
+            <div ng-if="state.screen == 'newFlow'">
+                <new-flow></new-flow>
+            </div>
             `
         }
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-utilities":36}],"/library/directiveNewFlow.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+
+module.exports = directiveNewFlow;
+
+function directiveNewFlow() {
+    let result;
+    u.scope(directiveNewFlow.name, x => {
+        result = {
+            link: function (scope, element, attrs) {
+                scope.flows = library.map(f => "flow/" + f.name);
+            },
+            template: `
+            New Flow
+            `
+        };
+    });
+    return result;
+}
+
+},{"wlj-utilities":36}],"/library/getState.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+
+module.exports = getState;
+
+const state = {};
+
+function getState() {
+    let result;
+    u.scope(getState.name, x => {
+        result = state;
     });
     return result;
 }

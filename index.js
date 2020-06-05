@@ -7,3 +7,5 @@ module.exports.browserify = require("./library/browserify.js");
 module.exports.directiveHome = require("./library/directiveHome.js");
 module.exports.sandbox = require("./library/sandbox.js");
 module.exports.directiveFlows = require("./library/directiveFlows.js");
+module.exports.getState = require("./library/getState.js");
+module.exports.directiveNewFlow = require("./library/directiveNewFlow.js");

@@ -8,3 +8,5 @@ require("./tests/browserify/browserify.js");
 require("./tests/directiveHome/directiveHome.js");
 require("./tests/sandbox/sandbox.js");
 require("./tests/directiveFlows/directiveFlows.js");
+require("./tests/getState/getState.js");
+require("./tests/directiveNewFlow/directiveNewFlow.js");
