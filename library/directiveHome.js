@@ -1,5 +1,7 @@
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
+const libary = flow.getLibrary();
 const getState = require('./getState');
 
 module.exports = directiveHome;
@@ -11,22 +13,28 @@ function directiveHome() {
             link: function (scope, element, attrs) {
                 scope.state = getState();
 
+                let defaultState = {
+                    screen: 'flows',
+                    flows: libary,
+                };
+                u.merge(getState(), defaultState);
+
                 let loaded;
                 let json = localStorage.getItem('state');
                 if (json) {
                     loaded = JSON.parse(json);
+                    if (loaded) {
+                        u.merge(getState(), loaded);
+                    }
                 }
-                let defaultState = {
-                    screen: 'flows',
-                };
-                u.merge(getState(), loaded || defaultState);
 
                 scope.$watch(getState,
                     (value) => {
                         localStorage.setItem('state', JSON.stringify(value));
-                    }, 
+                    },
                     // Deep watch
                     true)
+
             },
             template: `
             <div ng-if="state.screen == 'flows'">

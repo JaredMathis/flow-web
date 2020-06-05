@@ -1,5 +1,6 @@
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 const getState = require("./getState");
 
 module.exports = directiveNewFlow;
@@ -9,8 +10,22 @@ function directiveNewFlow() {
     u.scope(directiveNewFlow.name, x => {
         result = {
             link: function (scope, element, attrs) {
+                scope.state = getState();
+                scope.state.newFlow = {
+
+                };
+
                 scope.cancel = () => {
                     getState().screen = 'flows';
+                }
+
+                scope.create = () => {
+                    let newFlow = flow.defineFunction(
+                        getState().newFlow.name,
+                        [],
+                        [],
+                        null);
+                    getState().flows.push(newFlow);
                 }
             },
             template: `
@@ -18,7 +33,14 @@ function directiveNewFlow() {
                 focus
                 type="text" 
                 class="form-control" 
-                placeholder="Flow name">
+                placeholder="Flow name"
+                ng-model="state.newFlow.name">
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="create()">
+                Create
+            </button>
             <button 
                 type="button" 
                 class="btn btn-secondary"

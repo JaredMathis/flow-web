@@ -12,8 +12,6 @@ function directiveFlows() {
     u.scope(directiveFlows.name, x => {
         result = {
             link: function (scope, element, attrs) {
-                scope.flows = library.map(f => "flow/" + f.name);
-
                 scope.createNewFlow = () => {
                     getState().screen = "newFlow";
                 };
@@ -27,8 +25,23 @@ function directiveFlows() {
             </button>
             <table class="table">
                 <tbody>
-                    <tr ng-repeat="flow in flows">
-                        <td>{{flow}}</td>
+                    <tr ng-repeat="flow in state.flows track by $index">
+                        <td>
+                            <b>{{flow.name}}</b>
+                            (
+                                <span ng-repeat="i in flow.inputs">
+                                    <span ng-show="!$first">,</span>
+                                    {{ i.name }}
+                                </span>
+                            )
+                            =>
+                            (
+                                <span ng-repeat="o in flow.outputs">
+                                    <span ng-show="!$first">,</span>
+                                    {{ o.name }}
+                                </span>
+                            )
+                        </td>
                     <tr>
                 </tbody>
             </table>
