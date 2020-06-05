@@ -2670,7 +2670,22 @@ function directiveHome() {
             link: function (scope, element, attrs) {
                 scope.state = getState();
 
-                getState().screen = "flows";
+                let loaded;
+                let json = localStorage.getItem('state');
+                if (json) {
+                    loaded = JSON.parse(json);
+                }
+                let defaultState = {
+                    screen: 'flows',
+                };
+                u.merge(getState(), loaded || defaultState);
+
+                scope.$watch(getState,
+                    (value) => {
+                        localStorage.setItem('state', JSON.stringify(value));
+                    }, 
+                    // Deep watch
+                    true)
             },
             template: `
             <div ng-if="state.screen == 'flows'">
@@ -2696,7 +2711,6 @@ function directiveNewFlow() {
     u.scope(directiveNewFlow.name, x => {
         result = {
             link: function (scope, element, attrs) {
-                scope.flows = library.map(f => "flow/" + f.name);
             },
             template: `
             New Flow
