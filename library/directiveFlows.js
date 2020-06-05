@@ -13,6 +13,11 @@ function directiveFlows() {
                 scope.flows = library.map(f => "flow/" + f.name);
             },
             template: `
+            <button 
+                type="button" 
+                class="btn btn-primary">
+                Create New Flow
+            </button>
             <table class="table">
                 <tbody>
                     <tr ng-repeat="flow in flows">
@@ -20,11 +25,6 @@ function directiveFlows() {
                     <tr>
                 </tbody>
             </table>
-            <button 
-                type="button" 
-                class="btn btn-primary">
-                Create New Flow
-            </button>
             `
         }
     });
