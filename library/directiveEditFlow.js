@@ -16,27 +16,36 @@ function directiveEditFlow() {
                     getState().screen = 'flows';
                 }
 
+                scope.flow = () => {
+                    return getState().flows[getState().editFlowIndex];
+                }
+
                 scope.addInput = () => {
-                    let counter = getState().flows[getState().editFlowIndex].inputs.length + 1;
+                    let counter = scope.flow().inputs.length + 1;
                     let newInput = {
                         name: 'input' + counter,
                         type: flow.typeInt(),
                     }
-                    getState().flows[getState().editFlowIndex].inputs.push(newInput);
+                    scope.flow().inputs.push(newInput);
                 }
 
                 scope.addOutput = () => {
-                    let counter = getState().flows[getState().editFlowIndex].outputs.length + 1;
+                    let counter = scope.flow().outputs.length + 1;
                     let newOutput = {
                         name: 'output' + counter,
                         type: flow.typeInt(),
                     }
-                    getState().flows[getState().editFlowIndex].outputs.push(newOutput);
+                    scope.flow().outputs.push(newOutput);
                 }
 
                 scope.deleteInput = (input) => {
-                    let index = getState().flows[getState().editFlowIndex].inputs.indexOf(input);
-                    getState().flows[getState().editFlowIndex].inputs.splice(index, 1);
+                    let index = scope.flow().inputs.indexOf(input);
+                    scope.flow().inputs.splice(index, 1);
+                }
+
+                scope.deleteOutput = (output) => {
+                    let index = scope.flow().outputs.indexOf(output);
+                    scope.flow().outputs.splice(index, 1);
                 }
             },
             template: `
@@ -97,7 +106,7 @@ function directiveEditFlow() {
                 </span>
             </div>
             <div class="input-group"
-                ng-repeat="output in state.flows[state.editFlowIndex].outputs">
+                ng-repeat="output in state.flows[state.editFlowIndex].outputs track by $index">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Name</span>
                 </div>
@@ -106,6 +115,11 @@ function directiveEditFlow() {
                     class="form-control" 
                     placeholder="Name"
                     ng-model="output.name">
+                <button 
+                    ng-click="deleteOutput(output)"
+                    class="btn btn-danger">
+                    Delete Output
+                </button>
             </div>
             <div>
             <button 
