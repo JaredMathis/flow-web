@@ -5289,62 +5289,73 @@ function directiveEditFlow() {
     u.scope(directiveEditFlow.name, x => {
         result = {
             link: function (scope, element, attrs) {
-                scope.state = getState();
+                u.scope(directiveEditFlow.name + ' link', x => {
+                    scope.state = getState();
 
-                scope.back = () => {
-                    getState().screen = 'flows';
-                }
-
-                scope.flow = () => {
-                    return getState().flows[getState().editFlowIndex];
-                }
-
-                if (scope.flow().statement === null) {
-                    scope.flow().statement = flow.block([], flow.steps([]));
-                }
-
-                scope.addInput = () => {
-                    let counter = scope.flow().inputs.length + 1;
-                    let newInput = {
-                        name: 'input' + counter,
-                        type: flow.typeInt(),
+                    scope.back = () => {
+                        getState().screen = 'flows';
                     }
-                    scope.flow().inputs.push(newInput);
-                }
 
-                scope.addOutput = () => {
-                    let counter = scope.flow().outputs.length + 1;
-                    let newOutput = {
-                        name: 'output' + counter,
-                        type: flow.typeInt(),
+                    scope.flow = () => {
+                        return getState().flows[getState().editFlowIndex];
                     }
-                    scope.flow().outputs.push(newOutput);
-                }
 
-                scope.deleteInput = (input) => {
-                    let index = scope.flow().inputs.indexOf(input);
-                    scope.flow().inputs.splice(index, 1);
-                }
-
-                scope.deleteOutput = (output) => {
-                    let index = scope.flow().outputs.indexOf(output);
-                    scope.flow().outputs.splice(index, 1);
-                }
-
-                scope.statementTypes = [
-                    { $type: 'block', name: 'Block' },
-                    { $type: 'execute', name: 'Execute' },
-                    { $type: 'steps', name: 'Steps' },
-                ];
-
-                scope.setStatementType = (st) => {
-                    if (getState().editFlowStatementType !== null &&
-                        getState().editFlowStatementType.$type === st.$type) {
-                        getState().editFlowStatementType = null;
-                    } else {
-                        getState().editFlowStatementType = st;
+                    if (scope.flow().statement === null) {
+                        scope.flow().statement = flow.block([], flow.steps([]));
                     }
-                };
+
+                    scope.addInput = () => {
+                        let counter = scope.flow().inputs.length + 1;
+                        let newInput = {
+                            name: 'input' + counter,
+                            type: flow.typeInt(),
+                        }
+                        scope.flow().inputs.push(newInput);
+                    }
+
+                    scope.addOutput = () => {
+                        let counter = scope.flow().outputs.length + 1;
+                        let newOutput = {
+                            name: 'output' + counter,
+                            type: flow.typeInt(),
+                        }
+                        scope.flow().outputs.push(newOutput);
+                    }
+
+                    scope.deleteInput = (input) => {
+                        let index = scope.flow().inputs.indexOf(input);
+                        scope.flow().inputs.splice(index, 1);
+                    }
+
+                    scope.deleteOutput = (output) => {
+                        let index = scope.flow().outputs.indexOf(output);
+                        scope.flow().outputs.splice(index, 1);
+                    }
+
+                    scope.statementTypes = [
+                        { $type: 'block', name: 'Block' },
+                        { $type: 'evaluate', name: 'Evaluate' },
+                        { $type: 'execute', name: 'Execute' },
+                        { $type: 'loop', name: 'Loop' },
+                        { $type: 'set', name: 'Set' },
+                        { $type: 'steps', name: 'Steps' },
+                    ];
+
+                    let statementTypes = scope.statementTypes.map(st => st.$type);
+
+                    u.merge(x, () => flow.getStatements());
+                    u.merge(x, () => statementTypes);
+                    u.assert(() => u.isSetEqual(statementTypes, flow.getStatements()));
+
+                    scope.setStatementType = (st) => {
+                        if (getState().editFlowStatementType !== null &&
+                            getState().editFlowStatementType.$type === st.$type) {
+                            getState().editFlowStatementType = null;
+                        } else {
+                            getState().editFlowStatementType = st;
+                        }
+                    };
+                });
             },
             template: `
             <button 
@@ -5511,6 +5522,7 @@ function directiveEditFlowStatement() {
 },{"wlj-utilities":98}],"/library/directiveEditFlowSteps.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 const getState = require("./getState");
 
 module.exports = directiveEditFlowSteps;
@@ -5524,6 +5536,33 @@ function directiveEditFlowSteps() {
             },
             link: function (scope, element, attrs) {
                 scope.state = getState();
+
+                scope.addStatement = () => {
+                    let statements = {
+                        'block': () => {
+                            u.assert(false);  
+                        },
+                        'evaluate': () => {
+                            u.assert(false);  
+                        },
+                        'execute': () => {
+                            u.assert(false);  
+                        },
+                        'loop': () => {
+                            u.assert(false);                            
+                        },
+                        'set': () => {
+                            u.assert(false);                            
+                        },
+                        'steps': () => {
+                            u.assert(false);
+                        },
+                    };
+
+                    u.assert(() => u.arraySequenceEquals(Object.keys(statements), flow.getStatements()));
+
+                    statements[getState().$type]();
+                };
             },
             template: `
             <div>
@@ -5531,6 +5570,7 @@ function directiveEditFlowSteps() {
             </div>
             <button 
                 class="btn btn-primary"
+                ng-click="addStatement()"
                 ng-show="state.editFlowStatementType">
                 Add {{state.editFlowStatementType.name}} Statement
             </button>
@@ -5540,7 +5580,7 @@ function directiveEditFlowSteps() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");

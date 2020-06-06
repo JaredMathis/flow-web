@@ -10,62 +10,73 @@ function directiveEditFlow() {
     u.scope(directiveEditFlow.name, x => {
         result = {
             link: function (scope, element, attrs) {
-                scope.state = getState();
+                u.scope(directiveEditFlow.name + ' link', x => {
+                    scope.state = getState();
 
-                scope.back = () => {
-                    getState().screen = 'flows';
-                }
-
-                scope.flow = () => {
-                    return getState().flows[getState().editFlowIndex];
-                }
-
-                if (scope.flow().statement === null) {
-                    scope.flow().statement = flow.block([], flow.steps([]));
-                }
-
-                scope.addInput = () => {
-                    let counter = scope.flow().inputs.length + 1;
-                    let newInput = {
-                        name: 'input' + counter,
-                        type: flow.typeInt(),
+                    scope.back = () => {
+                        getState().screen = 'flows';
                     }
-                    scope.flow().inputs.push(newInput);
-                }
 
-                scope.addOutput = () => {
-                    let counter = scope.flow().outputs.length + 1;
-                    let newOutput = {
-                        name: 'output' + counter,
-                        type: flow.typeInt(),
+                    scope.flow = () => {
+                        return getState().flows[getState().editFlowIndex];
                     }
-                    scope.flow().outputs.push(newOutput);
-                }
 
-                scope.deleteInput = (input) => {
-                    let index = scope.flow().inputs.indexOf(input);
-                    scope.flow().inputs.splice(index, 1);
-                }
-
-                scope.deleteOutput = (output) => {
-                    let index = scope.flow().outputs.indexOf(output);
-                    scope.flow().outputs.splice(index, 1);
-                }
-
-                scope.statementTypes = [
-                    { $type: 'block', name: 'Block' },
-                    { $type: 'execute', name: 'Execute' },
-                    { $type: 'steps', name: 'Steps' },
-                ];
-
-                scope.setStatementType = (st) => {
-                    if (getState().editFlowStatementType !== null &&
-                        getState().editFlowStatementType.$type === st.$type) {
-                        getState().editFlowStatementType = null;
-                    } else {
-                        getState().editFlowStatementType = st;
+                    if (scope.flow().statement === null) {
+                        scope.flow().statement = flow.block([], flow.steps([]));
                     }
-                };
+
+                    scope.addInput = () => {
+                        let counter = scope.flow().inputs.length + 1;
+                        let newInput = {
+                            name: 'input' + counter,
+                            type: flow.typeInt(),
+                        }
+                        scope.flow().inputs.push(newInput);
+                    }
+
+                    scope.addOutput = () => {
+                        let counter = scope.flow().outputs.length + 1;
+                        let newOutput = {
+                            name: 'output' + counter,
+                            type: flow.typeInt(),
+                        }
+                        scope.flow().outputs.push(newOutput);
+                    }
+
+                    scope.deleteInput = (input) => {
+                        let index = scope.flow().inputs.indexOf(input);
+                        scope.flow().inputs.splice(index, 1);
+                    }
+
+                    scope.deleteOutput = (output) => {
+                        let index = scope.flow().outputs.indexOf(output);
+                        scope.flow().outputs.splice(index, 1);
+                    }
+
+                    scope.statementTypes = [
+                        { $type: 'block', name: 'Block' },
+                        { $type: 'evaluate', name: 'Evaluate' },
+                        { $type: 'execute', name: 'Execute' },
+                        { $type: 'loop', name: 'Loop' },
+                        { $type: 'set', name: 'Set' },
+                        { $type: 'steps', name: 'Steps' },
+                    ];
+
+                    let statementTypes = scope.statementTypes.map(st => st.$type);
+
+                    u.merge(x, () => flow.getStatements());
+                    u.merge(x, () => statementTypes);
+                    u.assert(() => u.isSetEqual(statementTypes, flow.getStatements()));
+
+                    scope.setStatementType = (st) => {
+                        if (getState().editFlowStatementType !== null &&
+                            getState().editFlowStatementType.$type === st.$type) {
+                            getState().editFlowStatementType = null;
+                        } else {
+                            getState().editFlowStatementType = st;
+                        }
+                    };
+                });
             },
             template: `
             <button 
