@@ -5592,11 +5592,11 @@ function directiveEditFlowExecute() {
             </div>
 
             <div>Outputs</div>
-            <div ng-repeat="input in selectedFlow().outputs">
+            <div ng-repeat="output in selectedFlow().outputs">
                 <select 
                     class="custom-select"
                     ng-model="statement.outputs[output.name]"
-                    ng-options="v.name as v.name for v in getAvailableVariablesForType(input.type)">
+                    ng-options="v.name as v.name for v in getAvailableVariablesForType(output.type)">
                 </select>                
             </div>
 
