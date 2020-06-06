@@ -2,6 +2,7 @@
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const getState = require("./getState");
+const newStatement = require("./newStatement");
 
 module.exports = directiveEditFlowSteps;
 
@@ -16,35 +17,16 @@ function directiveEditFlowSteps() {
                 scope.state = getState();
 
                 scope.addStatement = () => {
-                    let statements = {
-                        'block': () => {
-                            u.assert(false);  
-                        },
-                        'evaluate': () => {
-                            u.assert(false);  
-                        },
-                        'execute': () => {
-                            u.assert(false);  
-                        },
-                        'loop': () => {
-                            u.assert(false);                            
-                        },
-                        'set': () => {
-                            u.assert(false);                            
-                        },
-                        'steps': () => {
-                            u.assert(false);
-                        },
-                    };
-
-                    u.assert(() => u.arraySequenceEquals(Object.keys(statements), flow.getStatements()));
-
-                    statements[getState().$type]();
+                    let statement = newStatement();
+                    scope.statement.steps.push(statement);
                 };
             },
             template: `
             <div>
                 Steps
+            </div>
+            <div>
+                {{ statement.steps }}
             </div>
             <button 
                 class="btn btn-primary"

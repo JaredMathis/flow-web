@@ -2267,7 +2267,7 @@ function execute(name, inputs, outputs) {
     u.scope(execute.name, x => {
         u.merge(x,{name, inputs, outputs})
         u.assert(() => args.length === 3);
-        u.assert(() => u.isString(name));
+        u.assert(() => name === null || u.isString(name));
         u.assert(() => u.isDefined(inputs));
         u.assert(() => u.isDefined(outputs));
 
@@ -5475,7 +5475,7 @@ function directiveEditFlowBlock() {
             link: function (scope, element, attrs) {
             },
             template: `
-            edit-flow-block
+            Block
             <edit-flow-statement 
                 statement="statement.statement">
             </edit-flow-statement>
@@ -5524,6 +5524,7 @@ function directiveEditFlowStatement() {
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const getState = require("./getState");
+const newStatement = require("./newStatement");
 
 module.exports = directiveEditFlowSteps;
 
@@ -5538,35 +5539,16 @@ function directiveEditFlowSteps() {
                 scope.state = getState();
 
                 scope.addStatement = () => {
-                    let statements = {
-                        'block': () => {
-                            u.assert(false);  
-                        },
-                        'evaluate': () => {
-                            u.assert(false);  
-                        },
-                        'execute': () => {
-                            u.assert(false);  
-                        },
-                        'loop': () => {
-                            u.assert(false);                            
-                        },
-                        'set': () => {
-                            u.assert(false);                            
-                        },
-                        'steps': () => {
-                            u.assert(false);
-                        },
-                    };
-
-                    u.assert(() => u.arraySequenceEquals(Object.keys(statements), flow.getStatements()));
-
-                    statements[getState().$type]();
+                    let statement = newStatement();
+                    scope.statement.steps.push(statement);
                 };
             },
             template: `
             <div>
                 Steps
+            </div>
+            <div>
+                {{ statement.steps }}
             </div>
             <button 
                 class="btn btn-primary"
@@ -5580,7 +5562,7 @@ function directiveEditFlowSteps() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","./newStatement":"/library/newStatement.js","wlj-flow":2,"wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -5814,7 +5796,46 @@ function getState() {
     return result;
 }
 
-},{"wlj-utilities":98}],136:[function(require,module,exports){
+},{"wlj-utilities":98}],"/library/newStatement.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const flow = require("wlj-flow");
+const getState = require("./getState");
+
+module.exports = newStatement;
+
+function newStatement() {
+    let result;
+    u.scope(newStatement.name, x => {
+        let statements = {
+            'block': () => {
+                u.assert(false);  
+            },
+            'evaluate': () => {
+                u.assert(false);  
+            },
+            'execute': () => {
+                return flow.execute(null, [], []);
+            },
+            'loop': () => {
+                u.assert(false);                            
+            },
+            'set': () => {
+                u.assert(false);                            
+            },
+            'steps': () => {
+                return flow.steps([]);
+            },
+        };
+
+        u.assert(() => u.arraySequenceEquals(Object.keys(statements), flow.getStatements()));
+
+        result = statements[getState().editFlowStatementType.$type]();
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],136:[function(require,module,exports){
 
 },{}],137:[function(require,module,exports){
 var asn1 = exports;

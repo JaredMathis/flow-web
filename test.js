@@ -15,3 +15,4 @@ require("./tests/directiveEditFlow/directiveEditFlow.js");
 require("./tests/directiveEditFlowStatement/directiveEditFlowStatement.js");
 require("./tests/directiveEditFlowSteps/directiveEditFlowSteps.js");
 require("./tests/directiveEditFlowBlock/directiveEditFlowBlock.js");
+require("./tests/newStatement/newStatement.js");

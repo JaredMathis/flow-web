@@ -13,7 +13,7 @@ function directiveEditFlowBlock() {
             link: function (scope, element, attrs) {
             },
             template: `
-            edit-flow-block
+            Block
             <edit-flow-statement 
                 statement="statement.statement">
             </edit-flow-statement>
