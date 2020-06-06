@@ -5280,6 +5280,7 @@ function stringSuffix(string, count) {
 },{"./library/assert":103,"./library/isArray":115,"./library/isDefined":116,"./library/isInteger":118,"./library/isString":120,"./library/loop":122,"./library/merge":123,"./library/scope":128}],"/library/directiveEditFlow.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 const getState = require("./getState");
 
 module.exports = directiveEditFlow;
@@ -5294,13 +5295,22 @@ function directiveEditFlow() {
                 scope.back = () => {
                     getState().screen = 'flows';
                 }
+
+                scope.addInput = () => {
+                    let counter = getState().flows[getState().editFlowIndex].inputs.length + 1;
+                    let newInput = {
+                        name: 'input' + counter,
+                        type: flow.typeInt(),
+                    }
+                    getState().flows[getState().editFlowIndex].inputs.push(newInput);
+                }
             },
             template: `
             <button 
                 type="button" 
                 class="btn btn-primary"
                 ng-click="back()">
-                Back
+                Back to Flows
             </button>
             <div>
                 Edit Flow - {{ state.flows[state.editFlowIndex].name }}
@@ -5333,6 +5343,13 @@ function directiveEditFlow() {
                     placeholder="Name"
                     ng-model="input.name">
             </div>
+            <div>
+            <button 
+                ng-click="addInput()"
+                class="btn btn-primary">
+                Add Input
+            </button>
+            </div>
 
             <div>
                 Outputs
@@ -5357,7 +5374,7 @@ function directiveEditFlow() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -5419,14 +5436,14 @@ function directiveFlows() {
                             ng-click="editFlow(flow)"
                             type="button" 
                             class="btn btn-primary">
-                            Edit
+                            Edit Flow
                         </button>
 
                         <button 
                             ng-click="deleteFlow(flow)"
                             type="button" 
                             class="btn btn-danger">
-                            Delete
+                            Delete Flow
                         </button>
                         </td>
                     <tr>

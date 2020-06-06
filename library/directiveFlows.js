@@ -59,14 +59,14 @@ function directiveFlows() {
                             ng-click="editFlow(flow)"
                             type="button" 
                             class="btn btn-primary">
-                            Edit
+                            Edit Flow
                         </button>
 
                         <button 
                             ng-click="deleteFlow(flow)"
                             type="button" 
                             class="btn btn-danger">
-                            Delete
+                            Delete Flow
                         </button>
                         </td>
                     <tr>
