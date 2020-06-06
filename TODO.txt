@@ -1,2 +1,5 @@
 
 Can create a new flow
+
+Can only delete flows that are not depended on.
+Show the user what flows use that flow.

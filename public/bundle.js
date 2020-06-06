@@ -5328,12 +5328,19 @@ function directiveFlows() {
                             )
                         </td>
                         <td>
-                            <button 
-                                ng-click="deleteFlow(flow)"
-                                type="button" 
-                                class="btn btn-danger">
-                                Delete
-                            </button>
+
+                        <button 
+                            type="button" 
+                            class="btn btn-primary">
+                            Edit
+                        </button>
+
+                        <button 
+                            ng-click="deleteFlow(flow)"
+                            type="button" 
+                            class="btn btn-danger">
+                            Delete
+                        </button>
                         </td>
                     <tr>
                 </tbody>
