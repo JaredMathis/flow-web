@@ -5299,7 +5299,12 @@ function directiveFlows() {
                 scope.deleteFlow = (flow) => {
                     let index = getState().flows.indexOf(flow);
                     getState().flows.splice(index, 1);
-                }
+                };
+
+                scope.editFlow = (flow) => {
+                    let index = getState().flows.indexOf(flow);
+                    getState().screen = "editFlow";
+                };
             },
             template: `
             <button 
@@ -5330,6 +5335,7 @@ function directiveFlows() {
                         <td>
 
                         <button 
+                            ng-click="editFlow(flow)"
                             type="button" 
                             class="btn btn-primary">
                             Edit
