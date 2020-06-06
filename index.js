@@ -15,3 +15,4 @@ module.exports.directiveEditFlowStatement = require("./library/directiveEditFlow
 module.exports.directiveEditFlowSteps = require("./library/directiveEditFlowSteps.js");
 module.exports.directiveEditFlowBlock = require("./library/directiveEditFlowBlock.js");
 module.exports.newStatement = require("./library/newStatement.js");
+module.exports.directiveEditFlowExecute = require("./library/directiveEditFlowExecute.js");

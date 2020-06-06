@@ -8,3 +8,4 @@ angular.module('app').directive('editFlow', require('/library/directiveEditFlow.
 angular.module('app').directive('editFlowStatement', require('/library/directiveEditFlowStatement.js'));
 angular.module('app').directive('editFlowSteps', require('/library/directiveEditFlowSteps.js'));
 angular.module('app').directive('editFlowBlock', require('/library/directiveEditFlowBlock.js'));
+angular.module('app').directive('editFlowExecute', require('/library/directiveEditFlowExecute.js'));

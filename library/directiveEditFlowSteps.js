@@ -39,7 +39,6 @@ function directiveEditFlowSteps() {
                 <edit-flow-statement
                     statement="s">
                 </edit-flow-statement>
-                {{ s }}
             </div>
             <button 
                 class="btn btn-primary"

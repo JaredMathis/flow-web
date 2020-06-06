@@ -5485,7 +5485,41 @@ function directiveEditFlowBlock() {
     return result;
 }
 
-},{"wlj-utilities":98}],"/library/directiveEditFlowStatement.js":[function(require,module,exports){
+},{"wlj-utilities":98}],"/library/directiveEditFlowExecute.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getState = require("./getState");
+
+module.exports = directiveEditFlowExecute;
+
+function directiveEditFlowExecute() {
+    let result;
+    u.scope(directiveEditFlowExecute.name, x => {
+        result = {
+            scope: {
+                statement: '=',
+            },
+            link: function (scope, element, attrs) {
+                scope.state = getState();
+
+
+            },
+            template: `
+            <div>
+                Execute
+            </div>
+            <select 
+                class="custom-select"
+                ng-model="statement.name"
+                ng-options="f.name for f in state.flows track by f.name">
+            </select>
+            `
+        };
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/directiveEditFlowStatement.js":[function(require,module,exports){
 (function (__filename){
 
 const u = require("wlj-utilities");
@@ -5570,7 +5604,6 @@ function directiveEditFlowSteps() {
                 <edit-flow-statement
                     statement="s">
                 </edit-flow-statement>
-                {{ s }}
             </div>
             <button 
                 class="btn btn-primary"
