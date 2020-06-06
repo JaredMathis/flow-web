@@ -56,7 +56,7 @@ function directiveEditFlow() {
                 Back to Flows
             </button>
             <div>
-                Edit Flow - {{ state.flows[state.editFlowIndex].name }}
+                Edit Flow - {{ flow().name }}
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -66,17 +66,17 @@ function directiveEditFlow() {
                     type="text" 
                     class="form-control" 
                     placeholder="Flow name"
-                    ng-model="state.flows[state.editFlowIndex].name">
+                    ng-model="flow().name">
             </div>
             
             <Div>
                 Inputs 
-                <span ng-if="state.flows[state.editFlowIndex].inputs.length === 0">
+                <span ng-if="flow().inputs.length === 0">
                     (None)
                 </span>
             </div>
             <div class="input-group"
-                ng-repeat="input in state.flows[state.editFlowIndex].inputs">
+                ng-repeat="input in flow().inputs">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Name</span>
                 </div>
@@ -101,12 +101,12 @@ function directiveEditFlow() {
 
             <div>
                 Outputs
-                <span ng-if="state.flows[state.editFlowIndex].outputs.length === 0">
+                <span ng-if="flow().outputs.length === 0">
                     (None)
                 </span>
             </div>
             <div class="input-group"
-                ng-repeat="output in state.flows[state.editFlowIndex].outputs track by $index">
+                ng-repeat="output in flow().outputs track by $index">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Name</span>
                 </div>
