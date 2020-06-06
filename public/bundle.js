@@ -5502,7 +5502,14 @@ function directiveEditFlowExecute() {
             link: function (scope, element, attrs) {
                 scope.state = getState();
 
-
+                scope.selectedFlow = () => {
+                    let result;
+                    u.scope('selectedFlow', x=> {
+                        u.merge(x, () => scope.statement.name)
+                        result = u.arraySingle(getState().flows, {name:scope.statement.name});
+                    })
+                    return result
+                }
             },
             template: `
             <div>
@@ -5511,8 +5518,13 @@ function directiveEditFlowExecute() {
             <select 
                 class="custom-select"
                 ng-model="statement.name"
-                ng-options="f.name for f in state.flows track by f.name">
+                ng-options="f.name as f.name for f in state.flows">
             </select>
+
+            <div>Inputs</div>
+            <div ng-repeat="input in selectedFlow().inputs">
+                {{ input }}
+            </div>
             `
         };
     });
@@ -5870,7 +5882,7 @@ function newStatement() {
                 u.assert(false);  
             },
             'execute': () => {
-                return flow.execute(null, [], []);
+                return flow.execute(null, {}, {});
             },
             'loop': () => {
                 u.assert(false);                            

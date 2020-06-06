@@ -16,7 +16,7 @@ function newStatement() {
                 u.assert(false);  
             },
             'execute': () => {
-                return flow.execute(null, [], []);
+                return flow.execute(null, {}, {});
             },
             'loop': () => {
                 u.assert(false);                            
