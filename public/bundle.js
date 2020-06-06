@@ -5336,6 +5336,15 @@ function directiveEditFlow() {
                     { $type: 'execute', name: 'Execute' },
                     { $type: 'steps', name: 'Steps' },
                 ];
+
+                scope.setStatementType = (st) => {
+                    if (getState().editFlowStatementType !== null &&
+                        getState().editFlowStatementType.$type === st.$type) {
+                        getState().editFlowStatementType = null;
+                    } else {
+                        getState().editFlowStatementType = st;
+                    }
+                };
             },
             template: `
             <button 
@@ -5422,7 +5431,11 @@ function directiveEditFlow() {
             <button 
                 ng-repeat="st in statementTypes"
                 ng-click="setStatementType(st)"
-                class="btn btn-primary">
+                ng-class="{ 
+                    'btn-primary': st.$type == state.editFlowStatementType.$type, 
+                    'btn-secondary': st.$type != state.editFlowStatementType.$type
+                }"
+                class="btn">
                 {{ st.name }}
             </button>
             </div>
@@ -5498,6 +5511,7 @@ function directiveEditFlowStatement() {
 },{"wlj-utilities":98}],"/library/directiveEditFlowSteps.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
+const getState = require("./getState");
 
 module.exports = directiveEditFlowSteps;
 
@@ -5509,16 +5523,24 @@ function directiveEditFlowSteps() {
                 statement: '=',
             },
             link: function (scope, element, attrs) {
+                scope.state = getState();
             },
             template: `
-            edit-flow-steps
+            <div>
+                Steps
+            </div>
+            <button 
+                class="btn btn-primary"
+                ng-show="state.editFlowStatementType">
+                Add {{state.editFlowStatementType.name}} Statement
+            </button>
             `
         };
     });
     return result;
 }
 
-},{"wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");

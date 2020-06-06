@@ -1,5 +1,6 @@
 
 const u = require("wlj-utilities");
+const getState = require("./getState");
 
 module.exports = directiveEditFlowSteps;
 
@@ -11,9 +12,17 @@ function directiveEditFlowSteps() {
                 statement: '=',
             },
             link: function (scope, element, attrs) {
+                scope.state = getState();
             },
             template: `
-            edit-flow-steps
+            <div>
+                Steps
+            </div>
+            <button 
+                class="btn btn-primary"
+                ng-show="state.editFlowStatementType">
+                Add {{state.editFlowStatementType.name}} Statement
+            </button>
             `
         };
     });

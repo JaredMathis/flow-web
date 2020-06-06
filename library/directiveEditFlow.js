@@ -57,6 +57,15 @@ function directiveEditFlow() {
                     { $type: 'execute', name: 'Execute' },
                     { $type: 'steps', name: 'Steps' },
                 ];
+
+                scope.setStatementType = (st) => {
+                    if (getState().editFlowStatementType !== null &&
+                        getState().editFlowStatementType.$type === st.$type) {
+                        getState().editFlowStatementType = null;
+                    } else {
+                        getState().editFlowStatementType = st;
+                    }
+                };
             },
             template: `
             <button 
@@ -143,7 +152,11 @@ function directiveEditFlow() {
             <button 
                 ng-repeat="st in statementTypes"
                 ng-click="setStatementType(st)"
-                class="btn btn-primary">
+                ng-class="{ 
+                    'btn-primary': st.$type == state.editFlowStatementType.$type, 
+                    'btn-secondary': st.$type != state.editFlowStatementType.$type
+                }"
+                class="btn">
                 {{ st.name }}
             </button>
             </div>
