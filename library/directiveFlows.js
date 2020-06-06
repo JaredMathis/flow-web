@@ -23,6 +23,7 @@ function directiveFlows() {
 
                 scope.editFlow = (flow) => {
                     let index = getState().flows.indexOf(flow);
+                    getState().editFlowIndex = index;
                     getState().screen = "editFlow";
                 };
             },

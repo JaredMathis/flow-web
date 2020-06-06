@@ -29,12 +29,6 @@ function directiveNewFlow() {
                 }
             },
             template: `
-            <input 
-                focus
-                type="text" 
-                class="form-control" 
-                placeholder="Flow name"
-                ng-model="state.newFlow.name">
             <button 
                 type="button" 
                 class="btn btn-primary"
@@ -47,6 +41,17 @@ function directiveNewFlow() {
                 ng-click="cancel()">
                 Cancel
             </button>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Flow name</span>
+                </div>
+                <input 
+                    focus
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Flow name"
+                    ng-model="state.newFlow.name">
+            </div>
             `
         };
     });

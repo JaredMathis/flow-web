@@ -11,3 +11,4 @@ require("./tests/directiveFlows/directiveFlows.js");
 require("./tests/getState/getState.js");
 require("./tests/directiveNewFlow/directiveNewFlow.js");
 require("./tests/directiveFocus/directiveFocus.js");
+require("./tests/directiveEditFlow/directiveEditFlow.js");

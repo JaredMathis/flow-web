@@ -5277,7 +5277,48 @@ function stringSuffix(string, count) {
     });
     return result;
 }
-},{"./library/assert":103,"./library/isArray":115,"./library/isDefined":116,"./library/isInteger":118,"./library/isString":120,"./library/loop":122,"./library/merge":123,"./library/scope":128}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./library/assert":103,"./library/isArray":115,"./library/isDefined":116,"./library/isInteger":118,"./library/isString":120,"./library/loop":122,"./library/merge":123,"./library/scope":128}],"/library/directiveEditFlow.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getState = require("./getState");
+
+module.exports = directiveEditFlow;
+
+function directiveEditFlow() {
+    let result;
+    u.scope(directiveEditFlow.name, x => {
+        result = {
+            link: function (scope, element, attrs) {
+                scope.state = getState();
+
+                scope.back = () => {
+                    getState().screen = 'flows';
+                }
+            },
+            template: `
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Flow name</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Flow name"
+                    ng-model="state.flows[state.editFlowIndex].name">
+            </div>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back
+            </button>
+            `
+        };
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -5303,6 +5344,7 @@ function directiveFlows() {
 
                 scope.editFlow = (flow) => {
                     let index = getState().flows.indexOf(flow);
+                    getState().editFlowIndex = index;
                     getState().screen = "editFlow";
                 };
             },
@@ -5421,6 +5463,10 @@ function directiveHome() {
             <div ng-if="state.screen == 'newFlow'">
                 <new-flow></new-flow>
             </div>
+            <div ng-if="state.screen == 'editFlow'">
+                <edit-flow></edit-flow>
+            </div>
+            {{ state }}
             `
         }
     });
@@ -5459,12 +5505,17 @@ function directiveNewFlow() {
                 }
             },
             template: `
-            <input 
-                focus
-                type="text" 
-                class="form-control" 
-                placeholder="Flow name"
-                ng-model="state.newFlow.name">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Flow name</span>
+                </div>
+                <input 
+                    focus
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Flow name"
+                    ng-model="state.newFlow.name">
+            </div>
             <button 
                 type="button" 
                 class="btn btn-primary"
