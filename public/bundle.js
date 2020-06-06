@@ -5305,6 +5305,15 @@ function directiveEditFlow() {
                     getState().flows[getState().editFlowIndex].inputs.push(newInput);
                 }
 
+                scope.addOutput = () => {
+                    let counter = getState().flows[getState().editFlowIndex].outputs.length + 1;
+                    let newOutput = {
+                        name: 'output' + counter,
+                        type: flow.typeInt(),
+                    }
+                    getState().flows[getState().editFlowIndex].outputs.push(newOutput);
+                }
+
                 scope.deleteInput = (input) => {
                     let index = getState().flows[getState().editFlowIndex].inputs.indexOf(input);
                     getState().flows[getState().editFlowIndex].inputs.splice(index, 1);
@@ -5377,6 +5386,13 @@ function directiveEditFlow() {
                     class="form-control" 
                     placeholder="Name"
                     ng-model="output.name">
+            </div>
+            <div>
+            <button 
+                ng-click="addOutput()"
+                class="btn btn-primary">
+                Add Output
+            </button>
             </div>
             `
         };
