@@ -24,6 +24,11 @@ function directiveEditFlow() {
                     }
                     getState().flows[getState().editFlowIndex].inputs.push(newInput);
                 }
+
+                scope.deleteInput = (input) => {
+                    let index = getState().flows[getState().editFlowIndex].inputs.indexOf(input);
+                    getState().flows[getState().editFlowIndex].inputs.splice(index, 1);
+                }
             },
             template: `
             <button 
@@ -63,7 +68,7 @@ function directiveEditFlow() {
                     placeholder="Name"
                     ng-model="input.name">
                 <button 
-                    ng-click="deleteInput()"
+                    ng-click="deleteInput(input)"
                     class="btn btn-danger">
                     Delete Input
                 </button>
