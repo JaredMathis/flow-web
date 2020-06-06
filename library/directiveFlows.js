@@ -15,6 +15,11 @@ function directiveFlows() {
                 scope.createNewFlow = () => {
                     getState().screen = "newFlow";
                 };
+
+                scope.deleteFlow = (flow) => {
+                    let index = getState().flows.indexOf(flow);
+                    getState().flows.splice(index, 1);
+                }
             },
             template: `
             <button 
@@ -41,6 +46,14 @@ function directiveFlows() {
                                     {{ o.name }}
                                 </span>
                             )
+                        </td>
+                        <td>
+                            <button 
+                                ng-click="deleteFlow(flow)"
+                                type="button" 
+                                class="btn btn-danger">
+                                Delete
+                            </button>
                         </td>
                     <tr>
                 </tbody>
