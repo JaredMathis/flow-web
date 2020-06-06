@@ -20,13 +20,26 @@ function directiveEditFlowSteps() {
                     let statement = newStatement();
                     scope.statement.steps.push(statement);
                 };
+
+                scope.deleteStatement = (s) => {
+                    let index = scope.statement.steps.indexOf(s);
+                    scope.statement.steps.splice(index, 1);
+                }
             },
             template: `
             <div>
                 Steps
             </div>
-            <div>
-                {{ statement.steps }}
+            <div ng-repeat="s in statement.steps track by $index">  
+                <button 
+                    class="btn btn-danger"
+                    ng-click="deleteStatement(s)">
+                    Delete Statement
+                </button>
+                <edit-flow-statement
+                    statement="s">
+                </edit-flow-statement>
+                {{ s }}
             </div>
             <button 
                 class="btn btn-primary"

@@ -1,7 +1,21 @@
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 
 module.exports = directiveEditFlowStatement;
+
+let log = false;
+let template;
+u.scope(__filename, x => {
+    template = flow.getStatements().map(s => `
+<div ng-if="statement.$type == '${s}'">
+    <edit-flow-${s} statement="statement">
+    </edit-flow-${s}>
+</div>
+`).join('');
+
+    if (log) console.log(template)
+})
 
 function directiveEditFlowStatement() {
     let result;
@@ -15,14 +29,7 @@ function directiveEditFlowStatement() {
             template: `
             <div class="card">
                 <div class="card-body">
-                    <div ng-if="statement.$type == 'steps'">
-                        <edit-flow-steps statement="statement">
-                        </edit-flow-steps>
-                    </div>
-                    <div ng-if="statement.$type == 'block'">
-                        <edit-flow-block statement="statement">
-                        </edit-flow-block>
-                    </div>
+                    ${template}
                 </div>
             </div>
             `

@@ -5486,10 +5486,25 @@ function directiveEditFlowBlock() {
 }
 
 },{"wlj-utilities":98}],"/library/directiveEditFlowStatement.js":[function(require,module,exports){
+(function (__filename){
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 
 module.exports = directiveEditFlowStatement;
+
+let log = false;
+let template;
+u.scope(__filename, x => {
+    template = flow.getStatements().map(s => `
+<div ng-if="statement.$type == '${s}'">
+    <edit-flow-${s} statement="statement">
+    </edit-flow-${s}>
+</div>
+`).join('');
+
+    if (log) console.log(template)
+})
 
 function directiveEditFlowStatement() {
     let result;
@@ -5503,14 +5518,7 @@ function directiveEditFlowStatement() {
             template: `
             <div class="card">
                 <div class="card-body">
-                    <div ng-if="statement.$type == 'steps'">
-                        <edit-flow-steps statement="statement">
-                        </edit-flow-steps>
-                    </div>
-                    <div ng-if="statement.$type == 'block'">
-                        <edit-flow-block statement="statement">
-                        </edit-flow-block>
-                    </div>
+                    ${template}
                 </div>
             </div>
             `
@@ -5519,7 +5527,8 @@ function directiveEditFlowStatement() {
     return result;
 }
 
-},{"wlj-utilities":98}],"/library/directiveEditFlowSteps.js":[function(require,module,exports){
+}).call(this,"/library/directiveEditFlowStatement.js")
+},{"wlj-flow":2,"wlj-utilities":98}],"/library/directiveEditFlowSteps.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -5542,13 +5551,26 @@ function directiveEditFlowSteps() {
                     let statement = newStatement();
                     scope.statement.steps.push(statement);
                 };
+
+                scope.deleteStatement = (s) => {
+                    let index = scope.statement.steps.indexOf(s);
+                    scope.statement.steps.splice(index, 1);
+                }
             },
             template: `
             <div>
                 Steps
             </div>
-            <div>
-                {{ statement.steps }}
+            <div ng-repeat="s in statement.steps track by $index">  
+                <button 
+                    class="btn btn-danger"
+                    ng-click="deleteStatement(s)">
+                    Delete Statement
+                </button>
+                <edit-flow-statement
+                    statement="s">
+                </edit-flow-statement>
+                {{ s }}
             </div>
             <button 
                 class="btn btn-primary"
