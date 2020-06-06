@@ -62,6 +62,11 @@ function directiveEditFlow() {
                     class="form-control" 
                     placeholder="Name"
                     ng-model="input.name">
+                <button 
+                    ng-click="deleteInput()"
+                    class="btn btn-danger">
+                    Delete Input
+                </button>
             </div>
             <div>
             <button 
