@@ -5584,8 +5584,23 @@ function directiveEditFlowExecute() {
 
             <div>Inputs</div>
             <div ng-repeat="input in selectedFlow().inputs">
-                {{ input.name }} {{getAvailableVariablesForType(input.type)}}
+                <select 
+                    class="custom-select"
+                    ng-model="statement.inputs[input.name]"
+                    ng-options="v.name as v.name for v in getAvailableVariablesForType(input.type)">
+                </select>                
             </div>
+
+            <div>Outputs</div>
+            <div ng-repeat="input in selectedFlow().outputs">
+                <select 
+                    class="custom-select"
+                    ng-model="statement.outputs[output.name]"
+                    ng-options="v.name as v.name for v in getAvailableVariablesForType(input.type)">
+                </select>                
+            </div>
+
+            {{ statement }}
             `
         };
     });
