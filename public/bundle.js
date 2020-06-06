@@ -5296,9 +5296,18 @@ function directiveEditFlow() {
                 }
             },
             template: `
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back
+            </button>
+            <div>
+                Edit Flow - {{ state.flows[state.editFlowIndex].name }}
+            </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Flow name</span>
+                    <span class="input-group-text">Name</span>
                 </div>
                 <input 
                     type="text" 
@@ -5306,12 +5315,42 @@ function directiveEditFlow() {
                     placeholder="Flow name"
                     ng-model="state.flows[state.editFlowIndex].name">
             </div>
-            <button 
-                type="button" 
-                class="btn btn-primary"
-                ng-click="back()">
-                Back
-            </button>
+            
+            <Div>
+                Inputs 
+                <span ng-if="state.flows[state.editFlowIndex].inputs.length === 0">
+                    (None)
+                </span>
+            </div>
+            <div class="input-group"
+                ng-repeat="input in state.flows[state.editFlowIndex].inputs">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Name"
+                    ng-model="input.name">
+            </div>
+
+            <div>
+                Outputs
+                <span ng-if="state.flows[state.editFlowIndex].outputs.length === 0">
+                    (None)
+                </span>
+            </div>
+            <div class="input-group"
+                ng-repeat="output in state.flows[state.editFlowIndex].outputs">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Name"
+                    ng-model="output.name">
+            </div>
             `
         };
     });
@@ -5505,17 +5544,6 @@ function directiveNewFlow() {
                 }
             },
             template: `
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Flow name</span>
-                </div>
-                <input 
-                    focus
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Flow name"
-                    ng-model="state.newFlow.name">
-            </div>
             <button 
                 type="button" 
                 class="btn btn-primary"
@@ -5528,6 +5556,17 @@ function directiveNewFlow() {
                 ng-click="cancel()">
                 Cancel
             </button>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Flow name</span>
+                </div>
+                <input 
+                    focus
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Flow name"
+                    ng-model="state.newFlow.name">
+            </div>
             `
         };
     });
