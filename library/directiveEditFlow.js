@@ -2,6 +2,7 @@
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const getState = require("./getState");
+const getEditFlow = require("./getEditFlow");
 
 module.exports = directiveEditFlow;
 
@@ -17,9 +18,7 @@ function directiveEditFlow() {
                         getState().screen = 'flows';
                     }
 
-                    scope.flow = () => {
-                        return getState().flows[getState().editFlowIndex];
-                    }
+                    scope.flow = getEditFlow;
 
                     if (scope.flow().statement === null) {
                         scope.flow().statement = flow.block([], flow.steps([]));

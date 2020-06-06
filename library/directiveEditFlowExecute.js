@@ -1,6 +1,8 @@
 
 const u = require("wlj-utilities");
+const flow = require("wlj-flow");
 const getState = require("./getState");
+const getEditFlow = require("./getEditFlow");
 
 module.exports = directiveEditFlowExecute;
 
@@ -22,6 +24,15 @@ function directiveEditFlowExecute() {
                     })
                     return result
                 }
+
+                scope.getAvailableVariables = () => {
+                    return flow.getAvailableVariables(getEditFlow())
+                }
+
+                scope.getAvailableVariablesForType = type => {
+                    return scope.getAvailableVariables()
+                        .filter(v => JSON.stringify(v.type) === JSON.stringify(type))
+                }
             },
             template: `
             <div>
@@ -35,7 +46,7 @@ function directiveEditFlowExecute() {
 
             <div>Inputs</div>
             <div ng-repeat="input in selectedFlow().inputs">
-                {{ input }}
+                {{ input.name }} {{getAvailableVariablesForType(input.type)}}
             </div>
             `
         };
