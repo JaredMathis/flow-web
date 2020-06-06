@@ -11,3 +11,6 @@ module.exports.getState = require("./library/getState.js");
 module.exports.directiveNewFlow = require("./library/directiveNewFlow.js");
 module.exports.directiveFocus = require("./library/directiveFocus.js");
 module.exports.directiveEditFlow = require("./library/directiveEditFlow.js");
+module.exports.directiveEditFlowStatement = require("./library/directiveEditFlowStatement.js");
+module.exports.directiveEditFlowSteps = require("./library/directiveEditFlowSteps.js");
+module.exports.directiveEditFlowBlock = require("./library/directiveEditFlowBlock.js");

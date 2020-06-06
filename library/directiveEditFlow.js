@@ -20,6 +20,10 @@ function directiveEditFlow() {
                     return getState().flows[getState().editFlowIndex];
                 }
 
+                if (scope.flow().statement === null) {
+                    scope.flow().statement = flow.block([], flow.steps([]));
+                }
+
                 scope.addInput = () => {
                     let counter = scope.flow().inputs.length + 1;
                     let newInput = {
@@ -47,6 +51,12 @@ function directiveEditFlow() {
                     let index = scope.flow().outputs.indexOf(output);
                     scope.flow().outputs.splice(index, 1);
                 }
+
+                scope.statementTypes = [
+                    { $type: 'block', name: 'Block' },
+                    { $type: 'execute', name: 'Execute' },
+                    { $type: 'steps', name: 'Steps' },
+                ];
             },
             template: `
             <button 
@@ -128,6 +138,18 @@ function directiveEditFlow() {
                 Add Output
             </button>
             </div>
+
+            <div>
+            <button 
+                ng-repeat="st in statementTypes"
+                ng-click="setStatementType(st)"
+                class="btn btn-primary">
+                {{ st.name }}
+            </button>
+            </div>
+
+            <edit-flow-statement statement="flow().statement">
+            <edit-flow-statement>
             `
         };
     });

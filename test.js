@@ -12,3 +12,6 @@ require("./tests/getState/getState.js");
 require("./tests/directiveNewFlow/directiveNewFlow.js");
 require("./tests/directiveFocus/directiveFocus.js");
 require("./tests/directiveEditFlow/directiveEditFlow.js");
+require("./tests/directiveEditFlowStatement/directiveEditFlowStatement.js");
+require("./tests/directiveEditFlowSteps/directiveEditFlowSteps.js");
+require("./tests/directiveEditFlowBlock/directiveEditFlowBlock.js");

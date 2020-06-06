@@ -26,6 +26,8 @@ function directiveNewFlow() {
                         [],
                         null);
                     getState().flows.push(newFlow);
+                    getState().editFlowIndex = getState().flows.indexOf(newFlow);
+                    getState().screen = 'editFlow';
                 }
             },
             template: `
