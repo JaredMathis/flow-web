@@ -5455,6 +5455,10 @@ function directiveEditFlow() {
                         getState().screen = 'flows';
                     }
 
+                    scope.tests = () => {
+                        getState().screen = 'tests';
+                    }
+
                     scope.flow = getEditFlow;
 
                     if (scope.flow().statement === null) {
@@ -5519,6 +5523,12 @@ function directiveEditFlow() {
                 class="btn btn-primary"
                 ng-click="back()">
                 Back to Flows
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="tests()">
+                Tests
             </button>
             <div>
                 Edit Flow - {{ flow().name }}
@@ -5904,6 +5914,12 @@ function directiveFlows() {
                     getState().editFlowIndex = index;
                     getState().screen = "editFlow";
                 };
+
+                scope.testFlow = (flow) => {
+                    let index = getState().flows.indexOf(flow);
+                    getState().editFlowIndex = index;
+                    getState().screen = "tests";
+                };
             },
             template: `
             <button 
@@ -5938,6 +5954,13 @@ function directiveFlows() {
                             type="button" 
                             class="btn btn-primary">
                             Edit Flow
+                        </button>
+
+                        <button 
+                            ng-click="testFlow(flow)"
+                            type="button" 
+                            class="btn btn-primary">
+                            Tests
                         </button>
 
                         <button 
@@ -6025,6 +6048,9 @@ function directiveHome() {
             <div ng-if="state.screen == 'editFlow'">
                 <edit-flow></edit-flow>
             </div>
+            <div ng-if="state.screen == 'tests'">
+                <tests></tests>
+            </div>
             {{ state }}
             `
         }
@@ -6096,7 +6122,46 @@ function directiveNewFlow() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],"/library/getAvailableVariables.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":2,"wlj-utilities":98}],"/library/directiveTests.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getState = require("./getState");
+
+module.exports = directiveTests;
+
+function directiveTests() {
+    let result;
+    u.scope(directiveTests.name, x => {
+        result = {
+            link: function (scope, element, attrs) {
+                scope.back = () => {
+                    getState().screen = 'flows';
+                }
+                scope.editor = () => {
+                    getState().screen = 'editFlow';
+                }
+            },
+            template: `
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back to Flows
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="editor()">
+                Editor
+            </button>
+            
+            `
+        }
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-utilities":98}],"/library/getAvailableVariables.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const getEditFlow = require("./getEditFlow");

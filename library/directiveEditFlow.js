@@ -18,6 +18,10 @@ function directiveEditFlow() {
                         getState().screen = 'flows';
                     }
 
+                    scope.tests = () => {
+                        getState().screen = 'tests';
+                    }
+
                     scope.flow = getEditFlow;
 
                     if (scope.flow().statement === null) {
@@ -82,6 +86,12 @@ function directiveEditFlow() {
                 class="btn btn-primary"
                 ng-click="back()">
                 Back to Flows
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="tests()">
+                Tests
             </button>
             <div>
                 Edit Flow - {{ flow().name }}

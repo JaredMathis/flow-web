@@ -48,6 +48,9 @@ function directiveHome() {
             <div ng-if="state.screen == 'editFlow'">
                 <edit-flow></edit-flow>
             </div>
+            <div ng-if="state.screen == 'tests'">
+                <tests></tests>
+            </div>
             {{ state }}
             `
         }
