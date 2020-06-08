@@ -1,8 +1,10 @@
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
-const libary = flow.getLibrary();
+const library = flow.getLibrary();
 const getState = require('./getState');
+
+console.log({library});
 
 module.exports = directiveHome;
 
@@ -15,7 +17,7 @@ function directiveHome() {
 
                 let defaultState = {
                     screen: 'flows',
-                    flows: libary,
+                    flows: library,
                 };
                 u.merge(getState(), defaultState);
 

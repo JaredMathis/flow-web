@@ -21,7 +21,7 @@ function directiveEditFlow() {
                     scope.flow = getEditFlow;
 
                     if (scope.flow().statement === null) {
-                        scope.flow().statement = flow.block([], flow.steps([]));
+                        scope.flow().statement = flow.steps([]);
                     }
 
                     scope.addInput = () => {
@@ -53,7 +53,6 @@ function directiveEditFlow() {
                     }
 
                     scope.statementTypes = [
-                        { $type: 'block', name: 'Block' },
                         { $type: 'evaluate', name: 'Evaluate' },
                         { $type: 'execute', name: 'Execute' },
                         { $type: 'loop', name: 'Loop' },
@@ -68,7 +67,7 @@ function directiveEditFlow() {
                     u.assert(() => u.isSetEqual(statementTypes, flow.getStatements()));
 
                     scope.setStatementType = (st) => {
-                        if (getState().editFlowStatementType !== null &&
+                        if (getState().editFlowStatementType &&
                             getState().editFlowStatementType.$type === st.$type) {
                             getState().editFlowStatementType = null;
                         } else {

@@ -1,7 +1,6 @@
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
-const library = flow.getLibrary();
 
 const getState = require("./getState");
 

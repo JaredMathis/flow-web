@@ -9,9 +9,6 @@ function newStatement() {
     let result;
     u.scope(newStatement.name, x => {
         let statements = {
-            'block': () => {
-                u.assert(false);  
-            },
             'evaluate': () => {
                 u.assert(false);  
             },

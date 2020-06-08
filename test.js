@@ -18,3 +18,7 @@ require("./tests/directiveEditFlowBlock/directiveEditFlowBlock.js");
 require("./tests/newStatement/newStatement.js");
 require("./tests/directiveEditFlowExecute/directiveEditFlowExecute.js");
 require("./tests/getEditFlow/getEditFlow.js");
+require("./tests/directiveEditFlowEvaluate/directiveEditFlowEvaluate.js");
+require("./tests/directiveEditFlowSet/1.js");
+require("./tests/getAvailableVariables/1.js");
+require("./tests/getAvailableVariablesForType/1.js");

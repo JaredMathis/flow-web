@@ -24,6 +24,7 @@ function directiveNewFlow() {
                         getState().newFlow.name,
                         [],
                         [],
+                        [],
                         null);
                     getState().flows.push(newFlow);
                     getState().editFlowIndex = getState().flows.indexOf(newFlow);
