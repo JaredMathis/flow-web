@@ -8203,14 +8203,12 @@ function directiveNewFlow() {
 const u = require("wlj-utilities");
 const getState = require("./getState");
 const getEditFlow = require('./getEditFlow');
-const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
 const flow = require('wlj-flow');
-const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
-const compileAssertIsType = flow.compileAssertIsType;
+const runTests = require('./runTests');
 
 module.exports = directiveTests;
 
-function directiveTests($q) {
+function directiveTests() {
     let result;
     u.scope(directiveTests.name, x => {
         result = {
@@ -8235,46 +8233,10 @@ function directiveTests($q) {
 
                 scope.getKeys = Object.keys;
 
-                scope.runTests = () => { 
-                    console.log('runTests entered');
-
-                    u.loop(scope.getTests(), t => {
-                        console.log('testing', {t});
-                        t.run = {};
-                        t.run.when = new Date();
-                        compileAndTest((text) => {
-                            let code;
-                            let actual;
-                            try {
-                                eval(text);
-                
-                                u.merge(x, () => scope.flow().name);
-
-                                let input = {};
-                                for (let k in t.input) {
-                                    input[k] = JSON.parse(t.input[k]);
-                                }
-
-                                code = `actual = ${scope.flow().name}(${JSON.stringify(input)})`;
-                                eval(code);
-
-                                let expected = {};
-                                for (let k in t.output) {
-                                    expected[k] = JSON.parse(t.output[k]);
-                                }
-            
-                                u.assertIsEqualJson(() => actual, () => expected);
-
-                                t.run.success = true;
-                            } catch (e) {
-                                console.log(text);
-                                console.log({code});
-                                t.run.success = false;
-                                throw e;
-                            }
-                        });
-                    });
-                }
+                scope.runTests = () => {
+                    let tests = scope.getTests();
+                    runTests(tests);
+                };
 
                 scope.addTest = function () {
                     const newTest = {};
@@ -8366,7 +8328,7 @@ function directiveTests($q) {
     return result;
 }
 
-},{"./getEditFlow":"/library/getEditFlow.js","./getState":"/library/getState.js","wlj-flow":10,"wlj-flow/tests/compile/compileAndTest":64,"wlj-utilities":141}],"/library/getAvailableVariables.js":[function(require,module,exports){
+},{"./getEditFlow":"/library/getEditFlow.js","./getState":"/library/getState.js","./runTests":"/library/runTests.js","wlj-flow":10,"wlj-utilities":141}],"/library/getAvailableVariables.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const getEditFlow = require("./getEditFlow");
@@ -8490,7 +8452,60 @@ function newStatement() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-flow":10,"wlj-utilities":141}],197:[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":10,"wlj-utilities":141}],"/library/runTests.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const flow = require('wlj-flow');
+const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
+const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
+const compileAssertIsType = flow.compileAssertIsType;
+
+module.exports = runTests;
+
+function runTests(tests) {
+    let result;
+    u.scope(runTests.name, x => {
+        u.loop(tests, t => {
+            console.log('testing', {t});
+            t.run = {};
+            t.run.when = new Date();
+            compileAndTest((text) => {
+                let code;
+                let actual;
+                try {
+                    eval(text);
+    
+                    u.merge(x, () => t.name);
+
+                    let input = {};
+                    for (let k in t.input) {
+                        input[k] = JSON.parse(t.input[k]);
+                    }
+
+                    code = `actual = ${t.name}(${JSON.stringify(input)})`;
+                    eval(code);
+
+                    let expected = {};
+                    for (let k in t.output) {
+                        expected[k] = JSON.parse(t.output[k]);
+                    }
+
+                    u.assertIsEqualJson(() => actual, () => expected);
+
+                    t.run.success = true;
+                } catch (e) {
+                    console.log(text);
+                    console.log({code});
+                    t.run.success = false;
+                    throw e;
+                }
+            });
+        });
+    });
+    return result;
+}
+
+},{"wlj-flow":10,"wlj-flow/tests/compile/compileAndTest":64,"wlj-utilities":141}],197:[function(require,module,exports){
 
 },{}],198:[function(require,module,exports){
 var asn1 = exports;

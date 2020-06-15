@@ -25,3 +25,4 @@ require("./tests/getAvailableVariablesForType/1.js");
 require("./tests/directiveTests/1.js");
 require("./tests/directiveEditFlowLoop/1.js");
 require("./tests/directiveData/1.js");
+require("./tests/testFlow/1.js");

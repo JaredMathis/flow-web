@@ -2,14 +2,12 @@
 const u = require("wlj-utilities");
 const getState = require("./getState");
 const getEditFlow = require('./getEditFlow');
-const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
 const flow = require('wlj-flow');
-const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
-const compileAssertIsType = flow.compileAssertIsType;
+const runTests = require('./runTests');
 
 module.exports = directiveTests;
 
-function directiveTests($q) {
+function directiveTests() {
     let result;
     u.scope(directiveTests.name, x => {
         result = {
@@ -34,46 +32,10 @@ function directiveTests($q) {
 
                 scope.getKeys = Object.keys;
 
-                scope.runTests = () => { 
-                    console.log('runTests entered');
-
-                    u.loop(scope.getTests(), t => {
-                        console.log('testing', {t});
-                        t.run = {};
-                        t.run.when = new Date();
-                        compileAndTest((text) => {
-                            let code;
-                            let actual;
-                            try {
-                                eval(text);
-                
-                                u.merge(x, () => scope.flow().name);
-
-                                let input = {};
-                                for (let k in t.input) {
-                                    input[k] = JSON.parse(t.input[k]);
-                                }
-
-                                code = `actual = ${scope.flow().name}(${JSON.stringify(input)})`;
-                                eval(code);
-
-                                let expected = {};
-                                for (let k in t.output) {
-                                    expected[k] = JSON.parse(t.output[k]);
-                                }
-            
-                                u.assertIsEqualJson(() => actual, () => expected);
-
-                                t.run.success = true;
-                            } catch (e) {
-                                console.log(text);
-                                console.log({code});
-                                t.run.success = false;
-                                throw e;
-                            }
-                        });
-                    });
-                }
+                scope.runTests = () => {
+                    let tests = scope.getTests();
+                    runTests(tests);
+                };
 
                 scope.addTest = function () {
                     const newTest = {};

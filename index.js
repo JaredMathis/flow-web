@@ -24,3 +24,4 @@ module.exports.getAvailableVariablesForType = require("./library/getAvailableVar
 module.exports.directiveTests = require("./library/directiveTests.js");
 module.exports.directiveEditFlowLoop = require("./library/directiveEditFlowLoop.js");
 module.exports.directiveData = require("./library/directiveData.js");
+module.exports.testFlow = require("./library/testFlow.js");
