@@ -8164,7 +8164,7 @@ function directiveTests() {
                 
                 scope.getKeys = Object.keys;
 
-                scope.runTests = () => {
+                scope.runTests = () => {                    
                     u.loop(scope.getTests(), t => {
                         compileAndTest((text) => {
                             let code;
@@ -8176,11 +8176,19 @@ function directiveTests() {
 
                                 code = `actual = ${scope.flow().name}(${JSON.stringify(t.input)})`;
                                 eval(code);
+
+                                let expected = {};
+                                for (let k in t.output) {
+                                    expected[k] = JSON.parse(t.output[k]);
+                                }
             
-                                u.assertIsEqualJson(() => actual, () => t.output);
+                                u.assertIsEqualJson(() => actual, () => expected);
+
+                                t.success = true;
                             } catch (e) {
                                 console.log(text);
                                 console.log({code});
+                                t.success = false;
                                 throw e;
                             }
                         });
@@ -8214,7 +8222,8 @@ function directiveTests() {
 
             <table class="table">
                 <tbody>
-                    <tr ng-repeat="test in getTests() track by $index">
+                    <tr ng-repeat="test in getTests() track by $index"
+                    ng-class="{ 'table-success': test.success === true, 'table-danger': test.success === false }">
                         <td>
                         Inputs
                         <div ng-repeat="input in flow().inputs">
