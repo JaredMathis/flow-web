@@ -23,3 +23,4 @@ require("./tests/directiveEditFlowSet/1.js");
 require("./tests/getAvailableVariables/1.js");
 require("./tests/getAvailableVariablesForType/1.js");
 require("./tests/directiveTests/1.js");
+require("./tests/directiveEditFlowLoop/1.js");

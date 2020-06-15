@@ -7095,7 +7095,43 @@ function directiveEditFlowExecute() {
     return result;
 }
 
-},{"./getAvailableVariablesForType":"/library/getAvailableVariablesForType.js","./getState":"/library/getState.js","wlj-flow":10,"wlj-utilities":101}],"/library/directiveEditFlowSet.js":[function(require,module,exports){
+},{"./getAvailableVariablesForType":"/library/getAvailableVariablesForType.js","./getState":"/library/getState.js","wlj-flow":10,"wlj-utilities":101}],"/library/directiveEditFlowLoop.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getAvailableVariablesList = require("./getAvailableVariablesList");
+
+module.exports = directiveEditFlowLoop;
+
+function directiveEditFlowLoop() {
+    let result;
+    u.scope(directiveEditFlowLoop.name, x => {
+        result = {
+            scope: {
+                statement: '=',
+            },
+            link: function (scope, element, attrs) {
+                scope.getAvailableVariablesList = getAvailableVariablesList;
+            },
+            template: `
+            Loop
+            
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Array</span>
+                </div>
+                <select 
+                    class="custom-select"
+                    ng-model="statement.array"
+                    ng-options="v.name as v.name for v in getAvailableVariablesList()">
+                </select>
+            </div>
+            `
+        };
+    });
+    return result;
+}
+
+},{"./getAvailableVariablesList":"/library/getAvailableVariablesList.js","wlj-utilities":101}],"/library/directiveEditFlowSet.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 
@@ -7564,6 +7600,25 @@ function getAvailableVariablesForType(type) {
         u.merge(x, {availableVariables});
         result = availableVariables
             .filter(v => JSON.stringify(v.type) === JSON.stringify(type));
+        u.merge(x, {result});
+    });
+    return result;
+}
+
+},{"./getAvailableVariables":"/library/getAvailableVariables.js","wlj-utilities":101}],"/library/getAvailableVariablesList.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getAvailableVariables = require("./getAvailableVariables");
+
+module.exports = getAvailableVariablesList;
+
+function getAvailableVariablesList(type) {
+    let result;
+    u.scope(getAvailableVariablesList.name, x => {
+        let availableVariables = getAvailableVariables();
+        u.merge(x, {availableVariables});
+        result = availableVariables
+            .filter(v => v.type.$type === 'typeList');
         u.merge(x, {result});
     });
     return result;
