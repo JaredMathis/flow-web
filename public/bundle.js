@@ -7312,7 +7312,57 @@ function unwrapIfLambda(input) {
     return result;
 }
 
-},{"./isFunction":174,"./scope":189}],"/library/directiveEditFlow.js":[function(require,module,exports){
+},{"./isFunction":174,"./scope":189}],"/library/directiveData.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+const getState = require("./getState");
+
+module.exports = directiveData;
+
+function directiveData() {
+    let result;
+    u.scope(directiveData.name, x => {
+        result = {
+            scope: {
+                statement: '=',
+            },
+            link: function (scope, element, attrs) {
+                scope.back = () => {
+                    getState().screen = "flows";
+                };
+
+                scope.data = JSON.stringify(getState(), null, 3);
+
+                scope.updateData = () => {
+                    let parsed = JSON.parse(scope.data);
+                    u.loop(Object.keys(parsed), k => {
+                        u.merge(getState(), parsed[k]);
+                    });
+                };
+            },
+            template: `
+            <div>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back to Flows
+            </button>
+            </div>
+            <textarea 
+            class="form-control" 
+            rows="10"
+                style="font-family:monospace;"
+                ng-model="data" 
+                ng-change="updateData()">
+            </textarea>
+            `
+        };
+    });
+    return result;
+}
+
+},{"./getState":"/library/getState.js","wlj-utilities":141}],"/library/directiveEditFlow.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -7914,6 +7964,9 @@ function directiveFlows() {
                 scope.createNewFlow = () => {
                     getState().screen = "newFlow";
                 };
+                scope.data = () => {
+                    getState().screen = "data";
+                };
 
                 scope.deleteFlow = (flow) => {
                     let index = getState().flows.indexOf(flow);
@@ -7938,6 +7991,12 @@ function directiveFlows() {
                 class="btn btn-primary"
                 ng-click="createNewFlow()">
                 Create New Flow
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="data()">
+                Data
             </button>
             <table class="table">
                 <tbody>
@@ -8061,6 +8120,9 @@ function directiveHome() {
             </div>
             <div ng-if="state.screen == 'tests'">
                 <tests></tests>
+            </div>
+            <div ng-if="state.screen == 'data'">
+                <data></data>
             </div>
             `
         }

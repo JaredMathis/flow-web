@@ -14,6 +14,9 @@ function directiveFlows() {
                 scope.createNewFlow = () => {
                     getState().screen = "newFlow";
                 };
+                scope.data = () => {
+                    getState().screen = "data";
+                };
 
                 scope.deleteFlow = (flow) => {
                     let index = getState().flows.indexOf(flow);
@@ -38,6 +41,12 @@ function directiveFlows() {
                 class="btn btn-primary"
                 ng-click="createNewFlow()">
                 Create New Flow
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="data()">
+                Data
             </button>
             <table class="table">
                 <tbody>

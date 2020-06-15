@@ -51,6 +51,9 @@ function directiveHome() {
             <div ng-if="state.screen == 'tests'">
                 <tests></tests>
             </div>
+            <div ng-if="state.screen == 'data'">
+                <data></data>
+            </div>
             `
         }
     });

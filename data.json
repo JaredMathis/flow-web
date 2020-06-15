@@ -1,0 +1,867 @@
+{
+    "screen": "data",
+    "flows": [
+       {
+          "$type": "defineFunction",
+          "name": "add",
+          "inputs": [
+             {
+                "name": "x",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:13"
+             },
+             {
+                "name": "y",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:14"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:17"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=x+y"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "divide",
+          "inputs": [
+             {
+                "name": "x",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:19"
+             },
+             {
+                "name": "y",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:20"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:23"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=Math.floor(x/y);"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "count",
+          "inputs": [
+             {
+                "name": "list",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeInt"
+                   }
+                },
+                "$$hashKey": "object:25"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:27"
+             }
+          ],
+          "variables": [
+             {
+                "name": "one",
+                "type": {
+                   "$type": "typeInt"
+                }
+             }
+          ],
+          "statement": {
+             "$type": "steps",
+             "steps": [
+                {
+                   "$type": "set",
+                   "left": "result",
+                   "right": {
+                      "$type": "newInt",
+                      "value": 0
+                   }
+                },
+                {
+                   "$type": "set",
+                   "left": "one",
+                   "right": {
+                      "$type": "newInt",
+                      "value": 1
+                   }
+                },
+                {
+                   "$type": "loop",
+                   "array": "list",
+                   "element": "a",
+                   "index": "index",
+                   "statement": {
+                      "$type": "execute",
+                      "name": "add",
+                      "inputs": {
+                         "x": "result",
+                         "y": "one"
+                      },
+                      "outputs": {
+                         "result": "result"
+                      }
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "sum",
+          "inputs": [
+             {
+                "name": "list",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeInt"
+                   }
+                },
+                "$$hashKey": "object:29"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:31"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "steps",
+             "steps": [
+                {
+                   "$type": "set",
+                   "left": "result",
+                   "right": {
+                      "$type": "newInt",
+                      "value": 0
+                   }
+                },
+                {
+                   "$type": "loop",
+                   "array": "list",
+                   "element": "a",
+                   "index": "index",
+                   "statement": {
+                      "$type": "execute",
+                      "name": "add",
+                      "inputs": {
+                         "x": "result",
+                         "y": "a"
+                      },
+                      "outputs": {
+                         "result": "result"
+                      }
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "average",
+          "inputs": [
+             {
+                "name": "list",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeInt"
+                   }
+                },
+                "$$hashKey": "object:33"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:35"
+             }
+          ],
+          "variables": [
+             {
+                "name": "s",
+                "type": {
+                   "$type": "typeInt"
+                }
+             },
+             {
+                "name": "c",
+                "type": {
+                   "$type": "typeInt"
+                }
+             }
+          ],
+          "statement": {
+             "$type": "steps",
+             "steps": [
+                {
+                   "$type": "execute",
+                   "name": "sum",
+                   "inputs": {
+                      "list": "list"
+                   },
+                   "outputs": {
+                      "result": "s"
+                   }
+                },
+                {
+                   "$type": "execute",
+                   "name": "count",
+                   "inputs": {
+                      "list": "list"
+                   },
+                   "outputs": {
+                      "result": "c"
+                   }
+                },
+                {
+                   "$type": "execute",
+                   "name": "divide",
+                   "inputs": {
+                      "x": "s",
+                      "y": "c"
+                   },
+                   "outputs": {
+                      "result": "result"
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "multiply",
+          "inputs": [
+             {
+                "name": "x",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:37"
+             },
+             {
+                "name": "y",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:38"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:41"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=x*y"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "subtract",
+          "inputs": [
+             {
+                "name": "x",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:43"
+             },
+             {
+                "name": "y",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:44"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:47"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=x-y"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "mod",
+          "inputs": [
+             {
+                "name": "x",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:49"
+             },
+             {
+                "name": "y",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:50"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeInt"
+                },
+                "$$hashKey": "object:53"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=x%y;"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "set",
+          "inputs": [
+             {
+                "name": "location",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeChar"
+                   }
+                },
+                "$$hashKey": "object:55"
+             },
+             {
+                "name": "value",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeChar"
+                   }
+                },
+                "$$hashKey": "object:56"
+             }
+          ],
+          "outputs": [],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "compileSetInMemory(location,value)"
+          }
+       },
+       {
+          "$type": "defineFunction",
+          "name": "get",
+          "inputs": [
+             {
+                "name": "location",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeChar"
+                   }
+                },
+                "$$hashKey": "object:59"
+             }
+          ],
+          "outputs": [
+             {
+                "name": "result",
+                "type": {
+                   "$type": "typeList",
+                   "nested": {
+                      "$type": "typeChar"
+                   }
+                },
+                "$$hashKey": "object:61"
+             }
+          ],
+          "variables": [],
+          "statement": {
+             "$type": "evaluate",
+             "expression": "result=compileGetInMemory(location)"
+          }
+       }
+    ],
+    "tests": [
+       {
+          "input": {
+             "x": "0",
+             "y": 0
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 1
+          },
+          "output": {
+             "result": 2
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 2
+          },
+          "output": {
+             "result": 3
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 1
+          },
+          "output": {
+             "result": 3
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 2
+          },
+          "output": {
+             "result": 4
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 3
+          },
+          "output": {
+             "result": 5
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 3,
+             "y": 2
+          },
+          "output": {
+             "result": 5
+          },
+          "name": "add",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 1
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 2
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 2
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 3
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 6,
+             "y": 3
+          },
+          "output": {
+             "result": 2
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 8,
+             "y": 3
+          },
+          "output": {
+             "result": 2
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 9,
+             "y": 3
+          },
+          "output": {
+             "result": 3
+          },
+          "name": "divide",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 0,
+             "y": 0
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 0
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 0,
+             "y": 2
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 3
+          },
+          "output": {
+             "result": 3
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 4,
+             "y": 1
+          },
+          "output": {
+             "result": 4
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 5,
+             "y": 5
+          },
+          "output": {
+             "result": 25
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 6,
+             "y": 7
+          },
+          "output": {
+             "result": 42
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 8,
+             "y": -8
+          },
+          "output": {
+             "result": -64
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": -9,
+             "y": -9
+          },
+          "output": {
+             "result": 81
+          },
+          "name": "multiply",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 0,
+             "y": 0
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 0
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 2,
+             "y": 3
+          },
+          "output": {
+             "result": -1
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 0,
+             "y": 4
+          },
+          "output": {
+             "result": -4
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 6,
+             "y": 5
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": -7,
+             "y": -8
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": -9,
+             "y": 10
+          },
+          "output": {
+             "result": -19
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 5,
+             "y": -5
+          },
+          "output": {
+             "result": 10
+          },
+          "name": "subtract",
+          "success": true
+       },
+       {
+          "input": {
+             "x": 3,
+             "y": 2
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "mod"
+       },
+       {
+          "input": {
+             "x": 0,
+             "y": 2
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "mod"
+       },
+       {
+          "input": {
+             "x": 1,
+             "y": 2
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "mod"
+       },
+       {
+          "input": {
+             "x": 3,
+             "y": 3
+          },
+          "output": {
+             "result": 0
+          },
+          "name": "mod"
+       },
+       {
+          "input": {
+             "x": 4,
+             "y": 3
+          },
+          "output": {
+             "result": 1
+          },
+          "name": "mod"
+       },
+       {
+          "input": {
+             "x": 5,
+             "y": 3
+          },
+          "output": {
+             "result": 2
+          },
+          "name": "mod"
+       },
+       {
+          "name": "add",
+          "input": {
+             "x": "3",
+             "y": "3"
+          },
+          "output": {
+             "result": "6"
+          },
+          "success": true
+       },
+       {
+          "name": "count",
+          "input": {
+             "list": "[1,2,3]"
+          },
+          "output": {
+             "result": "3"
+          },
+          "success": true
+       }
+    ],
+    "editFlowIndex": 2
+ }
