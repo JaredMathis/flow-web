@@ -46,6 +46,15 @@ function directiveEditFlow() {
                         scope.flow().outputs.push(newOutput);
                     }
 
+                    scope.addVariable = () => {
+                        let counter = scope.flow().variables.length + 1;
+                        let newVariable = {
+                            name: 'variable' + counter,
+                            type: flow.typeInt(),
+                        }
+                        scope.flow().variables.push(newVariable);
+                    }
+
                     scope.deleteInput = (input) => {
                         let index = scope.flow().inputs.indexOf(input);
                         scope.flow().inputs.splice(index, 1);
@@ -54,6 +63,11 @@ function directiveEditFlow() {
                     scope.deleteOutput = (output) => {
                         let index = scope.flow().outputs.indexOf(output);
                         scope.flow().outputs.splice(index, 1);
+                    }
+
+                    scope.deleteVariable = (variable) => {
+                        let index = scope.flow().variables.indexOf(variable);
+                        scope.flow().variables.splice(index, 1);
                     }
 
                     scope.statementTypes = [
@@ -164,6 +178,36 @@ function directiveEditFlow() {
                 ng-click="addOutput()"
                 class="btn btn-primary">
                 Add Output
+            </button>
+            </div>
+
+            <Div>
+                Variables 
+                <span ng-if="flow().variables.length === 0">
+                    (None)
+                </span>
+            </div>
+            <div class="input-group"
+                ng-repeat="variable in flow().variables">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Name"
+                    ng-model="variable.name">
+                <button 
+                    ng-click="deleteVariable(variable)"
+                    class="btn btn-danger">
+                    Delete Variable
+                </button>
+            </div>
+            <div>
+            <button 
+                ng-click="addVariable()"
+                class="btn btn-primary">
+                Add Variable
             </button>
             </div>
 
