@@ -48,8 +48,17 @@ function directiveTests() {
                         <td>
                         Inputs
                         <div ng-repeat="k in getKeys(test.input)">
-                        {{ k }}
-                        {{ test.input[k] }}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ k }}</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Input {{k}} value"
+                    style="font-family:monospace;"
+                    ng-model="test.input[k]">
+            </div>
                         </div>
                         Outputs
                         <div>{{ test.output }}</div>
