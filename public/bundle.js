@@ -7350,8 +7350,8 @@ function directiveData() {
             </button>
             </div>
             <textarea 
-            class="form-control" 
-            rows="10"
+                class="form-control" 
+                rows="10"
                 style="font-family:monospace;"
                 ng-model="data" 
                 ng-change="updateData()">
@@ -8206,7 +8206,7 @@ const compileAssertIsType = flow.compileAssertIsType;
 
 module.exports = directiveTests;
 
-function directiveTests() {
+function directiveTests($q) {
     let result;
     u.scope(directiveTests.name, x => {
         result = {
@@ -8226,15 +8226,18 @@ function directiveTests() {
                     .filter(t => t.name === getEditFlow().name);
 
                 scope.successfulTests = function () {
-                    return scope.getTests().filter(t => t.success === true)
+                    return scope.getTests().filter(t => t.run && t.run.success === true)
                 }
 
                 scope.getKeys = Object.keys;
 
                 scope.runTests = () => { 
-                    console.log('runTests entered');                   
+                    console.log('runTests entered');
+
                     u.loop(scope.getTests(), t => {
                         console.log('testing', {t});
+                        t.run = {};
+                        t.run.when = new Date();
                         compileAndTest((text) => {
                             let code;
                             let actual;
@@ -8258,11 +8261,11 @@ function directiveTests() {
             
                                 u.assertIsEqualJson(() => actual, () => expected);
 
-                                t.success = true;
+                                t.run.success = true;
                             } catch (e) {
                                 console.log(text);
                                 console.log({code});
-                                t.success = false;
+                                t.run.success = false;
                                 throw e;
                             }
                         });
@@ -8305,13 +8308,14 @@ function directiveTests() {
             <table class="table">
                 <tbody>
                     <tr ng-repeat="test in getTests() track by $index"
-                    ng-class="{ 'table-success': test.success === true, 'table-danger': test.success === false }">
+                    ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
                         <td>
                         <div>
                         <button class="btn btn-primary"
                         ng-click="runTests()">
                         Run Tests
                     </button>
+                    Last ran: {{ test.run.when || 'Never' }}
                     </div>
                         Inputs
                         <div ng-repeat="input in flow().inputs">
