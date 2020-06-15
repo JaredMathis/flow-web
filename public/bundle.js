@@ -8268,6 +8268,11 @@ function directiveTests() {
 
                     getState()
                     .tests.push(newTest);
+                };
+
+                scope.deleteTest = function (test) {
+                    let index = getState().tests.indexOf(test);
+                    getState().tests.splice(index, 1);
                 }
             },
             template: `
@@ -8299,10 +8304,14 @@ function directiveTests() {
                     ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
                         <td>
                         <div>
+                        <button class="btn btn-danger"
+                            ng-click="deleteTest(test)">
+                            Delete Test
+                        </button>
                         <button class="btn btn-primary"
-                        ng-click="runTests()">
-                        Run Tests
-                    </button>
+                            ng-click="runTests()">
+                            Run Tests
+                        </button>
                     Last ran: {{ test.run.when || 'Never' }}
                     </div>
                         Inputs
