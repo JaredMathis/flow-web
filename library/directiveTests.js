@@ -17,6 +17,7 @@ function directiveTests() {
                 scope.back = () => {
                     getState().screen = 'flows';
                 }
+
                 scope.editor = () => {
                     getState().screen = 'editFlow';
                 }
@@ -26,7 +27,11 @@ function directiveTests() {
                 scope.getTests = () => getState()
                     .tests
                     .filter(t => t.name === getEditFlow().name);
-                
+
+                scope.successfulTests = function () {
+                    return scope.getTests().filter(t => t.success === true)
+                }
+
                 scope.getKeys = Object.keys;
 
                 scope.runTests = () => {                    
@@ -39,7 +44,12 @@ function directiveTests() {
                 
                                 u.merge(x, () => scope.flow().name);
 
-                                code = `actual = ${scope.flow().name}(${JSON.stringify(t.input)})`;
+                                let input = {};
+                                for (let k in t.input) {
+                                    input[k] = JSON.parse(t.input[k]);
+                                }
+
+                                code = `actual = ${scope.flow().name}(${JSON.stringify(input)})`;
                                 eval(code);
 
                                 let expected = {};
@@ -76,7 +86,9 @@ function directiveTests() {
             </button>
             </div>
 
-            {{ flow().name }} Tests
+            {{ flow().name }} Tests 
+                - {{ successfulTests().length }} 
+                out of {{ getTests().length }} successful
 
             <div>
             <button class="btn btn-primary"
