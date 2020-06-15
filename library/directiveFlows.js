@@ -34,6 +34,10 @@ function directiveFlows() {
                     getState().editFlowIndex = index;
                     getState().screen = "tests";
                 };
+
+                scope.getTests = (flow) => {
+                    return getState().tests.filter(t => t.name === flow.name);
+                }
             },
             template: `
             <button 
@@ -80,7 +84,7 @@ function directiveFlows() {
                             ng-click="testFlow(flow)"
                             type="button" 
                             class="btn btn-primary">
-                            Tests
+                            Tests ({{ getTests(flow).length }})
                         </button>
 
                         <button 
