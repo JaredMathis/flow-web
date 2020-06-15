@@ -2,6 +2,10 @@
 const u = require("wlj-utilities");
 const getState = require("./getState");
 const getEditFlow = require('./getEditFlow');
+const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
+const flow = require('wlj-flow');
+const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
+const compileAssertIsType = flow.compileAssertIsType;
 
 module.exports = directiveTests;
 
@@ -24,6 +28,29 @@ function directiveTests() {
                     .filter(t => t.name === getEditFlow().name);
                 
                 scope.getKeys = Object.keys;
+
+                scope.runTests = () => {
+                    u.loop(scope.getTests(), t => {
+                        compileAndTest((text) => {
+                            let code;
+                            let actual;
+                            try {
+                                eval(text);
+                
+                                u.merge(x, () => scope.flow().name);
+
+                                code = `actual = ${scope.flow().name}(${JSON.stringify(t.input)})`;
+                                eval(code);
+            
+                                u.assertIsEqualJson(() => actual, () => t.output);
+                            } catch (e) {
+                                console.log(text);
+                                console.log({code});
+                                throw e;
+                            }
+                        });
+                    });
+                }
             },
             template: `
             <div>
@@ -42,36 +69,44 @@ function directiveTests() {
             </div>
 
             {{ flow().name }} Tests
+
+            <div>
+            <button class="btn btn-primary"
+                ng-click="runTests()">
+                Run Tests
+            </button>
+            </div>
+
             <table class="table">
                 <tbody>
                     <tr ng-repeat="test in getTests() track by $index">
                         <td>
                         Inputs
-                        <div ng-repeat="k in getKeys(test.input)">
+                        <div ng-repeat="input in flow().inputs">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">{{ k }}</span>
+                    <span class="input-group-text">{{ input.name }}</span>
                 </div>
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Input {{k}} value"
+                    placeholder="Input {{input.name}} value"
                     style="font-family:monospace;"
-                    ng-model="test.input[k]">
+                    ng-model="test.input[input.name]">
             </div>
                         </div>
                         Outputs
-                        <div ng-repeat="k in getKeys(test.output)">
+                        <div ng-repeat="output in flow().outputs">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">{{ k }}</span>
+                    <span class="input-group-text">{{ output.name }}</span>
                 </div>
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Output {{k}} value"
+                    placeholder="Output {{output.name}} value"
                     style="font-family:monospace;"
-                    ng-model="test.output[k]">
+                    ng-model="test.output[output.name]">
             </div>
                         </div>
                         </td>
