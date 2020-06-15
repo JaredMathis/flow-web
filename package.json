@@ -18,6 +18,6 @@
   "dependencies": {
     "sync-request": "^6.1.0",
     "wlj-flow": "^1.0.10",
-    "wlj-utilities": "^1.0.61"
+    "wlj-utilities": "^1.0.80"
   }
 }
