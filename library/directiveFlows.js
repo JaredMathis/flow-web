@@ -44,6 +44,9 @@ function directiveFlows() {
                 scope.getTests = (flow) => {
                     return getState().tests.filter(t => t.name === flow.name);
                 }
+                scope.getSuccessfulTests = (flow) => {
+                    return scope.getTests(flow).filter(t => t.run && t.run.success === true);
+                }
             },
             template: `
             <button 
@@ -67,7 +70,13 @@ function directiveFlows() {
             Last ran: {{getState().runAllTestsLastRun || 'Never'}}
             <table class="table">
                 <tbody>
-                    <tr ng-repeat="flow in state.flows track by $index">
+                    <tr 
+                    ng-repeat="flow in state.flows track by $index"
+                    ng-class="{ 
+                        'table-success': getTests(flow).length >= 1 && getSuccessfulTests(flow).length == getTests(flow).length,
+                        'table-danger': getTests(flow).length >= 1 && getSuccessfulTests(flow).length != getTests(flow).length,
+                        'table-warning': getTests(flow).length == 0,
+                    }">
                         <td>
                             <b>{{flow.name}}</b>
                             (
