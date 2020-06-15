@@ -61,7 +61,19 @@ function directiveTests() {
             </div>
                         </div>
                         Outputs
-                        <div>{{ test.output }}</div>
+                        <div ng-repeat="k in getKeys(test.output)">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ k }}</span>
+                </div>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Output {{k}} value"
+                    style="font-family:monospace;"
+                    ng-model="test.output[k]">
+            </div>
+                        </div>
                         </td>
                     </tr>
                 </tbody>
