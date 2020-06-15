@@ -7169,6 +7169,27 @@ function directiveEditFlowLoop() {
                     ng-options="v.name as v.name for v in getAvailableVariablesList()">
                 </select>
             </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Element</span>
+                </div>
+                <input 
+                    class="form-control" 
+                    ng-model="statement.element" />
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Index</span>
+                </div>
+                <input 
+                    class="form-control" 
+                    ng-model="statement.index" />
+                </div>
+            </div>
+
+            <edit-flow-statement statement="statement.statement">
+            <edit-flow-statement>
             `
         };
     });
