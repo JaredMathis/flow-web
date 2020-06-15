@@ -8157,6 +8157,8 @@ function directiveTests() {
                 scope.getTests = () => getState()
                     .tests
                     .filter(t => t.name === getEditFlow().name);
+                
+                scope.getKeys = Object.keys;
             },
             template: `
             <div>
@@ -8180,7 +8182,10 @@ function directiveTests() {
                     <tr ng-repeat="test in getTests() track by $index">
                         <td>
                         Inputs
-                        <div>{{ test.input }}</div>
+                        <div ng-repeat="k in getKeys(test.input)">
+                        {{ k }}
+                        {{ test.input[k] }}
+                        </div>
                         Outputs
                         <div>{{ test.output }}</div>
                         </td>
