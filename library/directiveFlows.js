@@ -3,6 +3,7 @@ const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 
 const getState = require("./getState");
+const runTests = require("./runTests");
 
 module.exports = directiveFlows;
 
@@ -16,6 +17,11 @@ function directiveFlows() {
                 };
                 scope.data = () => {
                     getState().screen = "data";
+                };
+                scope.getState = getState;
+                scope.runAllTests = () => {
+                    getState().runAllTestsLastRun = new Date();
+                    runTests(getState().tests);
                 };
 
                 scope.deleteFlow = (flow) => {
@@ -52,6 +58,13 @@ function directiveFlows() {
                 ng-click="data()">
                 Data
             </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="runAllTests()">
+                Run All Tests
+            </button>
+            Last ran: {{getState().runAllTestsLastRun || 'Never'}}
             <table class="table">
                 <tbody>
                     <tr ng-repeat="flow in state.flows track by $index">
