@@ -1,6 +1,7 @@
 
 const u = require("wlj-utilities");
 const getState = require("./getState");
+const getEditFlow = require('./getEditFlow');
 
 module.exports = directiveTests;
 
@@ -15,8 +16,15 @@ function directiveTests() {
                 scope.editor = () => {
                     getState().screen = 'editFlow';
                 }
+
+                scope.flow = getEditFlow;
+
+                scope.getTests = () => getState()
+                    .tests
+                    .filter(t => t.name === getEditFlow().name);
             },
             template: `
+            <div>
             <button 
                 type="button" 
                 class="btn btn-primary"
@@ -29,7 +37,23 @@ function directiveTests() {
                 ng-click="editor()">
                 Editor
             </button>
+            </div>
+
+            {{ flow().name }} Tests
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="test in getTests() track by $index">
+                        <td>
+                        Inputs
+                        <div>{{ test.input }}</div>
+                        Outputs
+                        <div>{{ test.output }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             
+            {{ tests }}
             `
         }
     });

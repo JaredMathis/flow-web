@@ -2,9 +2,8 @@
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
 const library = flow.getLibrary();
+const getTests = require("wlj-flow/tests/getTests");
 const getState = require('./getState');
-
-console.log({library});
 
 module.exports = directiveHome;
 
@@ -18,6 +17,7 @@ function directiveHome() {
                 let defaultState = {
                     screen: 'flows',
                     flows: library,
+                    tests: getTests,
                 };
                 u.merge(getState(), defaultState);
 
@@ -51,7 +51,6 @@ function directiveHome() {
             <div ng-if="state.screen == 'tests'">
                 <tests></tests>
             </div>
-            {{ state }}
             `
         }
     });
