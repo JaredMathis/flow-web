@@ -7236,9 +7236,11 @@ function directiveEditFlowSet() {
                 ng-click="value()">
                 Value
             </button>
-            <input 
-                class="form-control" 
-                ng-model="statement.left" />
+            <select 
+                class="custom-select"
+                ng-model="statement.left"
+                ng-options="v.name as v.name for v in getAvailableVariables()">
+            </select>
             </div>
             <div ng-show="type == 'value'">
             <input 
