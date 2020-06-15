@@ -34,8 +34,10 @@ function directiveTests() {
 
                 scope.getKeys = Object.keys;
 
-                scope.runTests = () => {                    
+                scope.runTests = () => { 
+                    console.log('runTests entered');                   
                     u.loop(scope.getTests(), t => {
+                        console.log('testing', {t});
                         compileAndTest((text) => {
                             let code;
                             let actual;
@@ -69,6 +71,16 @@ function directiveTests() {
                         });
                     });
                 }
+
+                scope.addTest = function () {
+                    const newTest = {};
+                    newTest.name = getEditFlow().name
+                    newTest.input = {};
+                    newTest.output = {};
+
+                    getState()
+                    .tests.push(newTest);
+                }
             },
             template: `
             <div>
@@ -91,10 +103,6 @@ function directiveTests() {
                 out of {{ getTests().length }} successful
 
             <div>
-            <button class="btn btn-primary"
-                ng-click="runTests()">
-                Run Tests
-            </button>
             </div>
 
             <table class="table">
@@ -102,6 +110,12 @@ function directiveTests() {
                     <tr ng-repeat="test in getTests() track by $index"
                     ng-class="{ 'table-success': test.success === true, 'table-danger': test.success === false }">
                         <td>
+                        <div>
+                        <button class="btn btn-primary"
+                        ng-click="runTests()">
+                        Run Tests
+                    </button>
+                    </div>
                         Inputs
                         <div ng-repeat="input in flow().inputs">
             <div class="input-group">
@@ -134,8 +148,13 @@ function directiveTests() {
                     </tr>
                 </tbody>
             </table>
-            
-            {{ tests }}
+
+            <div>
+            <button class="btn btn-primary"
+                ng-click="addTest()">
+                Add Test
+            </button>
+            </div>
             `
         }
     });
