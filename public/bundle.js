@@ -8029,19 +8029,8 @@ function directiveFlows() {
                     }">
                         <td>
                             <b>{{flow.name}}</b>
-                            (
-                                <span ng-repeat="i in flow.inputs">
-                                    <span ng-show="!$first">,</span>
-                                    {{ i.name }}
-                                </span>
-                            )
-                            =>
-                            (
-                                <span ng-repeat="o in flow.outputs">
-                                    <span ng-show="!$first">,</span>
-                                    {{ o.name }}
-                                </span>
-                            )
+                            (&nbsp;<span ng-repeat="i in flow.inputs"><span ng-show="!$first">&nbsp;, </span>{{ i.name }}</span>&nbsp;)&nbsp;=>
+                            (&nbsp;<span ng-repeat="o in flow.outputs"><span ng-show="!$first">&nbsp;, </span>{{ o.name }}</span>&nbsp;)
                         </td>
                         <td>
 
