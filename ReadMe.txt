@@ -4,6 +4,7 @@ To setup:
 To build:
     node build
 
-To run:
+To run locally:
     Build
+    Open public/index.html
 

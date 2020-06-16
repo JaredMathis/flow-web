@@ -1,899 +1,1142 @@
 {
-    "screen": "data",
-    "flows": [
-       {
-          "$type": "defineFunction",
-          "name": "add",
-          "inputs": [
-             {
-                "name": "x",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:13"
-             },
-             {
-                "name": "y",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:14"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:17"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=x+y"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "divide",
-          "inputs": [
-             {
-                "name": "x",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:19"
-             },
-             {
-                "name": "y",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:20"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:23"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=Math.floor(x/y);"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "count",
-          "inputs": [
-             {
-                "name": "list",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeInt"
-                   }
-                },
-                "$$hashKey": "object:25"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:27"
-             }
-          ],
-          "variables": [
-             {
-                "name": "one",
-                "type": {
-                   "$type": "typeInt"
-                }
-             }
-          ],
-          "statement": {
-             "$type": "steps",
-             "steps": [
-                {
-                   "$type": "set",
-                   "left": "result",
-                   "right": {
-                      "$type": "newInt",
-                      "value": 0
-                   }
-                },
-                {
-                   "$type": "set",
-                   "left": "one",
-                   "right": {
-                      "$type": "newInt",
-                      "value": 1
-                   }
-                },
-                {
-                   "$type": "loop",
-                   "array": "list",
-                   "element": "a",
-                   "index": "index",
-                   "statement": {
-                      "$type": "execute",
-                      "name": "add",
-                      "inputs": {
-                         "x": "result",
-                         "y": "one"
-                      },
-                      "outputs": {
-                         "result": "result"
-                      }
-                   }
-                }
-             ]
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "sum",
-          "inputs": [
-             {
-                "name": "list",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeInt"
-                   }
-                },
-                "$$hashKey": "object:29"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:31"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "steps",
-             "steps": [
-                {
-                   "$type": "set",
-                   "left": "result",
-                   "right": {
-                      "$type": "newInt",
-                      "value": 0
-                   }
-                },
-                {
-                   "$type": "loop",
-                   "array": "list",
-                   "element": "a",
-                   "index": "index",
-                   "statement": {
-                      "$type": "execute",
-                      "name": "add",
-                      "inputs": {
-                         "x": "result",
-                         "y": "a"
-                      },
-                      "outputs": {
-                         "result": "result"
-                      }
-                   }
-                }
-             ]
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "average",
-          "inputs": [
-             {
-                "name": "list",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeInt"
-                   }
-                },
-                "$$hashKey": "object:33"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:35"
-             }
-          ],
-          "variables": [
-             {
-                "name": "s",
-                "type": {
-                   "$type": "typeInt"
-                }
-             },
-             {
-                "name": "c",
-                "type": {
-                   "$type": "typeInt"
-                }
-             }
-          ],
-          "statement": {
-             "$type": "steps",
-             "steps": [
-                {
-                   "$type": "execute",
-                   "name": "sum",
-                   "inputs": {
-                      "list": "list"
-                   },
-                   "outputs": {
-                      "result": "s"
-                   }
-                },
-                {
-                   "$type": "execute",
-                   "name": "count",
-                   "inputs": {
-                      "list": "list"
-                   },
-                   "outputs": {
-                      "result": "c"
-                   }
-                },
-                {
-                   "$type": "execute",
-                   "name": "divide",
-                   "inputs": {
-                      "x": "s",
-                      "y": "c"
-                   },
-                   "outputs": {
-                      "result": "result"
-                   }
-                }
-             ]
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "multiply",
-          "inputs": [
-             {
-                "name": "x",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:37"
-             },
-             {
-                "name": "y",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:38"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:41"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=x*y"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "subtract",
-          "inputs": [
-             {
-                "name": "x",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:43"
-             },
-             {
-                "name": "y",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:44"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:47"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=x-y"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "mod",
-          "inputs": [
-             {
-                "name": "x",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:49"
-             },
-             {
-                "name": "y",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:50"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeInt"
-                },
-                "$$hashKey": "object:53"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=x%y;"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "set",
-          "inputs": [
-             {
-                "name": "location",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeChar"
-                   }
-                },
-                "$$hashKey": "object:55"
-             },
-             {
-                "name": "value",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeChar"
-                   }
-                },
-                "$$hashKey": "object:56"
-             }
-          ],
-          "outputs": [],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "compileSetInMemory(location,value)"
-          }
-       },
-       {
-          "$type": "defineFunction",
-          "name": "get",
-          "inputs": [
-             {
-                "name": "location",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeChar"
-                   }
-                },
-                "$$hashKey": "object:59"
-             }
-          ],
-          "outputs": [
-             {
-                "name": "result",
-                "type": {
-                   "$type": "typeList",
-                   "nested": {
-                      "$type": "typeChar"
-                   }
-                },
-                "$$hashKey": "object:61"
-             }
-          ],
-          "variables": [],
-          "statement": {
-             "$type": "evaluate",
-             "expression": "result=compileGetInMemory(location)"
-          }
-       }
-    ],
-    "tests": [
-       {
-          "input": {
-             "x": "0",
-             "y": 0
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.661Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 1
-          },
-          "output": {
-             "result": 2
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.678Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 2
-          },
-          "output": {
-             "result": 3
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.687Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 1
-          },
-          "output": {
-             "result": 3
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.694Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 2
-          },
-          "output": {
-             "result": 4
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.700Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 3
-          },
-          "output": {
-             "result": 5
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.706Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 3,
-             "y": 2
-          },
-          "output": {
-             "result": 5
-          },
-          "name": "add",
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.712Z",
-             "success": true
-          }
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 1
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 2
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 2
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 3
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 6,
-             "y": 3
-          },
-          "output": {
-             "result": 2
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 8,
-             "y": 3
-          },
-          "output": {
-             "result": 2
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 9,
-             "y": 3
-          },
-          "output": {
-             "result": 3
-          },
-          "name": "divide",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 0,
-             "y": 0
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 0
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 0,
-             "y": 2
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 3
-          },
-          "output": {
-             "result": 3
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 4,
-             "y": 1
-          },
-          "output": {
-             "result": 4
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 5,
-             "y": 5
-          },
-          "output": {
-             "result": 25
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 6,
-             "y": 7
-          },
-          "output": {
-             "result": 42
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 8,
-             "y": -8
-          },
-          "output": {
-             "result": -64
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": -9,
-             "y": -9
-          },
-          "output": {
-             "result": 81
-          },
-          "name": "multiply",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 0,
-             "y": 0
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 0
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 2,
-             "y": 3
-          },
-          "output": {
-             "result": -1
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 0,
-             "y": 4
-          },
-          "output": {
-             "result": -4
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 6,
-             "y": 5
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": -7,
-             "y": -8
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": -9,
-             "y": 10
-          },
-          "output": {
-             "result": -19
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 5,
-             "y": -5
-          },
-          "output": {
-             "result": 10
-          },
-          "name": "subtract",
-          "success": true
-       },
-       {
-          "input": {
-             "x": 3,
-             "y": 2
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "mod"
-       },
-       {
-          "input": {
-             "x": 0,
-             "y": 2
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "mod"
-       },
-       {
-          "input": {
-             "x": 1,
-             "y": 2
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "mod"
-       },
-       {
-          "input": {
-             "x": 3,
-             "y": 3
-          },
-          "output": {
-             "result": 0
-          },
-          "name": "mod"
-       },
-       {
-          "input": {
-             "x": 4,
-             "y": 3
-          },
-          "output": {
-             "result": 1
-          },
-          "name": "mod"
-       },
-       {
-          "input": {
-             "x": 5,
-             "y": 3
-          },
-          "output": {
-             "result": 2
-          },
-          "name": "mod"
-       },
-       {
-          "name": "add",
-          "input": {
-             "x": "3",
-             "y": "3"
-          },
-          "output": {
-             "result": "6"
-          },
-          "success": true,
-          "run": {
-             "when": "2020-06-15T20:44:23.719Z",
-             "success": true
-          }
-       },
-       {
-          "name": "count",
-          "input": {
-             "list": "[1,2,3]"
-          },
-          "output": {
-             "result": "3"
-          },
-          "success": true
-       }
-    ],
-    "editFlowIndex": 0
- }
+   "screen": "data",
+   "flows": [
+      {
+         "$type": "defineFunction",
+         "name": "add",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:13"
+            },
+            {
+               "name": "y",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:14"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:17"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=x+y"
+         },
+         "$$hashKey": "object:136"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "divide",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:19"
+            },
+            {
+               "name": "y",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:20"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:23"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=Math.floor(x/y);"
+         },
+         "$$hashKey": "object:137"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "count",
+         "inputs": [
+            {
+               "name": "list",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeInt"
+                  }
+               },
+               "$$hashKey": "object:25"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:27"
+            }
+         ],
+         "variables": [
+            {
+               "name": "one",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:319"
+            }
+         ],
+         "statement": {
+            "$type": "steps",
+            "steps": [
+               {
+                  "$type": "set",
+                  "left": "result",
+                  "right": {
+                     "$type": "newInt",
+                     "value": 0
+                  }
+               },
+               {
+                  "$type": "set",
+                  "left": "one",
+                  "right": {
+                     "$type": "newInt",
+                     "value": 1
+                  }
+               },
+               {
+                  "$type": "loop",
+                  "array": "list",
+                  "element": "a",
+                  "index": "index",
+                  "statement": {
+                     "$type": "execute",
+                     "name": "add",
+                     "inputs": {
+                        "x": "result",
+                        "y": "one"
+                     },
+                     "outputs": {
+                        "result": "result"
+                     }
+                  }
+               }
+            ]
+         },
+         "$$hashKey": "object:138"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "sum",
+         "inputs": [
+            {
+               "name": "list",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeInt"
+                  }
+               },
+               "$$hashKey": "object:29"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:31"
+            }
+         ],
+         "variables": [
+            {
+               "name": "a",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:33"
+            },
+            {
+               "name": "index",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:35"
+            }
+         ],
+         "statement": {
+            "$type": "steps",
+            "steps": [
+               {
+                  "$type": "set",
+                  "left": "result",
+                  "right": {
+                     "$type": "newInt",
+                     "value": 0
+                  }
+               },
+               {
+                  "$type": "loop",
+                  "array": "list",
+                  "element": "a",
+                  "index": "index",
+                  "statement": {
+                     "$type": "execute",
+                     "name": "add",
+                     "inputs": {
+                        "x": "result",
+                        "y": "a"
+                     },
+                     "outputs": {
+                        "result": "result"
+                     }
+                  }
+               }
+            ]
+         },
+         "$$hashKey": "object:139"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "average",
+         "inputs": [
+            {
+               "name": "list",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeInt"
+                  }
+               },
+               "$$hashKey": "object:33"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:35"
+            }
+         ],
+         "variables": [
+            {
+               "name": "s",
+               "type": {
+                  "$type": "typeInt"
+               }
+            },
+            {
+               "name": "c",
+               "type": {
+                  "$type": "typeInt"
+               }
+            }
+         ],
+         "statement": {
+            "$type": "steps",
+            "steps": [
+               {
+                  "$type": "execute",
+                  "name": "sum",
+                  "inputs": {
+                     "list": "list"
+                  },
+                  "outputs": {
+                     "result": "s"
+                  }
+               },
+               {
+                  "$type": "execute",
+                  "name": "count",
+                  "inputs": {
+                     "list": "list"
+                  },
+                  "outputs": {
+                     "result": "c"
+                  }
+               },
+               {
+                  "$type": "execute",
+                  "name": "divide",
+                  "inputs": {
+                     "x": "s",
+                     "y": "c"
+                  },
+                  "outputs": {
+                     "result": "result"
+                  }
+               }
+            ]
+         },
+         "$$hashKey": "object:140"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "multiply",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:37"
+            },
+            {
+               "name": "y",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:38"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:41"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=x*y"
+         },
+         "$$hashKey": "object:141"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "subtract",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:43"
+            },
+            {
+               "name": "y",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:44"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:47"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=x-y"
+         },
+         "$$hashKey": "object:142"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "mod",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:49"
+            },
+            {
+               "name": "y",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:50"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeInt"
+               },
+               "$$hashKey": "object:53"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=x%y;"
+         },
+         "$$hashKey": "object:143"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "set",
+         "inputs": [
+            {
+               "name": "location",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeChar"
+                  }
+               },
+               "$$hashKey": "object:55"
+            },
+            {
+               "name": "value",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeChar"
+                  }
+               },
+               "$$hashKey": "object:56"
+            }
+         ],
+         "outputs": [],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "compileSetInMemory(location,value)"
+         },
+         "$$hashKey": "object:144"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "get",
+         "inputs": [
+            {
+               "name": "location",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeChar"
+                  }
+               },
+               "$$hashKey": "object:59"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeList",
+                  "nested": {
+                     "$type": "typeChar"
+                  }
+               },
+               "$$hashKey": "object:61"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "evaluate",
+            "expression": "result=compileGetInMemory(location)"
+         },
+         "$$hashKey": "object:145"
+      }
+   ],
+   "tests": [
+      {
+         "input": {
+            "x": "0",
+            "y": 0
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.258Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 1
+         },
+         "output": {
+            "result": 2
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.269Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 2
+         },
+         "output": {
+            "result": 3
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.277Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 1
+         },
+         "output": {
+            "result": 3
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.285Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 2
+         },
+         "output": {
+            "result": 4
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.291Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 3
+         },
+         "output": {
+            "result": 5
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.297Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 3,
+            "y": 2
+         },
+         "output": {
+            "result": 5
+         },
+         "name": "add",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.304Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 1
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.279Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 2
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.285Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 2
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.291Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 3
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.297Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 6,
+            "y": 3
+         },
+         "output": {
+            "result": 2
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.303Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 8,
+            "y": 3
+         },
+         "output": {
+            "result": 2
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.308Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 9,
+            "y": 3
+         },
+         "output": {
+            "result": 3
+         },
+         "name": "divide",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.314Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 0,
+            "y": 0
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.319Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 0
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.325Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 0,
+            "y": 2
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.330Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 3
+         },
+         "output": {
+            "result": 3
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.336Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 4,
+            "y": 1
+         },
+         "output": {
+            "result": 4
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.341Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 5,
+            "y": 5
+         },
+         "output": {
+            "result": 25
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.347Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 6,
+            "y": 7
+         },
+         "output": {
+            "result": 42
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.352Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 8,
+            "y": -8
+         },
+         "output": {
+            "result": -64
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.358Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": -9,
+            "y": -9
+         },
+         "output": {
+            "result": 81
+         },
+         "name": "multiply",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.363Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 0,
+            "y": 0
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.368Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 0
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.374Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 2,
+            "y": 3
+         },
+         "output": {
+            "result": -1
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.380Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 0,
+            "y": 4
+         },
+         "output": {
+            "result": -4
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.385Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 6,
+            "y": 5
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.391Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": -7,
+            "y": -8
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.395Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": -9,
+            "y": 10
+         },
+         "output": {
+            "result": -19
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.401Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 5,
+            "y": -5
+         },
+         "output": {
+            "result": 10
+         },
+         "name": "subtract",
+         "success": true,
+         "run": {
+            "when": "2020-06-15T22:53:38.405Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 3,
+            "y": 2
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.410Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 0,
+            "y": 2
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.415Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 1,
+            "y": 2
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.421Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 3,
+            "y": 3
+         },
+         "output": {
+            "result": 0
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.427Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 4,
+            "y": 3
+         },
+         "output": {
+            "result": 1
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.432Z",
+            "success": true
+         }
+      },
+      {
+         "input": {
+            "x": 5,
+            "y": 3
+         },
+         "output": {
+            "result": 2
+         },
+         "name": "mod",
+         "run": {
+            "when": "2020-06-15T22:53:38.437Z",
+            "success": true
+         }
+      },
+      {
+         "name": "add",
+         "input": {
+            "x": "3",
+            "y": "3"
+         },
+         "output": {
+            "result": "6"
+         },
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:02:52.311Z",
+            "success": true
+         }
+      },
+      {
+         "name": "count",
+         "input": {
+            "list": "[1,2,3]"
+         },
+         "output": {
+            "result": "3"
+         },
+         "success": true,
+         "run": {
+            "when": "2020-06-15T23:03:57.597Z",
+            "success": true
+         }
+      },
+      {
+         "name": "count",
+         "input": {
+            "list": "[]"
+         },
+         "output": {
+            "result": "0"
+         },
+         "run": {
+            "when": "2020-06-15T23:03:57.606Z",
+            "success": true
+         }
+      },
+      {
+         "name": "count",
+         "input": {
+            "list": "[1]"
+         },
+         "output": {
+            "result": "1"
+         },
+         "run": {
+            "when": "2020-06-15T23:03:57.612Z",
+            "success": true
+         }
+      },
+      {
+         "name": "count",
+         "input": {
+            "list": "[1,2]"
+         },
+         "output": {
+            "result": "2"
+         },
+         "run": {
+            "when": "2020-06-15T23:03:57.617Z",
+            "success": true
+         }
+      },
+      {
+         "name": "sum",
+         "input": {
+            "list": "[]"
+         },
+         "output": {
+            "result": "0"
+         },
+         "run": {
+            "when": "2020-06-16T10:32:52.780Z",
+            "success": true
+         }
+      },
+      {
+         "name": "sum",
+         "input": {
+            "list": "[1]"
+         },
+         "output": {
+            "result": "1"
+         },
+         "run": {
+            "when": "2020-06-16T10:32:52.792Z",
+            "success": true
+         }
+      },
+      {
+         "name": "sum",
+         "input": {
+            "list": "[1,2]"
+         },
+         "output": {
+            "result": "3"
+         },
+         "run": {
+            "when": "2020-06-16T10:32:52.799Z",
+            "success": true
+         }
+      },
+      {
+         "name": "sum",
+         "input": {
+            "list": "[1,2,3]"
+         },
+         "output": {
+            "result": "6"
+         },
+         "run": {
+            "when": "2020-06-16T10:32:52.806Z",
+            "success": true
+         }
+      }
+   ],
+   "editFlowIndex": 3,
+   "runAllTestsLastRun": "2020-06-15T22:53:38.203Z",
+   "editFlowStatementType": null
+}
