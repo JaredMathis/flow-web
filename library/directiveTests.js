@@ -110,7 +110,7 @@ function directiveTests() {
                             <input type="checkbox" ng-model="test.expectError">
                             Expect Error
                         </div>
-                        <div ng
+                        <div ng-show="!test.expectError"
                             ng-repeat="output in flow().outputs">
             <div class="input-group">
                 <div class="input-group-prepend">
