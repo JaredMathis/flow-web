@@ -8000,6 +8000,13 @@ function directiveFlows() {
                 scope.getSuccessfulTests = (flow) => {
                     return scope.getTests(flow).filter(t => t.run && t.run.success === true);
                 }
+
+                scope.allSuccessfulTests = function () {
+                    return scope
+                        .getState()
+                        .tests
+                        .filter(t => t.run && t.run.success === true)
+                }
             },
             template: `
             <button 
@@ -8021,6 +8028,8 @@ function directiveFlows() {
                 Run All Tests
             </button>
             Last ran: {{getState().runAllTestsLastRun || 'Never'}}
+            - {{ allSuccessfulTests().length }} 
+            out of {{ getState().tests.length }} successful
             <table class="table">
                 <tbody>
                     <tr 
