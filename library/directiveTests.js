@@ -106,7 +106,12 @@ function directiveTests() {
             </div>
                         </div>
                         Outputs
-                        <div ng-repeat="output in flow().outputs">
+                        <div>
+                            <input type="checkbox" ng-model="test.expectError">
+                            Expect Error
+                        </div>
+                        <div ng
+                            ng-repeat="output in flow().outputs">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ output.name }}</span>

@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const u = require('wlj-utilities');
-const { execSync } = require('child_process');
 
-execSync('npm update');
+u.executeCommand('npm update');
 
 require('./library/browserify');
 

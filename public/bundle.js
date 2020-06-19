@@ -8321,7 +8321,12 @@ function directiveTests() {
             </div>
                         </div>
                         Outputs
-                        <div ng-repeat="output in flow().outputs">
+                        <div>
+                            <input type="checkbox" ng-model="test.expectError">
+                            Expect Error
+                        </div>
+                        <div ng
+                            ng-repeat="output in flow().outputs">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ output.name }}</span>
@@ -8517,15 +8522,23 @@ function runTests(tests) {
                         expected[k] = JSON.parse(t.output[k]);
                     }
 
-                    u.assertIsEqualJson(() => actual, () => expected);
-
-                    t.run.success = true;
+                    if (t.expectError === true) {
+                        t.run.success = false;
+                        t.run.actualOutput = actual;
+                    } else {
+                        u.assertIsEqualJson(() => actual, () => expected);
+                        t.run.success = true;
+                    }
                 } catch (e) {
-                    console.log({code});
-                    t.run.success = false;
-                    e = e.innerError || e;
-                    e = e.message || e;
-                    t.run.message = e.toString();
+                    if (t.expectError === true) {
+                        t.run.success = true;
+                    } else {
+                        console.log({code});
+                        t.run.success = false;
+                        e = e.innerError || e;
+                        let message = e.message || e;
+                        t.run.message = message.toString();
+                    }
                 }
             });
         });
