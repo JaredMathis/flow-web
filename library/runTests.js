@@ -2,6 +2,7 @@
 const u = require("wlj-utilities");
 const flow = require('wlj-flow');
 const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
+const getState = require("./getState");
 const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
 const compileAssertIsType = flow.compileAssertIsType;
 
@@ -14,7 +15,7 @@ function runTests(tests) {
             console.log('testing', {t});
             t.run = {};
             t.run.when = new Date();
-            compileAndTest((text) => {
+            compileAndTest(getState().flows, (text) => {
                 let code;
                 let actual;
                 try {

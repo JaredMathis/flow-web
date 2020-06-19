@@ -3747,7 +3747,7 @@ u.loop(tests, t=> test(t));
 function test(parsed) {
     u.scope(__filename, x => {
         u.scope(test.name, x => {
-            compileAndTest((text) => {
+            compileAndTest(library, (text) => {
                 eval(text);
 
                 u.merge(x, () => parsed.name);
@@ -3772,13 +3772,14 @@ const u = require("wlj-utilities");
 const { EOL } = require('os');
 
 const compile = require("../../library/compile.js");
-const library = require('../../library/getLibrary')();
 
 module.exports = compileAndTest;
 
-function compileAndTest(test) {
+function compileAndTest(library, test) {
     u.scope(__filename, x => {
         u.scope(compileAndTest.name, x => {
+            u.merge(x, {library});
+            u.assert(() => u.isArray(library));
             u.merge(x, ()=>library.length);
 
             let compiles = [];    
@@ -3797,7 +3798,7 @@ function compileAndTest(test) {
     });
 }
 }).call(this,"/node_modules/wlj-flow/tests/compile/compileAndTest.js")
-},{"../../library/compile.js":14,"../../library/getLibrary":36,"os":339,"wlj-utilities":141}],65:[function(require,module,exports){
+},{"../../library/compile.js":14,"os":339,"wlj-utilities":141}],65:[function(require,module,exports){
 (function (__filename){
 
 const u = require("wlj-utilities");
@@ -4003,8 +4004,10 @@ const compileGetInMemory = require("../../library/compileGetInMemory.js");
 const compileSetInMemory = require("../../library/compileSetInMemory.js");
 const compileAndTest = require('./compileAndTest');
 
+const library = require('../../library/getLibrary')();
+
 u.scope(__filename, x => {
-    compileAndTest(text => {
+    compileAndTest(library, text => {
         let log = false;
         eval(text);
 
@@ -4019,7 +4022,7 @@ u.scope(__filename, x => {
 });
 
 }).call(this,"/node_modules/wlj-flow/tests/compile/defineGetAndSet.js")
-},{"../../library/compile.js":14,"../../library/compileAssertHasOwnProperty.js":15,"../../library/compileAssertIsType.js":16,"../../library/compileGetInMemory.js":17,"../../library/compileSetInMemory.js":19,"./compileAndTest":64,"os":339,"wlj-utilities":141}],70:[function(require,module,exports){
+},{"../../library/compile.js":14,"../../library/compileAssertHasOwnProperty.js":15,"../../library/compileAssertIsType.js":16,"../../library/compileGetInMemory.js":17,"../../library/compileSetInMemory.js":19,"../../library/getLibrary":36,"./compileAndTest":64,"os":339,"wlj-utilities":141}],70:[function(require,module,exports){
 (function (__filename){
 
 const u = require("wlj-utilities");
@@ -8477,6 +8480,7 @@ function newStatement() {
 const u = require("wlj-utilities");
 const flow = require('wlj-flow');
 const compileAndTest = require('wlj-flow/tests/compile/compileAndTest');
+const getState = require("./getState");
 const compileAssertHasOwnProperty = flow.compileAssertHasOwnProperty;
 const compileAssertIsType = flow.compileAssertIsType;
 
@@ -8489,7 +8493,7 @@ function runTests(tests) {
             console.log('testing', {t});
             t.run = {};
             t.run.when = new Date();
-            compileAndTest((text) => {
+            compileAndTest(getState().flows, (text) => {
                 let code;
                 let actual;
                 try {
@@ -8525,7 +8529,7 @@ function runTests(tests) {
     return result;
 }
 
-},{"wlj-flow":10,"wlj-flow/tests/compile/compileAndTest":64,"wlj-utilities":141}],197:[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-flow":10,"wlj-flow/tests/compile/compileAndTest":64,"wlj-utilities":141}],197:[function(require,module,exports){
 
 },{}],198:[function(require,module,exports){
 var asn1 = exports;
