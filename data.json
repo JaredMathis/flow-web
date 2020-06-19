@@ -67,7 +67,7 @@
          "variables": [],
          "statement": {
             "$type": "evaluate",
-            "expression": "result=Math.floor(x/y);"
+            "expression": "if(y===0){throw new Error('Divide by zero');}result=Math.floor(x/y);"
          },
          "$$hashKey": "object:137"
       },
@@ -477,7 +477,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.258Z",
+            "when": "2020-06-19T20:10:15.109Z",
             "success": true
          }
       },
@@ -492,7 +492,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.269Z",
+            "when": "2020-06-19T20:10:15.127Z",
             "success": true
          }
       },
@@ -507,7 +507,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.277Z",
+            "when": "2020-06-19T20:10:15.136Z",
             "success": true
          }
       },
@@ -522,7 +522,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.285Z",
+            "when": "2020-06-19T20:10:15.143Z",
             "success": true
          }
       },
@@ -537,7 +537,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.291Z",
+            "when": "2020-06-19T20:10:15.149Z",
             "success": true
          }
       },
@@ -552,7 +552,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.297Z",
+            "when": "2020-06-19T20:10:15.155Z",
             "success": true
          }
       },
@@ -567,7 +567,7 @@
          "name": "add",
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.304Z",
+            "when": "2020-06-19T20:10:15.162Z",
             "success": true
          }
       },
@@ -582,7 +582,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.279Z",
+            "when": "2020-06-19T20:10:15.169Z",
             "success": true
          }
       },
@@ -597,7 +597,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.285Z",
+            "when": "2020-06-19T20:10:15.174Z",
             "success": true
          }
       },
@@ -612,7 +612,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.291Z",
+            "when": "2020-06-19T20:10:15.181Z",
             "success": true
          }
       },
@@ -627,7 +627,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.297Z",
+            "when": "2020-06-19T20:10:15.188Z",
             "success": true
          }
       },
@@ -642,7 +642,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.303Z",
+            "when": "2020-06-19T20:10:15.193Z",
             "success": true
          }
       },
@@ -657,7 +657,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.308Z",
+            "when": "2020-06-19T20:10:15.199Z",
             "success": true
          }
       },
@@ -672,7 +672,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.314Z",
+            "when": "2020-06-19T20:10:15.205Z",
             "success": true
          }
       },
@@ -687,7 +687,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.319Z",
+            "when": "2020-06-19T20:10:15.210Z",
             "success": true
          }
       },
@@ -702,7 +702,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.325Z",
+            "when": "2020-06-19T20:10:15.217Z",
             "success": true
          }
       },
@@ -717,7 +717,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.330Z",
+            "when": "2020-06-19T20:10:15.222Z",
             "success": true
          }
       },
@@ -732,7 +732,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.336Z",
+            "when": "2020-06-19T20:10:15.227Z",
             "success": true
          }
       },
@@ -747,7 +747,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.341Z",
+            "when": "2020-06-19T20:10:15.233Z",
             "success": true
          }
       },
@@ -762,7 +762,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.347Z",
+            "when": "2020-06-19T20:10:15.239Z",
             "success": true
          }
       },
@@ -777,7 +777,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.352Z",
+            "when": "2020-06-19T20:10:15.244Z",
             "success": true
          }
       },
@@ -792,7 +792,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.358Z",
+            "when": "2020-06-19T20:10:15.249Z",
             "success": true
          }
       },
@@ -807,7 +807,7 @@
          "name": "multiply",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.363Z",
+            "when": "2020-06-19T20:10:15.255Z",
             "success": true
          }
       },
@@ -822,7 +822,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.368Z",
+            "when": "2020-06-19T20:10:15.260Z",
             "success": true
          }
       },
@@ -837,7 +837,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.374Z",
+            "when": "2020-06-19T20:10:15.266Z",
             "success": true
          }
       },
@@ -852,7 +852,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.380Z",
+            "when": "2020-06-19T20:10:15.271Z",
             "success": true
          }
       },
@@ -867,7 +867,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.385Z",
+            "when": "2020-06-19T20:10:15.276Z",
             "success": true
          }
       },
@@ -882,7 +882,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.391Z",
+            "when": "2020-06-19T20:10:15.282Z",
             "success": true
          }
       },
@@ -897,7 +897,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.395Z",
+            "when": "2020-06-19T20:10:15.287Z",
             "success": true
          }
       },
@@ -912,7 +912,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.401Z",
+            "when": "2020-06-19T20:10:15.292Z",
             "success": true
          }
       },
@@ -927,7 +927,7 @@
          "name": "subtract",
          "success": true,
          "run": {
-            "when": "2020-06-15T22:53:38.405Z",
+            "when": "2020-06-19T20:10:15.298Z",
             "success": true
          }
       },
@@ -941,7 +941,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.410Z",
+            "when": "2020-06-19T20:10:15.302Z",
             "success": true
          }
       },
@@ -955,7 +955,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.415Z",
+            "when": "2020-06-19T20:10:15.309Z",
             "success": true
          }
       },
@@ -969,7 +969,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.421Z",
+            "when": "2020-06-19T20:10:15.313Z",
             "success": true
          }
       },
@@ -983,7 +983,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.427Z",
+            "when": "2020-06-19T20:10:15.319Z",
             "success": true
          }
       },
@@ -997,7 +997,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.432Z",
+            "when": "2020-06-19T20:10:15.324Z",
             "success": true
          }
       },
@@ -1011,7 +1011,7 @@
          },
          "name": "mod",
          "run": {
-            "when": "2020-06-15T22:53:38.437Z",
+            "when": "2020-06-19T20:10:15.329Z",
             "success": true
          }
       },
@@ -1026,7 +1026,7 @@
          },
          "success": true,
          "run": {
-            "when": "2020-06-15T23:02:52.311Z",
+            "when": "2020-06-19T20:10:15.333Z",
             "success": true
          }
       },
@@ -1040,7 +1040,7 @@
          },
          "success": true,
          "run": {
-            "when": "2020-06-15T23:03:57.597Z",
+            "when": "2020-06-19T20:10:15.338Z",
             "success": true
          }
       },
@@ -1053,7 +1053,7 @@
             "result": "0"
          },
          "run": {
-            "when": "2020-06-15T23:03:57.606Z",
+            "when": "2020-06-19T20:10:15.344Z",
             "success": true
          }
       },
@@ -1066,7 +1066,7 @@
             "result": "1"
          },
          "run": {
-            "when": "2020-06-15T23:03:57.612Z",
+            "when": "2020-06-19T20:10:15.349Z",
             "success": true
          }
       },
@@ -1079,7 +1079,7 @@
             "result": "2"
          },
          "run": {
-            "when": "2020-06-15T23:03:57.617Z",
+            "when": "2020-06-19T20:10:15.355Z",
             "success": true
          }
       },
@@ -1092,7 +1092,7 @@
             "result": "0"
          },
          "run": {
-            "when": "2020-06-16T10:32:52.780Z",
+            "when": "2020-06-19T20:10:15.362Z",
             "success": true
          }
       },
@@ -1105,7 +1105,7 @@
             "result": "1"
          },
          "run": {
-            "when": "2020-06-16T10:32:52.792Z",
+            "when": "2020-06-19T20:10:15.366Z",
             "success": true
          }
       },
@@ -1118,7 +1118,7 @@
             "result": "3"
          },
          "run": {
-            "when": "2020-06-16T10:32:52.799Z",
+            "when": "2020-06-19T20:10:15.372Z",
             "success": true
          }
       },
@@ -1131,12 +1131,64 @@
             "result": "6"
          },
          "run": {
-            "when": "2020-06-16T10:32:52.806Z",
+            "when": "2020-06-19T20:10:15.377Z",
             "success": true
          }
+      },
+      {
+         "name": "average",
+         "input": {
+            "list": "[1,2,3]"
+         },
+         "output": {
+            "result": "2"
+         },
+         "run": {
+            "when": "2020-06-19T20:10:15.382Z",
+            "success": true
+         }
+      },
+      {
+         "name": "average",
+         "input": {
+            "list": "[1]"
+         },
+         "output": {
+            "result": "1"
+         },
+         "run": {
+            "when": "2020-06-19T20:10:15.389Z",
+            "success": true
+         }
+      },
+      {
+         "name": "average",
+         "input": {
+            "list": "[2,4]"
+         },
+         "output": {
+            "result": "3"
+         },
+         "run": {
+            "when": "2020-06-19T20:10:15.395Z",
+            "success": true
+         }
+      },
+      {
+         "name": "divide",
+         "input": {
+            "x": "1",
+            "y": "0"
+         },
+         "output": {},
+         "run": {
+            "when": "2020-06-19T20:10:15.400Z",
+            "success": true
+         },
+         "expectError": true
       }
    ],
-   "editFlowIndex": 3,
-   "runAllTestsLastRun": "2020-06-15T22:53:38.203Z",
+   "editFlowIndex": 1,
+   "runAllTestsLastRun": "2020-06-19T20:10:15.108Z",
    "editFlowStatementType": null
 }
