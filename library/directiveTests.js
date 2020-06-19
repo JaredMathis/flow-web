@@ -119,6 +119,9 @@ function directiveTests() {
                     ng-model="test.output[output.name]">
             </div>
                         </div>
+                        <div ng-show="test.run.success == false">
+                        Error message: {{ test.run.message || '[No message]' }}
+                        </div>
                         </td>
                     </tr>
                 </tbody>

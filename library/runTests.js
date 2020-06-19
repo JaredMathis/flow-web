@@ -40,10 +40,11 @@ function runTests(tests) {
 
                     t.run.success = true;
                 } catch (e) {
-                    console.log(text);
                     console.log({code});
                     t.run.success = false;
-                    throw e;
+                    e = e.innerError || e;
+                    e = e.message || e;
+                    t.run.message = e.toString();
                 }
             });
         });

@@ -8334,6 +8334,9 @@ function directiveTests() {
                     ng-model="test.output[output.name]">
             </div>
                         </div>
+                        <div ng-show="test.run.success == false">
+                        Error message: {{ test.run.message || '[No message]' }}
+                        </div>
                         </td>
                     </tr>
                 </tbody>
@@ -8518,10 +8521,11 @@ function runTests(tests) {
 
                     t.run.success = true;
                 } catch (e) {
-                    console.log(text);
                     console.log({code});
                     t.run.success = false;
-                    throw e;
+                    e = e.innerError || e;
+                    e = e.message || e;
+                    t.run.message = e.toString();
                 }
             });
         });
