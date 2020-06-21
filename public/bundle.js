@@ -8349,7 +8349,11 @@ function directiveTests() {
             </div>
                         </div>
                         <div ng-show="test.run.success == false">
-                        Error message: {{ test.run.message || '[No message]' }}
+                        <div>
+                            Error message: {{ test.run.message || '[No message]' }}
+                        </div>
+                        Contexts:
+                        <pre>{{ test.run.contexts | json }}</pre>
                         </div>
                         </td>
                     </tr>
@@ -8469,7 +8473,7 @@ function newStatement() {
     u.scope(newStatement.name, x => {
         let statements = {
             'evaluate': () => {
-                u.assert(false);  
+                return flow.evaluate(''); 
             },
             'execute': () => {
                 return flow.execute(null, {}, {});
@@ -8543,8 +8547,16 @@ function runTests(tests) {
                         t.run.success = true;
                     } else {
                         console.log({code});
+                        console.log({e});
                         t.run.success = false;
-                        e = e.innerError || e;
+                        t.run.contexts = [];
+                        do {
+                            if (e.context) {
+                                t.run.contexts.push(e.context);
+                            }
+                            e = e.innerError;
+                        } while (e.innerError);
+
                         let message = e.message || e;
                         t.run.message = message.toString();
                     }

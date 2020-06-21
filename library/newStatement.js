@@ -10,7 +10,7 @@ function newStatement() {
     u.scope(newStatement.name, x => {
         let statements = {
             'evaluate': () => {
-                u.assert(false);  
+                return flow.evaluate(''); 
             },
             'execute': () => {
                 return flow.execute(null, {}, {});

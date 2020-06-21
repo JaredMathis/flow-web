@@ -48,8 +48,16 @@ function runTests(tests) {
                         t.run.success = true;
                     } else {
                         console.log({code});
+                        console.log({e});
                         t.run.success = false;
-                        e = e.innerError || e;
+                        t.run.contexts = [];
+                        do {
+                            if (e.context) {
+                                t.run.contexts.push(e.context);
+                            }
+                            e = e.innerError;
+                        } while (e.innerError);
+
                         let message = e.message || e;
                         t.run.message = message.toString();
                     }

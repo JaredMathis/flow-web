@@ -125,7 +125,11 @@ function directiveTests() {
             </div>
                         </div>
                         <div ng-show="test.run.success == false">
-                        Error message: {{ test.run.message || '[No message]' }}
+                        <div>
+                            Error message: {{ test.run.message || '[No message]' }}
+                        </div>
+                        Contexts:
+                        <pre>{{ test.run.contexts | json }}</pre>
                         </div>
                         </td>
                     </tr>
