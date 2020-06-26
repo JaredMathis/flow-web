@@ -7577,7 +7577,7 @@ function directiveEditFlow() {
                     ng-model="flow().name">
             </div>
 
-            <div class="card">
+            <div class="card mt-1">
                 <div class="card-body">
                     <h5 class="card-title">Inputs</h5>
                     <div>
@@ -7624,7 +7624,7 @@ function directiveEditFlow() {
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card mt-1">
                 <div class="card-body">
                     <div>
                     <h5 class="card-title">Outputs</h5>
@@ -7670,7 +7670,7 @@ function directiveEditFlow() {
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card mt-1">
                 <div class="card-body">
                     <div>
                         <h5 class="card-title">Variables</h5>
@@ -7704,17 +7704,17 @@ function directiveEditFlow() {
                 </div>
             </div>
 
-            <div>
-            <button 
-                ng-repeat="st in statementTypes"
-                ng-click="setStatementType(st)"
-                ng-class="{ 
-                    'btn-primary': st.$type == state.editFlowStatementType.$type, 
-                    'btn-secondary': st.$type != state.editFlowStatementType.$type
-                }"
-                class="btn">
-                {{ st.name }}
-            </button>
+            <div class="mt-1 mb-1">
+                <button 
+                    ng-repeat="st in statementTypes"
+                    ng-click="setStatementType(st)"
+                    ng-class="{ 
+                        'btn-primary': st.$type == state.editFlowStatementType.$type, 
+                        'btn-secondary': st.$type != state.editFlowStatementType.$type
+                    }"
+                    class="btn">
+                    {{ st.name }}
+                </button>
             </div>
 
             <edit-flow-statement statement="flow().statement">
