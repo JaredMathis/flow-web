@@ -93,33 +93,32 @@ function directiveFlows() {
                                 'table-danger': getTests(flow).length >= 1 && getSuccessfulTests(flow).length != getTests(flow).length,
                                 'table-warning': getTests(flow).length == 0,
                             }">
+                            
                                 <td>
-                                    <b>{{flow.name}}</b>
+                                    <button 
+                                        ng-click="deleteFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-danger">
+                                        Delete
+                                    </button> 
+
+                                    <button 
+                                        ng-click="editFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-primary">
+                                        Edit
+                                    </button>
+
+                                    <button 
+                                        ng-click="testFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-primary">
+                                        Tests ({{ getTests(flow).length }})
+                                    </button>
+
+                                    <b class="ml-1">{{flow.name}}</b>
                                     (&nbsp;<span ng-repeat="i in flow.inputs"><span ng-show="!$first">&nbsp;, </span>{{ i.name }}</span>&nbsp;)&nbsp;=>
                                     (&nbsp;<span ng-repeat="o in flow.outputs"><span ng-show="!$first">&nbsp;, </span>{{ o.name }}</span>&nbsp;)
-                                </td>
-                                <td>
-
-                                <button 
-                                    ng-click="editFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-primary">
-                                    Edit Flow
-                                </button>
-
-                                <button 
-                                    ng-click="testFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-primary">
-                                    Tests ({{ getTests(flow).length }})
-                                </button>
-
-                                <button 
-                                    ng-click="deleteFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-danger">
-                                    Delete Flow
-                                </button>
                                 </td>
                             <tr>
                         </tbody>

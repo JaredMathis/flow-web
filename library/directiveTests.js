@@ -68,83 +68,88 @@ function directiveTests() {
             </button>
             </div>
 
-            <h4>
-            Tests - 
-            {{ flow().name }}
-            </h4>
-            <h5>{{ successfulTests().length }} 
-                out of {{ getTests().length }} successful</h5>
+            <div class="card mt-1">
+                <div class="card-body">
+                    
+                    <h4>
+                    Tests - 
+                    {{ flow().name }}
+                    </h4>
+                    <h5>{{ successfulTests().length }} 
+                        out of {{ getTests().length }} successful</h5>
 
-            
-            <div>
-            </div>
-
-            <table class="table">
-                <tbody>
-                    <tr ng-repeat="test in getTests() track by $index"
-                    ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
-                        <td>
-                        <div>
-                        <button class="btn btn-danger"
-                            ng-click="deleteTest(test)">
-                            Delete Test
-                        </button>
-                        <button class="btn btn-primary"
-                            ng-click="runTests()">
-                            Run Tests
-                        </button>
-                    Last ran: {{ test.run.when || 'Never' }}
+                    
+                    <div>
                     </div>
-                        Inputs
-                        <div ng-repeat="input in flow().inputs">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">{{ input.name }} ({{ input.type.$type }})</span>
-                </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Input {{input.name}} value"
-                    style="font-family:monospace;"
-                    ng-model="test.input[input.name]">
-            </div>
-                        </div>
-                        Outputs
-                        <div>
-                            <input type="checkbox" ng-model="test.expectError">
-                            Expect Error
-                        </div>
-                        <div ng-show="!test.expectError"
-                            ng-repeat="output in flow().outputs">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">{{ output.name }} ({{ output.type.$type }})</span>
-                </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Output {{output.name}} value"
-                    style="font-family:monospace;"
-                    ng-model="test.output[output.name]">
-            </div>
-                        </div>
-                        <div ng-show="test.run.success == false">
-                        <div>
-                            Error message: {{ test.run.message || '[No message]' }}
-                        </div>
-                        Contexts:
-                        <pre>{{ test.run.contexts | json }}</pre>
-                        </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <div>
-            <button class="btn btn-primary"
-                ng-click="addTest()">
-                Add Test
-            </button>
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="test in getTests() track by $index"
+                            ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
+                                <td>
+                                <div>
+                                <button class="btn btn-danger"
+                                    ng-click="deleteTest(test)">
+                                    Delete Test
+                                </button>
+                                <button class="btn btn-primary"
+                                    ng-click="runTests()">
+                                    Run Tests
+                                </button>
+                            Last ran: {{ test.run.when || 'Never' }}
+                            </div>
+                                Inputs
+                                <div ng-repeat="input in flow().inputs">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ input.name }} ({{ input.type.$type }})</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Input {{input.name}} value"
+                            style="font-family:monospace;"
+                            ng-model="test.input[input.name]">
+                    </div>
+                                </div>
+                                Outputs
+                                <div>
+                                    <input type="checkbox" ng-model="test.expectError">
+                                    Expect Error
+                                </div>
+                                <div ng-show="!test.expectError"
+                                    ng-repeat="output in flow().outputs">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ output.name }} ({{ output.type.$type }})</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Output {{output.name}} value"
+                            style="font-family:monospace;"
+                            ng-model="test.output[output.name]">
+                    </div>
+                                </div>
+                                <div ng-show="test.run.success == false">
+                                <div>
+                                    Error message: {{ test.run.message || '[No message]' }}
+                                </div>
+                                Contexts:
+                                <pre>{{ test.run.contexts | json }}</pre>
+                                </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                    <button class="btn btn-primary"
+                        ng-click="addTest()">
+                        Add Test
+                    </button>
+                    </div>
+                </div>
             </div>
             `
         }

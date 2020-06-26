@@ -7563,162 +7563,166 @@ function directiveEditFlow() {
                 ng-click="tests()">
                 Tests ({{ getTests(flow()).length }})
             </button>
-            <h4>
-                Edit Flow - {{ flow().name }}
-            </h4>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Name</span>
-                </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Flow name"
-                    ng-model="flow().name">
-            </div>
-
             <div class="card mt-1">
                 <div class="card-body">
-                    <h5 class="card-title">Inputs</h5>
-                    <div>
-                        <span ng-if="flow().inputs.length === 0">
-                            (None)
-                        </span>
-                    </div>
-                    <div class="input-group"
-                        ng-repeat="input in flow().inputs">
-                        <button 
-                            ng-click="deleteInput(input)"
-                            class="btn btn-danger">
-                            Delete
-                        </button>
+                    <h4>
+                        Edit Flow - {{ flow().name }}
+                    </h4>
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Name</span>
                         </div>
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Name"
-                            ng-model="input.name">
-                        <select 
-                            class="custom-select"
-                            ng-model="input.type.$type"
-                            ng-change="inputTypeChanged(input)"
-                            ng-options="t as t for t in types">
-                        </select>
-                        <select 
-                            ng-if="input.type.$type == 'typeList'"
-                            class="custom-select"
-                            ng-model="input.type.nested.$type"
-                            ng-options="t as t for t in baseTypes">
-                        </select>
-                    </div>
-                    <div>
-                    <button 
-                        ng-click="addInput()"
-                        class="btn btn-primary">
-                        Add
-                    </button>
+                            placeholder="Flow name"
+                            ng-model="flow().name">
                     </div>
 
-                </div>
-            </div>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <h5 class="card-title">Inputs</h5>
+                            <div>
+                                <span ng-if="flow().inputs.length === 0">
+                                    (None)
+                                </span>
+                            </div>
+                            <div class="input-group"
+                                ng-repeat="input in flow().inputs">
+                                <button 
+                                    ng-click="deleteInput(input)"
+                                    class="btn btn-danger">
+                                    Delete
+                                </button>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Name</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Name"
+                                    ng-model="input.name">
+                                <select 
+                                    class="custom-select"
+                                    ng-model="input.type.$type"
+                                    ng-change="inputTypeChanged(input)"
+                                    ng-options="t as t for t in types">
+                                </select>
+                                <select 
+                                    ng-if="input.type.$type == 'typeList'"
+                                    class="custom-select"
+                                    ng-model="input.type.nested.$type"
+                                    ng-options="t as t for t in baseTypes">
+                                </select>
+                            </div>
+                            <div>
+                            <button 
+                                ng-click="addInput()"
+                                class="btn btn-primary">
+                                Add
+                            </button>
+                            </div>
 
-            <div class="card mt-1">
-                <div class="card-body">
-                    <div>
-                    <h5 class="card-title">Outputs</h5>
-                        <span ng-if="flow().outputs.length === 0">
-                            (None)
-                        </span>
-                    </div>
-                    <div class="input-group"
-                        ng-repeat="output in flow().outputs track by $index">
-                        <button 
-                            ng-click="deleteOutput(output)"
-                            class="btn btn-danger">
-                            Delete
-                        </button>
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name</span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Name"
-                            ng-model="output.name">
-                        <select 
-                            class="custom-select"
-                            ng-model="output.type.$type"
-                            ng-change="inputTypeChanged(output)"
-                            ng-options="t as t for t in types">
-                        </select>
-                        <select 
-                            ng-if="output.type.$type == 'typeList'"
-                            class="custom-select"
-                            ng-model="output.type.nested.$type"
-                            ng-options="t as t for t in baseTypes">
-                        </select>
                     </div>
-                    <div>
-                    <button 
-                        ng-click="addOutput()"
-                        class="btn btn-primary">
-                        Add
-                    </button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card mt-1">
-                <div class="card-body">
-                    <div>
-                        <h5 class="card-title">Variables</h5>
-                        <span ng-if="flow().variables.length === 0">
-                            (None)
-                        </span>
-                    </div>
-                    <div class="input-group"
-                        ng-repeat="variable in flow().variables">
-                        <button 
-                            ng-click="deleteVariable(variable)"
-                            class="btn btn-danger">
-                            Delete
-                        </button>
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name</span>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div>
+                            <h5 class="card-title">Outputs</h5>
+                                <span ng-if="flow().outputs.length === 0">
+                                    (None)
+                                </span>
+                            </div>
+                            <div class="input-group"
+                                ng-repeat="output in flow().outputs track by $index">
+                                <button 
+                                    ng-click="deleteOutput(output)"
+                                    class="btn btn-danger">
+                                    Delete
+                                </button>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Name</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Name"
+                                    ng-model="output.name">
+                                <select 
+                                    class="custom-select"
+                                    ng-model="output.type.$type"
+                                    ng-change="inputTypeChanged(output)"
+                                    ng-options="t as t for t in types">
+                                </select>
+                                <select 
+                                    ng-if="output.type.$type == 'typeList'"
+                                    class="custom-select"
+                                    ng-model="output.type.nested.$type"
+                                    ng-options="t as t for t in baseTypes">
+                                </select>
+                            </div>
+                            <div>
+                            <button 
+                                ng-click="addOutput()"
+                                class="btn btn-primary">
+                                Add
+                            </button>
+                            </div>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Name"
-                            ng-model="variable.name">
                     </div>
-                    <div>
-                    <button 
-                        ng-click="addVariable()"
-                        class="btn btn-primary">
-                        Add
-                    </button>
+
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title">Variables</h5>
+                                <span ng-if="flow().variables.length === 0">
+                                    (None)
+                                </span>
+                            </div>
+                            <div class="input-group"
+                                ng-repeat="variable in flow().variables">
+                                <button 
+                                    ng-click="deleteVariable(variable)"
+                                    class="btn btn-danger">
+                                    Delete
+                                </button>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Name</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Name"
+                                    ng-model="variable.name">
+                            </div>
+                            <div>
+                            <button 
+                                ng-click="addVariable()"
+                                class="btn btn-primary">
+                                Add
+                            </button>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="mt-1 mb-1">
+                        <button 
+                            ng-repeat="st in statementTypes"
+                            ng-click="setStatementType(st)"
+                            ng-class="{ 
+                                'btn-primary': st.$type == state.editFlowStatementType.$type, 
+                                'btn-secondary': st.$type != state.editFlowStatementType.$type
+                            }"
+                            class="btn">
+                            {{ st.name }}
+                        </button>
+                    </div>
+
+                    <edit-flow-statement statement="flow().statement">
+                    <edit-flow-statement>
                 </div>
             </div>
-
-            <div class="mt-1 mb-1">
-                <button 
-                    ng-repeat="st in statementTypes"
-                    ng-click="setStatementType(st)"
-                    ng-class="{ 
-                        'btn-primary': st.$type == state.editFlowStatementType.$type, 
-                        'btn-secondary': st.$type != state.editFlowStatementType.$type
-                    }"
-                    class="btn">
-                    {{ st.name }}
-                </button>
-            </div>
-
-            <edit-flow-statement statement="flow().statement">
-            <edit-flow-statement>
             `
         };
     });
@@ -8171,33 +8175,32 @@ function directiveFlows() {
                                 'table-danger': getTests(flow).length >= 1 && getSuccessfulTests(flow).length != getTests(flow).length,
                                 'table-warning': getTests(flow).length == 0,
                             }">
+                            
                                 <td>
-                                    <b>{{flow.name}}</b>
+                                    <button 
+                                        ng-click="deleteFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-danger">
+                                        Delete
+                                    </button> 
+
+                                    <button 
+                                        ng-click="editFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-primary">
+                                        Edit
+                                    </button>
+
+                                    <button 
+                                        ng-click="testFlow(flow)"
+                                        type="button" 
+                                        class="btn btn-primary">
+                                        Tests ({{ getTests(flow).length }})
+                                    </button>
+
+                                    <b class="ml-1">{{flow.name}}</b>
                                     (&nbsp;<span ng-repeat="i in flow.inputs"><span ng-show="!$first">&nbsp;, </span>{{ i.name }}</span>&nbsp;)&nbsp;=>
                                     (&nbsp;<span ng-repeat="o in flow.outputs"><span ng-show="!$first">&nbsp;, </span>{{ o.name }}</span>&nbsp;)
-                                </td>
-                                <td>
-
-                                <button 
-                                    ng-click="editFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-primary">
-                                    Edit Flow
-                                </button>
-
-                                <button 
-                                    ng-click="testFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-primary">
-                                    Tests ({{ getTests(flow).length }})
-                                </button>
-
-                                <button 
-                                    ng-click="deleteFlow(flow)"
-                                    type="button" 
-                                    class="btn btn-danger">
-                                    Delete Flow
-                                </button>
                                 </td>
                             <tr>
                         </tbody>
@@ -8426,83 +8429,88 @@ function directiveTests() {
             </button>
             </div>
 
-            <h4>
-            Tests - 
-            {{ flow().name }}
-            </h4>
-            <h5>{{ successfulTests().length }} 
-                out of {{ getTests().length }} successful</h5>
+            <div class="card mt-1">
+                <div class="card-body">
+                    
+                    <h4>
+                    Tests - 
+                    {{ flow().name }}
+                    </h4>
+                    <h5>{{ successfulTests().length }} 
+                        out of {{ getTests().length }} successful</h5>
 
-            
-            <div>
-            </div>
-
-            <table class="table">
-                <tbody>
-                    <tr ng-repeat="test in getTests() track by $index"
-                    ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
-                        <td>
-                        <div>
-                        <button class="btn btn-danger"
-                            ng-click="deleteTest(test)">
-                            Delete Test
-                        </button>
-                        <button class="btn btn-primary"
-                            ng-click="runTests()">
-                            Run Tests
-                        </button>
-                    Last ran: {{ test.run.when || 'Never' }}
+                    
+                    <div>
                     </div>
-                        Inputs
-                        <div ng-repeat="input in flow().inputs">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">{{ input.name }} ({{ input.type.$type }})</span>
-                </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Input {{input.name}} value"
-                    style="font-family:monospace;"
-                    ng-model="test.input[input.name]">
-            </div>
-                        </div>
-                        Outputs
-                        <div>
-                            <input type="checkbox" ng-model="test.expectError">
-                            Expect Error
-                        </div>
-                        <div ng-show="!test.expectError"
-                            ng-repeat="output in flow().outputs">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">{{ output.name }} ({{ output.type.$type }})</span>
-                </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Output {{output.name}} value"
-                    style="font-family:monospace;"
-                    ng-model="test.output[output.name]">
-            </div>
-                        </div>
-                        <div ng-show="test.run.success == false">
-                        <div>
-                            Error message: {{ test.run.message || '[No message]' }}
-                        </div>
-                        Contexts:
-                        <pre>{{ test.run.contexts | json }}</pre>
-                        </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <div>
-            <button class="btn btn-primary"
-                ng-click="addTest()">
-                Add Test
-            </button>
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="test in getTests() track by $index"
+                            ng-class="{ 'table-success': test.run.success === true, 'table-danger': test.run.success === false }">
+                                <td>
+                                <div>
+                                <button class="btn btn-danger"
+                                    ng-click="deleteTest(test)">
+                                    Delete Test
+                                </button>
+                                <button class="btn btn-primary"
+                                    ng-click="runTests()">
+                                    Run Tests
+                                </button>
+                            Last ran: {{ test.run.when || 'Never' }}
+                            </div>
+                                Inputs
+                                <div ng-repeat="input in flow().inputs">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ input.name }} ({{ input.type.$type }})</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Input {{input.name}} value"
+                            style="font-family:monospace;"
+                            ng-model="test.input[input.name]">
+                    </div>
+                                </div>
+                                Outputs
+                                <div>
+                                    <input type="checkbox" ng-model="test.expectError">
+                                    Expect Error
+                                </div>
+                                <div ng-show="!test.expectError"
+                                    ng-repeat="output in flow().outputs">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ output.name }} ({{ output.type.$type }})</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Output {{output.name}} value"
+                            style="font-family:monospace;"
+                            ng-model="test.output[output.name]">
+                    </div>
+                                </div>
+                                <div ng-show="test.run.success == false">
+                                <div>
+                                    Error message: {{ test.run.message || '[No message]' }}
+                                </div>
+                                Contexts:
+                                <pre>{{ test.run.contexts | json }}</pre>
+                                </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                    <button class="btn btn-primary"
+                        ng-click="addTest()">
+                        Add Test
+                    </button>
+                    </div>
+                </div>
             </div>
             `
         }
