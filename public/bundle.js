@@ -7576,119 +7576,132 @@ function directiveEditFlow() {
                     placeholder="Flow name"
                     ng-model="flow().name">
             </div>
-            
-            <Div>
-                Inputs 
-                <span ng-if="flow().inputs.length === 0">
-                    (None)
-                </span>
-            </div>
-            <div class="input-group"
-                ng-repeat="input in flow().inputs">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Name</span>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Inputs</h5>
+                    <div>
+                        <span ng-if="flow().inputs.length === 0">
+                            (None)
+                        </span>
+                    </div>
+                    <div class="input-group"
+                        ng-repeat="input in flow().inputs">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Name"
+                            ng-model="input.name">
+                        <select 
+                            class="custom-select"
+                            ng-model="input.type.$type"
+                            ng-change="inputTypeChanged(input)"
+                            ng-options="t as t for t in types">
+                        </select>
+                        <select 
+                            ng-if="input.type.$type == 'typeList'"
+                            class="custom-select"
+                            ng-model="input.type.nested.$type"
+                            ng-options="t as t for t in baseTypes">
+                        </select>
+                        <button 
+                            ng-click="deleteInput(input)"
+                            class="btn btn-danger">
+                            Delete Input
+                        </button>
+                    </div>
+                    <div>
+                    <button 
+                        ng-click="addInput()"
+                        class="btn btn-primary">
+                        Add Input
+                    </button>
+                    </div>
+
                 </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Name"
-                    ng-model="input.name">
-                <select 
-                    class="custom-select"
-                    ng-model="input.type.$type"
-                    ng-change="inputTypeChanged(input)"
-                    ng-options="t as t for t in types">
-                </select>
-                <select 
-                    ng-if="input.type.$type == 'typeList'"
-                    class="custom-select"
-                    ng-model="input.type.nested.$type"
-                    ng-options="t as t for t in baseTypes">
-                </select>
-                <button 
-                    ng-click="deleteInput(input)"
-                    class="btn btn-danger">
-                    Delete Input
-                </button>
-            </div>
-            <div>
-            <button 
-                ng-click="addInput()"
-                class="btn btn-primary">
-                Add Input
-            </button>
             </div>
 
-            <div>
-                Outputs
-                <span ng-if="flow().outputs.length === 0">
-                    (None)
-                </span>
-            </div>
-            <div class="input-group"
-                ng-repeat="output in flow().outputs track by $index">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Name</span>
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                    <h5 class="card-title">Outputs</h5>
+                        <span ng-if="flow().outputs.length === 0">
+                            (None)
+                        </span>
+                    </div>
+                    <div class="input-group"
+                        ng-repeat="output in flow().outputs track by $index">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Name"
+                            ng-model="output.name">
+                        <select 
+                            class="custom-select"
+                            ng-model="output.type.$type"
+                            ng-change="inputTypeChanged(output)"
+                            ng-options="t as t for t in types">
+                        </select>
+                        <select 
+                            ng-if="output.type.$type == 'typeList'"
+                            class="custom-select"
+                            ng-model="output.type.nested.$type"
+                            ng-options="t as t for t in baseTypes">
+                        </select>
+                        <button 
+                            ng-click="deleteOutput(output)"
+                            class="btn btn-danger">
+                            Delete Output
+                        </button>
+                    </div>
+                    <div>
+                    <button 
+                        ng-click="addOutput()"
+                        class="btn btn-primary">
+                        Add Output
+                    </button>
+                    </div>
                 </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Name"
-                    ng-model="output.name">
-                <select 
-                    class="custom-select"
-                    ng-model="output.type.$type"
-                    ng-change="inputTypeChanged(output)"
-                    ng-options="t as t for t in types">
-                </select>
-                <select 
-                    ng-if="output.type.$type == 'typeList'"
-                    class="custom-select"
-                    ng-model="output.type.nested.$type"
-                    ng-options="t as t for t in baseTypes">
-                </select>
-                <button 
-                    ng-click="deleteOutput(output)"
-                    class="btn btn-danger">
-                    Delete Output
-                </button>
-            </div>
-            <div>
-            <button 
-                ng-click="addOutput()"
-                class="btn btn-primary">
-                Add Output
-            </button>
             </div>
 
-            <Div>
-                Variables 
-                <span ng-if="flow().variables.length === 0">
-                    (None)
-                </span>
-            </div>
-            <div class="input-group"
-                ng-repeat="variable in flow().variables">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Name</span>
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title">Variables</h5>
+                        <span ng-if="flow().variables.length === 0">
+                            (None)
+                        </span>
+                    </div>
+                    <div class="input-group"
+                        ng-repeat="variable in flow().variables">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Name"
+                            ng-model="variable.name">
+                        <button 
+                            ng-click="deleteVariable(variable)"
+                            class="btn btn-danger">
+                            Delete Variable
+                        </button>
+                    </div>
+                    <div>
+                    <button 
+                        ng-click="addVariable()"
+                        class="btn btn-primary">
+                        Add Variable
+                    </button>
+                    </div>
                 </div>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Name"
-                    ng-model="variable.name">
-                <button 
-                    ng-click="deleteVariable(variable)"
-                    class="btn btn-danger">
-                    Delete Variable
-                </button>
-            </div>
-            <div>
-            <button 
-                ng-click="addVariable()"
-                class="btn btn-primary">
-                Add Variable
-            </button>
             </div>
 
             <div>
