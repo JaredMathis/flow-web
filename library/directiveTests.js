@@ -68,10 +68,14 @@ function directiveTests() {
             </button>
             </div>
 
-            {{ flow().name }} Tests 
-                - {{ successfulTests().length }} 
-                out of {{ getTests().length }} successful
+            <h4>
+            Tests - 
+            {{ flow().name }}
+            </h4>
+            <h5>{{ successfulTests().length }} 
+                out of {{ getTests().length }} successful</h5>
 
+            
             <div>
             </div>
 

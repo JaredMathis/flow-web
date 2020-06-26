@@ -7563,9 +7563,9 @@ function directiveEditFlow() {
                 ng-click="tests()">
                 Tests ({{ getTests(flow()).length }})
             </button>
-            <div>
+            <h4>
                 Edit Flow - {{ flow().name }}
-            </div>
+            </h4>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Name</span>
@@ -7587,6 +7587,11 @@ function directiveEditFlow() {
                     </div>
                     <div class="input-group"
                         ng-repeat="input in flow().inputs">
+                        <button 
+                            ng-click="deleteInput(input)"
+                            class="btn btn-danger">
+                            Delete
+                        </button>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Name</span>
                         </div>
@@ -7607,17 +7612,12 @@ function directiveEditFlow() {
                             ng-model="input.type.nested.$type"
                             ng-options="t as t for t in baseTypes">
                         </select>
-                        <button 
-                            ng-click="deleteInput(input)"
-                            class="btn btn-danger">
-                            Delete Input
-                        </button>
                     </div>
                     <div>
                     <button 
                         ng-click="addInput()"
                         class="btn btn-primary">
-                        Add Input
+                        Add
                     </button>
                     </div>
 
@@ -7634,6 +7634,11 @@ function directiveEditFlow() {
                     </div>
                     <div class="input-group"
                         ng-repeat="output in flow().outputs track by $index">
+                        <button 
+                            ng-click="deleteOutput(output)"
+                            class="btn btn-danger">
+                            Delete
+                        </button>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Name</span>
                         </div>
@@ -7654,17 +7659,12 @@ function directiveEditFlow() {
                             ng-model="output.type.nested.$type"
                             ng-options="t as t for t in baseTypes">
                         </select>
-                        <button 
-                            ng-click="deleteOutput(output)"
-                            class="btn btn-danger">
-                            Delete Output
-                        </button>
                     </div>
                     <div>
                     <button 
                         ng-click="addOutput()"
                         class="btn btn-primary">
-                        Add Output
+                        Add
                     </button>
                     </div>
                 </div>
@@ -7680,6 +7680,11 @@ function directiveEditFlow() {
                     </div>
                     <div class="input-group"
                         ng-repeat="variable in flow().variables">
+                        <button 
+                            ng-click="deleteVariable(variable)"
+                            class="btn btn-danger">
+                            Delete
+                        </button>
                         <div class="input-group-prepend">
                             <span class="input-group-text">Name</span>
                         </div>
@@ -7688,17 +7693,12 @@ function directiveEditFlow() {
                             class="form-control" 
                             placeholder="Name"
                             ng-model="variable.name">
-                        <button 
-                            ng-click="deleteVariable(variable)"
-                            class="btn btn-danger">
-                            Delete Variable
-                        </button>
                     </div>
                     <div>
                     <button 
                         ng-click="addVariable()"
                         class="btn btn-primary">
-                        Add Variable
+                        Add
                     </button>
                     </div>
                 </div>
@@ -8417,10 +8417,14 @@ function directiveTests() {
             </button>
             </div>
 
-            {{ flow().name }} Tests 
-                - {{ successfulTests().length }} 
-                out of {{ getTests().length }} successful
+            <h4>
+            Tests - 
+            {{ flow().name }}
+            </h4>
+            <h5>{{ successfulTests().length }} 
+                out of {{ getTests().length }} successful</h5>
 
+            
             <div>
             </div>
 
