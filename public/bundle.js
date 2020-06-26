@@ -8431,7 +8431,7 @@ function directiveTests() {
                         <div ng-repeat="input in flow().inputs">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">{{ input.name }}</span>
+                    <span class="input-group-text">{{ input.name }} ({{ input.type.$type }})</span>
                 </div>
                 <input 
                     type="text" 
@@ -8450,7 +8450,7 @@ function directiveTests() {
                             ng-repeat="output in flow().outputs">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">{{ output.name }}</span>
+                    <span class="input-group-text">{{ output.name }} ({{ output.type.$type }})</span>
                 </div>
                 <input 
                     type="text" 
