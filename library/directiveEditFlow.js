@@ -24,6 +24,10 @@ function directiveEditFlow() {
 
                     scope.flow = getEditFlow;
 
+                    scope.getTests = (flow) => {
+                        return getState().tests.filter(t => t.name === flow.name);
+                    }
+
                     if (scope.flow().statement === null) {
                         scope.flow().statement = flow.steps([]);
                     }
@@ -125,7 +129,7 @@ function directiveEditFlow() {
                 type="button" 
                 class="btn btn-primary"
                 ng-click="tests()">
-                Tests
+                Tests ({{ getTests(flow()).length }})
             </button>
             <div>
                 Edit Flow - {{ flow().name }}
