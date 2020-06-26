@@ -92,6 +92,26 @@ function directiveEditFlow() {
                             getState().editFlowStatementType = st;
                         }
                     };
+
+                    scope.baseTypes = [
+                        flow.typeInt().$type,
+                        flow.typeChar().$type,
+                        flow.typeBool().$type,
+                    ];
+
+                    scope.types = scope.baseTypes.concat([
+                        flow.typeList().$type,
+                    ]);
+
+                    scope.inputTypeChanged = (input) => {
+                        if (input.type.$type === 'typeList') {
+                            input.type.nested = flow.typeChar();
+                        } else {
+                            delete input.type.nested;
+                        }
+                    }
+
+                    console.log(scope.types);
                 });
             },
             template: `
@@ -137,6 +157,18 @@ function directiveEditFlow() {
                     class="form-control" 
                     placeholder="Name"
                     ng-model="input.name">
+                <select 
+                    class="custom-select"
+                    ng-model="input.type.$type"
+                    ng-change="inputTypeChanged(input)"
+                    ng-options="t as t for t in types">
+                </select>
+                <select 
+                    ng-if="input.type.$type == 'typeList'"
+                    class="custom-select"
+                    ng-model="input.type.nested.$type"
+                    ng-options="t as t for t in baseTypes">
+                </select>
                 <button 
                     ng-click="deleteInput(input)"
                     class="btn btn-danger">
@@ -167,6 +199,18 @@ function directiveEditFlow() {
                     class="form-control" 
                     placeholder="Name"
                     ng-model="output.name">
+                <select 
+                    class="custom-select"
+                    ng-model="output.type.$type"
+                    ng-change="inputTypeChanged(output)"
+                    ng-options="t as t for t in types">
+                </select>
+                <select 
+                    ng-if="output.type.$type == 'typeList'"
+                    class="custom-select"
+                    ng-model="output.type.nested.$type"
+                    ng-options="t as t for t in baseTypes">
+                </select>
                 <button 
                     ng-click="deleteOutput(output)"
                     class="btn btn-danger">

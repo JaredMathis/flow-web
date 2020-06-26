@@ -463,6 +463,40 @@
             "expression": "result=compileGetInMemory(location)"
          },
          "$$hashKey": "object:145"
+      },
+      {
+         "$type": "defineFunction",
+         "name": "isZero",
+         "inputs": [
+            {
+               "name": "x",
+               "type": {
+                  "$type": "typeInt",
+                  "$$hashKey": "object:29"
+               },
+               "$$hashKey": "object:89"
+            }
+         ],
+         "outputs": [
+            {
+               "name": "result",
+               "type": {
+                  "$type": "typeBool"
+               },
+               "$$hashKey": "object:26"
+            }
+         ],
+         "variables": [],
+         "statement": {
+            "$type": "steps",
+            "steps": [
+               {
+                  "$type": "evaluate",
+                  "expression": "result = x === 0"
+               }
+            ]
+         },
+         "$$hashKey": "object:34"
       }
    ],
    "tests": [
@@ -582,7 +616,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.169Z",
+            "when": "2020-06-19T20:16:17.209Z",
             "success": true
          }
       },
@@ -597,7 +631,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.174Z",
+            "when": "2020-06-19T20:16:17.217Z",
             "success": true
          }
       },
@@ -612,7 +646,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.181Z",
+            "when": "2020-06-19T20:16:17.223Z",
             "success": true
          }
       },
@@ -627,7 +661,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.188Z",
+            "when": "2020-06-19T20:16:17.230Z",
             "success": true
          }
       },
@@ -642,7 +676,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.193Z",
+            "when": "2020-06-19T20:16:17.235Z",
             "success": true
          }
       },
@@ -657,7 +691,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.199Z",
+            "when": "2020-06-19T20:16:17.241Z",
             "success": true
          }
       },
@@ -672,7 +706,7 @@
          "name": "divide",
          "success": true,
          "run": {
-            "when": "2020-06-19T20:10:15.205Z",
+            "when": "2020-06-19T20:16:17.248Z",
             "success": true
          }
       },
@@ -1182,13 +1216,43 @@
          },
          "output": {},
          "run": {
-            "when": "2020-06-19T20:10:15.400Z",
+            "when": "2020-06-19T20:16:17.253Z",
             "success": true
          },
          "expectError": true
+      },
+      {
+         "name": "isZero",
+         "input": {
+            "x": "1"
+         },
+         "output": {
+            "result": "false"
+         },
+         "run": {
+            "when": "2020-06-26T18:23:59.667Z",
+            "success": true
+         },
+         "expectError": false
+      },
+      {
+         "name": "isZero",
+         "input": {
+            "x": "0"
+         },
+         "output": {
+            "result": "true"
+         },
+         "run": {
+            "when": "2020-06-26T18:23:59.686Z",
+            "success": true
+         }
       }
    ],
-   "editFlowIndex": 1,
+   "editFlowIndex": 10,
    "runAllTestsLastRun": "2020-06-19T20:10:15.108Z",
-   "editFlowStatementType": null
+   "editFlowStatementType": null,
+   "newFlow": {
+      "name": "isZero"
+   }
 }
