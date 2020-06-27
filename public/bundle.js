@@ -8092,6 +8092,7 @@ function directiveEditFlowSteps() {
 const u = require("wlj-utilities");
 const getEditFlow = require("./getEditFlow");
 const getState = require("./getState");
+const compileAndTest = require("wlj-flow/tests/compile/compileAndTest");
 
 
 module.exports = directiveFlowCode;
@@ -8109,6 +8110,10 @@ function directiveFlowCode() {
                 scope.back = () => {
                     getState().screen = 'editFlow';
                 }
+
+                compileAndTest([scope.flow()], text => {
+                    scope.code = text;
+                });
             },
             template: `
             <button 
@@ -8117,13 +8122,19 @@ function directiveFlowCode() {
                 ng-click="back()">
                 Back to Flow {{flow().name}}
             </button>
+
+            <div class="card">
+                <div class="card-body">
+                    <pre>{{ code }}</pre>
+                </div>
+            </div>
             `
         };
     });
     return result;
 }
 
-},{"./getEditFlow":"/library/getEditFlow.js","./getState":"/library/getState.js","wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getEditFlow":"/library/getEditFlow.js","./getState":"/library/getState.js","wlj-flow/tests/compile/compileAndTest":65,"wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
