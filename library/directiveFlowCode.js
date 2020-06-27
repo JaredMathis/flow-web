@@ -2,8 +2,7 @@
 const u = require("wlj-utilities");
 const getEditFlow = require("./getEditFlow");
 const getState = require("./getState");
-const compileAndTest = require("wlj-flow/tests/compile/compileAndTest");
-
+const compile = require("wlj-flow/library/compile");
 
 module.exports = directiveFlowCode;
 
@@ -21,9 +20,9 @@ function directiveFlowCode() {
                     getState().screen = 'editFlow';
                 }
 
-                compileAndTest([scope.flow()], text => {
-                    scope.code = text;
-                });
+                let lines = compile(scope.flow(), getState().flows);
+                let compiled = lines.join(u.EOL);
+                scope.code = compiled;
             },
             template: `
             <button 

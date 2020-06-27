@@ -6,6 +6,6 @@ u.executeCommand('npm update');
 
 require('./library/browserify');
 
-u.scope(__filename, context => {
+u.scope(__filename, x => {
     u.copyFiles('web', 'public');
 });
