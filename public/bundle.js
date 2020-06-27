@@ -8090,6 +8090,8 @@ function directiveEditFlowSteps() {
 },{"./getState":"/library/getState.js","./newStatement":"/library/newStatement.js","wlj-flow":10,"wlj-utilities":143}],"/library/directiveFlowCode.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
+const getEditFlow = require("./getEditFlow");
+const getState = require("./getState");
 
 
 module.exports = directiveFlowCode;
@@ -8102,16 +8104,26 @@ function directiveFlowCode() {
                 statement: '=',
             },
             link: function (scope, element, attrs) {
+                scope.flow = getEditFlow;
+
+                scope.back = () => {
+                    getState().screen = 'editFlow';
+                }
             },
             template: `
-            Flow Code
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back to Flow {{flow().name}}
+            </button>
             `
         };
     });
     return result;
 }
 
-},{"wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getEditFlow":"/library/getEditFlow.js","./getState":"/library/getState.js","wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");

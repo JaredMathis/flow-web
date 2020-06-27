@@ -1,5 +1,7 @@
 
 const u = require("wlj-utilities");
+const getEditFlow = require("./getEditFlow");
+const getState = require("./getState");
 
 
 module.exports = directiveFlowCode;
@@ -12,9 +14,19 @@ function directiveFlowCode() {
                 statement: '=',
             },
             link: function (scope, element, attrs) {
+                scope.flow = getEditFlow;
+
+                scope.back = () => {
+                    getState().screen = 'editFlow';
+                }
             },
             template: `
-            Flow Code
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="back()">
+                Back to Flow {{flow().name}}
+            </button>
             `
         };
     });
