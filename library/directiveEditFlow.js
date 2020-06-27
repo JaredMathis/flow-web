@@ -115,7 +115,9 @@ function directiveEditFlow() {
                         }
                     }
 
-                    console.log(scope.types);
+                    scope.flowCode = () => {
+                        getState().screen = 'flowCode';
+                    }
                 });
             },
             template: `
@@ -130,6 +132,12 @@ function directiveEditFlow() {
                 class="btn btn-primary"
                 ng-click="tests()">
                 Tests ({{ getTests(flow()).length }})
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="flowCode()">
+                Code
             </button>
             <div class="card mt-1">
                 <div class="card-body">

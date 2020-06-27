@@ -26,3 +26,4 @@ require("./tests/directiveTests/1.js");
 require("./tests/directiveEditFlowLoop/1.js");
 require("./tests/directiveData/1.js");
 require("./tests/testFlow/1.js");
+require("./tests/directiveFlowCode/1.js");

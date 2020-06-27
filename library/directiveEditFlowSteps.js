@@ -32,7 +32,7 @@ function directiveEditFlowSteps() {
             </div>
             <div ng-repeat="s in statement.steps track by $index">  
                 <button 
-                    class="btn btn-danger"
+                    class="btn btn-danger mt-1"
                     ng-click="deleteStatement(s)">
                     Delete Statement
                 </button>

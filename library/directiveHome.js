@@ -54,6 +54,9 @@ function directiveHome() {
             <div ng-if="state.screen == 'data'">
                 <data></data>
             </div>
+            <div ng-if="state.screen == 'flowCode'">
+                <flow-code></flow-code>
+            </div>
             `
         }
     });

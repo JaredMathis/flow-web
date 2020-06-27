@@ -14,3 +14,4 @@ angular.module('app').directive('editFlowSet', require('/library/directiveEditFl
 angular.module('app').directive('tests', require('/library/directiveTests.js'));
 angular.module('app').directive('editFlowLoop', require('/library/directiveEditFlowLoop.js'));
 angular.module('app').directive('data', require('/library/directiveData.js'));
+angular.module('app').directive('flowCode', require('/library/directiveFlowCode.js'));

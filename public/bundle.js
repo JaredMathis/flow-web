@@ -7547,7 +7547,9 @@ function directiveEditFlow() {
                         }
                     }
 
-                    console.log(scope.types);
+                    scope.flowCode = () => {
+                        getState().screen = 'flowCode';
+                    }
                 });
             },
             template: `
@@ -7562,6 +7564,12 @@ function directiveEditFlow() {
                 class="btn btn-primary"
                 ng-click="tests()">
                 Tests ({{ getTests(flow()).length }})
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="flowCode()">
+                Code
             </button>
             <div class="card mt-1">
                 <div class="card-body">
@@ -8059,7 +8067,7 @@ function directiveEditFlowSteps() {
             </div>
             <div ng-repeat="s in statement.steps track by $index">  
                 <button 
-                    class="btn btn-danger"
+                    class="btn btn-danger mt-1"
                     ng-click="deleteStatement(s)">
                     Delete Statement
                 </button>
@@ -8079,7 +8087,31 @@ function directiveEditFlowSteps() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","./newStatement":"/library/newStatement.js","wlj-flow":10,"wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","./newStatement":"/library/newStatement.js","wlj-flow":10,"wlj-utilities":143}],"/library/directiveFlowCode.js":[function(require,module,exports){
+
+const u = require("wlj-utilities");
+
+
+module.exports = directiveFlowCode;
+
+function directiveFlowCode() {
+    let result;
+    u.scope(directiveFlowCode.name, x => {
+        result = {
+            scope: {
+                statement: '=',
+            },
+            link: function (scope, element, attrs) {
+            },
+            template: `
+            Flow Code
+            `
+        };
+    });
+    return result;
+}
+
+},{"wlj-utilities":143}],"/library/directiveFlows.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -8287,6 +8319,9 @@ function directiveHome() {
             </div>
             <div ng-if="state.screen == 'data'">
                 <data></data>
+            </div>
+            <div ng-if="state.screen == 'flowCode'">
+                <flow-code></flow-code>
             </div>
             `
         }
