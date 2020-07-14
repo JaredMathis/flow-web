@@ -15,6 +15,13 @@ function newStatement() {
             'execute': () => {
                 return flow.execute(null, {}, {});
             },
+            'ifElse': () => {
+                return flow.ifElse(
+                    null, 
+                    flow.steps([]), 
+                    flow.steps([])
+                );                            
+            },
             'loop': () => {
                 u.assert(false);                            
             },

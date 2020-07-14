@@ -43,7 +43,7 @@ function directiveEditFlowExecute() {
                 </select>
             </div>
 
-            <div>Inputs</div>
+            <div>Inputs <span ng-show="selectedFlow().inputs.length == 0">(None)</span></div>
             <div class="input-group"
                 ng-repeat="input in selectedFlow().inputs">
                 <div class="input-group-prepend">
@@ -53,10 +53,10 @@ function directiveEditFlowExecute() {
                     class="custom-select"
                     ng-model="statement.inputs[input.name]"
                     ng-options="v.name as v.name for v in getAvailableVariablesForType(input.type)">
-                </select>                
+                </select>
             </div>
 
-            <div>Outputs</div>
+            <div>Outputs <span ng-show="selectedFlow().outputs.length == 0">(None)</span></div>
             <div class="input-group"
                 ng-repeat="output in selectedFlow().outputs">
                 <div class="input-group-prepend">

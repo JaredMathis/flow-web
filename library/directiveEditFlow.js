@@ -77,6 +77,7 @@ function directiveEditFlow() {
                     scope.statementTypes = [
                         { $type: 'evaluate', name: 'Evaluate' },
                         { $type: 'execute', name: 'Execute' },
+                        { $type: 'ifElse', name: 'IfElse' },
                         { $type: 'loop', name: 'Loop' },
                         { $type: 'set', name: 'Set' },
                         { $type: 'steps', name: 'Steps' },
@@ -271,6 +272,18 @@ function directiveEditFlow() {
                                     class="form-control" 
                                     placeholder="Name"
                                     ng-model="variable.name">
+                                <select 
+                                    class="custom-select"
+                                    ng-model="variable.type.$type"
+                                    ng-change="inputTypeChanged(variable)"
+                                    ng-options="t as t for t in types">
+                                </select>
+                                <select 
+                                    ng-if="variable.type.$type == 'typeList'"
+                                    class="custom-select"
+                                    ng-model="variable.type.nested.$type"
+                                    ng-options="t as t for t in baseTypes">
+                                </select>
                             </div>
                             <div>
                             <button 
