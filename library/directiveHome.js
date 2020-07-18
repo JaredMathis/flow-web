@@ -14,11 +14,8 @@ function directiveHome() {
             link: function (scope, element, attrs) {
                 scope.state = getState();
 
-                let defaultState = {
-                    screen: 'flows',
-                    flows: library,
-                    tests: getTests,
-                };
+                let defaultState = require('./../data.json');
+                defaultState.screen = 'flows';
                 u.merge(getState(), defaultState);
 
                 let loaded;

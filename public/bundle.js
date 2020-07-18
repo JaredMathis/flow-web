@@ -8858,7 +8858,7 @@ function directiveData() {
                     getState().screen = "flows";
                 };
 
-                scope.data = JSON.stringify(getState() || require('./../data.json'), null, 3);
+                scope.data = JSON.stringify(getState(), null, 3);
 
                 scope.updateData = () => {
                     let parsed = JSON.parse(scope.data);
@@ -8889,7 +8889,7 @@ function directiveData() {
     return result;
 }
 
-},{"./../data.json":1,"./getState":"/library/getState.js","wlj-utilities":146}],"/library/directiveEditFlow.js":[function(require,module,exports){
+},{"./getState":"/library/getState.js","wlj-utilities":146}],"/library/directiveEditFlow.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");
@@ -9817,11 +9817,8 @@ function directiveHome() {
             link: function (scope, element, attrs) {
                 scope.state = getState();
 
-                let defaultState = {
-                    screen: 'flows',
-                    flows: library,
-                    tests: getTests,
-                };
+                let defaultState = require('./../data.json');
+                defaultState.screen = 'flows';
                 u.merge(getState(), defaultState);
 
                 let loaded;
@@ -9866,7 +9863,7 @@ function directiveHome() {
     return result;
 }
 
-},{"./getState":"/library/getState.js","wlj-flow":11,"wlj-flow/tests/getTests":107,"wlj-utilities":146}],"/library/directiveNewFlow.js":[function(require,module,exports){
+},{"./../data.json":1,"./getState":"/library/getState.js","wlj-flow":11,"wlj-flow/tests/getTests":107,"wlj-utilities":146}],"/library/directiveNewFlow.js":[function(require,module,exports){
 
 const u = require("wlj-utilities");
 const flow = require("wlj-flow");

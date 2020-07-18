@@ -16,7 +16,7 @@ function directiveData() {
                     getState().screen = "flows";
                 };
 
-                scope.data = JSON.stringify(getState() || require('./../data.json'), null, 3);
+                scope.data = JSON.stringify(getState(), null, 3);
 
                 scope.updateData = () => {
                     let parsed = JSON.parse(scope.data);
